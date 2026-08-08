@@ -18,6 +18,10 @@ pushed to Telegram when something new appears.
 Scope is graduate programmes, graduate-level openings, and entry-level roles that state fresh
 graduate or zero years of experience. Internships are classified and stored but hidden by default.
 
+Current coverage: **55 wired firms** across six ATS platforms, **2,419 Singapore postings**,
+**100 graduate-level roles**. A further 128 firms are in the registry awaiting an identified
+ATS — see `BUILD_SPEC.md`.
+
 ## Quick start
 
 ```bash

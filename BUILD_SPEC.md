@@ -112,9 +112,9 @@ Greenhouse-only day does not close every Workday posting.
 
 ## What is left
 
-1. **Registry coverage.** Around 145 firms are still `todo`. Two automated sweeps have now run —
-   ATS-token guessing across five platforms, and Workday tenant discovery via `robots.txt` — so
-   what remains is largely the genuinely unguessable: Oracle Recruiting Cloud, Eightfold and
+1. **Registry coverage.** 128 firms are still `todo`, down from 154. Two automated sweeps have now run — ATS-token
+   guessing across five platforms, and Workday tenant discovery via `robots.txt` — taking the
+   registry from 29 wired firms to 55 and Singapore postings from 1,471 to 2,419. What remains is largely the genuinely unguessable: Oracle Recruiting Cloud, Eightfold and
    Phenom tenants, plus firms on their own bespoke systems (Goldman's `higher.gs.com`). These
    need the `add-firm` skill one at a time. `reports/health/` lists the busiest unmatched
    MyCareersFuture employers, which is the right order to work through them in.

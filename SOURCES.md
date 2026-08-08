@@ -103,19 +103,42 @@ is not on Workday under that name.
 
 - **Which host.** `https://{tenant}.wd{n}.myworkdayjobs.com/robots.txt` returns 200 where the
   tenant exists. Six cheap GETs settle it.
-- **Which site.** The `Disallow` lines frequently name the career site outright — DBS returns
-  `Disallow: /DBS_Careers/`, and `DBS_Careers` is the site id the CXS endpoint needs. Not all
-  tenants list one (Salesforce and Micron disallow nothing), so `discover_workday.py` falls back
-  to a list of conventional names.
+- **Which site.** `robots.txt` names the career sites, in three places, and **the order they are
+  read in matters more than finding them all**:
+  1. **`Sitemap:` lines** — boards the operator publishes for indexing. PwC lists
+     `Global_Campus_Careers`, `Catalyst`, `Global_Experienced_Careers` and
+     `Global_Strategyand_Careers` here.
+  2. **`Allow:` lines** — Manulife serves `Allow: /MFCJH_Jobs/`.
+  3. **`Disallow:` lines** — a name hint of last resort. `Disallow: /DBS_Careers/` is all DBS
+     offers, and it is the right answer there.
 
-Note what DBS's `robots.txt` does and does not forbid. `Disallow: /DBS_Careers/` covers the
-human-facing job pages; the CXS API lives under `/wday/cxs/` and is not matched by that prefix.
-The check is enforced in code by `sources/robots.py` using the standard library's path-prefix
-matcher rather than by reading the file by eye, and it runs on every ingest.
+  Reading only `Disallow` — which the first version did — inverted the operator's intent twice.
+  It picked Manulife's `MFCJH_AdminJobs`, a four-posting board of director and CEO roles that
+  robots.txt explicitly asks crawlers to leave alone, over the 33-posting board it invites them
+  to. And it picked PwC's `NonPublic_Postings` over `Global_Campus_Careers`, which has 138
+  Singapore postings and is the single most useful board PwC has for a graduate tracker.
 
-Verified tenants: `nvidia.wd5/NVIDIAExternalCareerSite`, `salesforce.wd12/External_Career_Site`,
-`dbs.wd3/DBS_Careers`, `micron.wd1/External`, `shell.wd3/ShellCareers`,
-`accenture.wd103/AccentureCareers`.
+  Worth being clear that the path checks in `sources/robots.py` would not have caught either.
+  The CXS API lives under `/wday/cxs/` and is not covered by a `/MFCJH_AdminJobs/` prefix, so
+  both fetches were technically permitted. Honouring robots.txt is not only about which paths
+  the matcher allows; it is also about which board the operator is pointing at.
+
+Where a tenant names nothing at all (Salesforce, Micron), `discover_workday.py` falls back to a
+list of conventional site names.
+
+The path-prefix check itself is enforced in code, using the standard library's matcher rather
+than by reading the file by eye, and it runs on every ingest.
+
+**30 verified tenants**, including: `citi.wd5/2` (the site id is literally "2"),
+`ms.wd5/External` (Morgan Stanley — an initialism tenant, below the auto-apply threshold and
+added by hand), `pwc.wd3/Global_Campus_Careers`, `dbs.wd3/DBS_Careers`, `micron.wd1/External`,
+`nvidia.wd5/NVIDIAExternalCareerSite`, `salesforce.wd12/External_Career_Site`,
+`asml.wd3/ASMLEXT1`, `abb.wd3/broadbean_external`, `mizuho.wd1/Mizuho_Confidential`.
+
+The odd names are real. Citi's `2` serves Singapore "Salesperson - C12" postings; Mizuho's
+`_Confidential` serves ordinary Mizuho/Greenhill roles including a Singapore off-cycle
+internship; both apply URLs resolve. The site id is opaque and the *tenant subdomain* is what
+carries the evidence — `citi.wd5.myworkdayjobs.com` is provisioned to Citi.
 
 ### ByteDance / TikTok — the one firm that needs a browser
 
