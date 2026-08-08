@@ -1,0 +1,38 @@
+# Copy to config.toml (gitignored) and fill in a working contact email before running any
+# ingest job. Every outbound request carries the User-Agent below; an anonymous crawler
+# hitting a hundred careers sites is what gets an IP blocked.
+
+[contact]
+name = "Your Name"
+email = "you@example.com"
+
+[http]
+user_agent = "gradtrack job tracker (Your Name, you@example.com)"
+
+[rate_limits]
+# Requests per second, per host. 1.0 is the default for every careers host.
+default = 1.0
+# The ATS aggregators serve many firms from one host, so a full run makes hundreds of
+# requests to the same origin. Kept deliberately gentle.
+greenhouse = 2.0
+lever = 2.0
+ashby = 2.0
+smartrecruiters = 2.0
+workable = 2.0
+# Workday throttles fast paging and sits behind Akamai bot management. Slowest on purpose.
+workday = 0.5
+# MyCareersFuture is a government API with permissive robots.txt.
+mcf = 2.0
+
+[paths]
+raw = "data/raw"
+manual = "data/manual"
+firms = "data/firms"
+curated = "data/curated"
+duckdb = "data/curated.duckdb"
+
+[telegram]
+# Left empty here. CI reads TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID from repository secrets;
+# these two exist so a local `--dry-run` can be pointed at a test chat.
+bot_token = ""
+chat_id = ""

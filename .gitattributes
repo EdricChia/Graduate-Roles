@@ -1,0 +1,12 @@
+# Parquet is binary. Without this, git tries to diff and merge snapshot files as text and
+# corrupts them on a merge.
+*.parquet binary
+*.duckdb binary
+
+# The registry and the hand-labelled sets are reviewed as text in every PR. Normalising line
+# endings keeps a Windows edit from showing up as a whole-file rewrite.
+*.csv text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf

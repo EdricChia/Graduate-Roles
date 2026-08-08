@@ -1,0 +1,17 @@
+# Carries the contact email used in every outbound User-Agent. Rebuilt in CI from secrets.
+config.toml
+
+# Derived. Rebuilt from data/raw + data/manual by the transform step, so committing it would
+# put a build artifact in the diff and make every refresh a merge conflict.
+data/curated.duckdb
+
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.streamlit/secrets.toml
+dist/
+build/
+*.egg-info/
+.DS_Store
