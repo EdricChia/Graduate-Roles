@@ -165,9 +165,14 @@ with tab_families:
             .rename({"len": "postings"})
         )
         st.dataframe(by_family.to_pandas(), use_container_width=True, hide_index=True)
-        st.bar_chart(
-            by_family.group_by("family_group").sum().to_pandas(), x="family_group", y="postings"
+        # Aggregate the count column explicitly. A bare .sum() over the group also tries to
+        # sum job_family, which is a string, and raises InvalidOperationError.
+        by_group = (
+            by_family.group_by("family_group")
+            .agg(pl.col("postings").sum())
+            .sort("postings", descending=True)
         )
+        st.bar_chart(by_group.to_pandas(), x="family_group", y="postings")
 
 with tab_discovery:
     st.markdown(

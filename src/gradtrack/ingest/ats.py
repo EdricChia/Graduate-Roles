@@ -26,7 +26,15 @@ from gradtrack.config import Config, load_config
 from gradtrack.firms import Firm, load_registry
 from gradtrack.ingest.snapshot import write_snapshot
 from gradtrack.schema import Platform, SourcePosting
-from gradtrack.sources import ashby, greenhouse, lever, smartrecruiters, workable, workday
+from gradtrack.sources import (
+    ashby,
+    greenhouse,
+    lever,
+    smartrecruiters,
+    successfactors,
+    workable,
+    workday,
+)
 from gradtrack.sources.base import FetchOutcome, build_client
 
 FetchFn = Callable[..., tuple[list[SourcePosting], FetchOutcome]]
@@ -41,6 +49,7 @@ CLIENTS: dict[Platform, FetchFn] = {
     Platform.SMARTRECRUITERS: smartrecruiters.fetch_firm,
     Platform.WORKABLE: workable.fetch_firm,
     Platform.WORKDAY: workday.fetch_firm,
+    Platform.SUCCESSFACTORS: successfactors.fetch_firm,
 }
 
 

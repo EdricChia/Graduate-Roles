@@ -14,7 +14,7 @@ partly scraped · **high** = undocumented endpoint, bot management, changes with
 | SmartRecruiters | `api.smartrecruiters.com/v1/companies/{id}/postings` | GET | none | 2/s | `jobs.smartrecruiters.com` | low | **wired** |
 | Workable | `apply.workable.com/api/v1/widget/accounts/{account}?details=true` | GET | none | 2/s | `apply.workable.com` | medium | **wired** |
 | Workday | `{host}/wday/cxs/{tenant}/{site}/jobs` | POST | none | 0.5/s | firm's Workday subdomain | high | **wired** |
-| SAP SuccessFactors | per-tenant career site | GET | none | 1/s | firm's own domain | high | planned (Phase 5, browser) |
+| SAP SuccessFactors | `{host}/tile-search-results/?q=&startrow={n}` | GET | none | 1/s | **firm's own domain** | high | **wired** |
 | Oracle Recruiting Cloud | `{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions` | GET | none | 1/s | firm's Oracle subdomain | high | planned |
 | Eightfold | `{host}/api/apply/v2/jobs` | GET | none | 1/s | firm's Eightfold subdomain | high | planned |
 | Phenom People | per-tenant widget JSON | GET | none | 1/s | firm's own domain | high | planned |
@@ -96,6 +96,35 @@ measured against live tenants on 2026-08-08.
 
 Verified tenants: `nvidia.wd5/NVIDIAExternalCareerSite`, `salesforce.wd12/External_Career_Site`,
 `dbs.wd3/DBS_Careers`, `micron.wd1/External`.
+
+### SAP SuccessFactors (Recruiting Marketing)
+
+Expected to need a headless browser; does not. Temasek's site renders its job list
+server-side, 25 tiles a page, paged by `startrow`. That removed Playwright from the critical
+path for this platform entirely.
+
+`robots.txt` on `jobs.temasek.com.sg` disallows `/applybutton/`, `/talentcommunity/`,
+`/services/`, `/preapply/`, `/emailsubscribe/`, `/reset/` and `/unsubscribe/`. The search
+paths are not among them.
+
+Links land on the firm's own domain — one of only two platforms here that manage it.
+
+Parsed with regular expressions rather than an HTML parser: the template is stable and
+machine-generated, every field we need is individually tagged (`job-id-{id}`,
+`jobTitle-link`, `section-field location`), and the alternative is a parser dependency for
+one source. Revisit if a second HTML source appears.
+
+Two traps:
+
+1. **Location is a country code.** Temasek returns "SG, 238891" — ISO code plus postal code.
+   The shared `contains_singapore` helper looks for the word "Singapore" and would drop every
+   row, so this module does its own word-bounded check. Word-bounded matters: "Glasgow"
+   contains "sg".
+2. **Each field's label is repeated** in a screen-reader span, so the naive text extraction
+   yields "Location Location SG, 238891".
+
+Tiles carry no publish date, so `posted_date` is null with basis `observed` rather than
+guessed. Verified live: 42 Singapore postings at Temasek.
 
 ### MyCareersFuture
 
