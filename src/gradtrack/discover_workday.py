@@ -90,6 +90,13 @@ _NOISE = re.compile(
 )
 TENANT_MATCH_THRESHOLD = 78
 
+# A candidate has to be a legal DNS label before it can be a hostname. Without this, a firm
+# whose name denoises to nothing yields an empty token, the probe builds
+# ".wd1.myworkdayjobs.com", and Python's IDNA encoder raises UnicodeError — which is not an
+# httpx error, escaped the handler below, and killed an entire 25-minute sweep before any of
+# its four confirmed tenants were written to the registry.
+_VALID_TENANT = re.compile(r"^[a-z0-9][a-z0-9-]{0,28}[a-z0-9]$")
+
 
 def tenant_candidates(firm: Firm) -> list[str]:
     """Plausible Workday tenant names, most likely first."""
@@ -106,7 +113,7 @@ def tenant_candidates(firm: Firm) -> list[str]:
     ]
     out: list[str] = []
     for token in ordered:
-        if token and 2 <= len(token) <= 30 and token not in out:
+        if _VALID_TENANT.match(token) and token not in out:
             out.append(token)
     return out
 
@@ -159,7 +166,11 @@ def find_hosts(
         limiter.wait()
         try:
             response = client.get(ROBOTS_URL.format(host=host), timeout=20)
-        except httpx.HTTPError:
+        except Exception:  # noqa: BLE001
+            # Deliberately broad. A probe is expected to fail most of the time, and the
+            # failures are not all httpx's: a malformed hostname raises UnicodeError from the
+            # IDNA codec, deep in socket resolution. One bad candidate must cost one request,
+            # not the whole sweep.
             continue
         # A tenant that exists serves robots.txt. 422 is Workday's "no such tenant here".
         if response.status_code != 200:
@@ -285,7 +296,14 @@ def main(argv: list[str] | None = None) -> int:
     probe_limiter = RateLimiter(DISCOVERY_RATE)
     with build_client(config, timeout=25) as client:
         for firm in targets:
-            for hit in discover_firm(client, config, firm, probe_limiter):
+            # A sweep is long and its results are only written at the end, so one firm
+            # raising must not discard every tenant found before it.
+            try:
+                found = discover_firm(client, config, firm, probe_limiter)
+            except Exception as exc:  # noqa: BLE001
+                print(f"  ERR {firm.firm_id:<20} {type(exc).__name__}: {exc}"[:120])
+                continue
+            for hit in found:
                 all_hits.append(hit)
                 ok, reason = hit.verify()
                 print(
