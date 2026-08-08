@@ -13,7 +13,7 @@ jtc,JTC Corporation,sovereign,2,,,,,,unknown,todo,
 enterprisesg,Enterprise Singapore,sovereign,2,,,,,,unknown,todo,
 jpmorgan,JPMorgan Chase,bank,1,,,,,,unknown,todo,
 goldmansachs,Goldman Sachs,bank,1,,,,,,unknown,todo,
-morganstanley,Morgan Stanley,bank,1,,,,,,unknown,todo,
+morganstanley,Morgan Stanley,bank,1,workday,ms,ms.wd5.myworkdayjobs.com,External,,allowed,wired,"initialism tenant, below the auto-apply name threshold; verified by hand - board serves Morgan Stanley IBD/Equity Swap/Commodities roles and the apply URL resolves 200"
 citi,Citi,bank,1,,,,,,unknown,todo,
 bofa,Bank of America,bank,1,,,,,,unknown,todo,
 ubs,UBS,bank,1,,,,,,unknown,todo,
