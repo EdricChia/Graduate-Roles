@@ -79,6 +79,8 @@ ATS_HOSTS = (
 MIN_AUTO_APPLY_TOKEN = 4
 NAME_MATCH_THRESHOLD = 85
 TOKEN_MATCH_THRESHOLD = 90
+# A subset match is only believable when the shorter side is long enough to be distinctive.
+MIN_SUBSET_MATCH_CHARS = 5
 
 _NON_ALNUM = re.compile(r"[^a-z0-9]+")
 _NOISE = re.compile(
@@ -151,8 +153,14 @@ class Hit:
         target = _denoise(self.firm_name)
 
         if self.board_name:
-            score = fuzz.token_set_ratio(_denoise(self.board_name), target)
-            if score >= NAME_MATCH_THRESHOLD:
+            board = _denoise(self.board_name)
+            score = fuzz.token_set_ratio(board, target)
+            # token_set_ratio scores a subset as a perfect match, which is right for a board
+            # legitimately named "Da Vinci" under "Da Vinci Derivatives" and wrong for a
+            # three-letter "EDB" under "Singapore Economic Development Board". Requiring the
+            # shorter side to be a real word's length separates them.
+            long_enough = min(len(_norm(board)), len(_norm(target))) >= MIN_SUBSET_MATCH_CHARS
+            if score >= NAME_MATCH_THRESHOLD and long_enough:
                 return True, f"board name {self.board_name!r} matches ({score})"
 
         domain = self.apply_domain
@@ -172,12 +180,19 @@ class Hit:
             return False, f"board name {self.board_name!r} is not {self.firm_name!r}"
 
         # Lever and Ashby report neither a company name nor an employer domain, so the only
-        # evidence available is the token itself. Accept it only when it is a close match to
-        # the full firm name, which "optiver" is and "mas" is not.
-        score = fuzz.token_set_ratio(self.token, target)
+        # evidence is the token — which we guessed. This is the weakest path and gets the
+        # strictest test.
+        #
+        # `ratio` rather than `token_set_ratio`, and the difference is not academic. A
+        # token-set comparison scores a subset as a perfect match, so the first run of this
+        # accepted three boards at 100: "applied" for Applied Materials (262 jobs, actually
+        # Applied Intuition), "arthur" for Arthur D. Little, and "jump" for Jump Trading.
+        # `ratio` penalises the length gap and scores those 61, 63 and 53, while an exact
+        # brand like "optiver" or "openai" still scores 100.
+        score = fuzz.ratio(_norm(self.token), _norm(target))
         if score >= TOKEN_MATCH_THRESHOLD:
-            return True, f"token matches firm name ({score})"
-        return False, f"no company name or employer domain to verify against ({score})"
+            return True, f"token matches firm name ({score:.0f})"
+        return False, f"no company name or employer domain to verify against ({score:.0f})"
 
     @property
     def verified(self) -> bool:

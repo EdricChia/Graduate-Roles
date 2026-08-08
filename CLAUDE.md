@@ -56,14 +56,24 @@ gradtrack/
 |---|---|
 | Install / sync deps | `uv sync` |
 | Run tests | `uv run pytest` |
-| Ingest one firm | `uv run python -m gradtrack.ingest.ats --firm janestreet` |
-| Ingest one platform | `uv run python -m gradtrack.ingest.ats --platform greenhouse` |
+| Ingest every wired firm | `uv run python -m gradtrack.ingest.ats` |
+| Ingest one firm / platform | `uv run python -m gradtrack.ingest.ats --firm janestreet` · `--platform workday` |
 | Ingest MyCareersFuture | `uv run python -m gradtrack.ingest.mcf` |
-| Rebuild curated tables | `uv run python -m gradtrack.transform` |
-| Health check | `uv run python -m gradtrack.refresh_check` |
+| Find a firm's ATS | `uv run python -m gradtrack.discover --firm optiver --show-rejected` |
+| Wire verified discoveries | `uv run python -m gradtrack.discover --apply` |
+| Rebuild curated tables | `uv run python -m gradtrack.transform.build` |
+| Health check | `uv run python -m gradtrack.refresh_check` (`--check-only` to fail on breakage) |
 | Telegram dry run | `uv run python -m gradtrack.notify.telegram --dry-run` |
 | Dashboard | `uv run streamlit run app.py` |
 | Lint + format | `uv run ruff check --fix` and `uv run ruff format` |
+
+A full local refresh is the three ingest/transform lines in order:
+
+```bash
+uv run python -m gradtrack.ingest.ats
+uv run python -m gradtrack.ingest.mcf
+uv run python -m gradtrack.transform.build
+```
 
 ## Stack
 

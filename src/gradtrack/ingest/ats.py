@@ -26,19 +26,21 @@ from gradtrack.config import Config, load_config
 from gradtrack.firms import Firm, load_registry
 from gradtrack.ingest.snapshot import write_snapshot
 from gradtrack.schema import Platform, SourcePosting
-from gradtrack.sources import ashby, greenhouse, lever, smartrecruiters, workable
+from gradtrack.sources import ashby, greenhouse, lever, smartrecruiters, workable, workday
 from gradtrack.sources.base import FetchOutcome, build_client
 
 FetchFn = Callable[..., tuple[list[SourcePosting], FetchOutcome]]
 
-# Phase 3 platforms: documented, unauthenticated, GET. Phase 4 adds the POST-based and
-# per-tenant ones (Workday, SuccessFactors, Oracle, Eightfold, Phenom) here.
+# Phase 3 platforms are documented, unauthenticated GETs. Workday (Phase 4) is neither, and
+# is the reason firms are read one platform at a time rather than all at once: it needs a
+# much slower rate and a much longer timeout than the rest.
 CLIENTS: dict[Platform, FetchFn] = {
     Platform.GREENHOUSE: greenhouse.fetch_firm,
     Platform.LEVER: lever.fetch_firm,
     Platform.ASHBY: ashby.fetch_firm,
     Platform.SMARTRECRUITERS: smartrecruiters.fetch_firm,
     Platform.WORKABLE: workable.fetch_firm,
+    Platform.WORKDAY: workday.fetch_firm,
 }
 
 
