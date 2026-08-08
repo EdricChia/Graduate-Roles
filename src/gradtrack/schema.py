@@ -78,6 +78,14 @@ class JobFamily(StrEnum):
     PRODUCT_MANAGEMENT = "product_management"
     RISK_COMPLIANCE = "risk_compliance"
     FINANCE_ACCOUNTING = "finance_accounting"
+    ENGINEERING = "engineering"
+    SALES_MARKETING = "sales_marketing"
+    HUMAN_RESOURCES = "human_resources"
+    LEGAL = "legal"
+    # Rotational graduate programmes that name no discipline at all — "Graduate Management
+    # Associate", "GOglobal Graduate Program". A real category, not a dumping ground: 345 of
+    # 662 graduate rows in the first pool landed in OTHER, and most of them were these.
+    GENERAL_MANAGEMENT = "general_management"
     OTHER = "other"
 
 
@@ -101,6 +109,11 @@ FAMILY_GROUPS: dict[JobFamily, str] = {
     JobFamily.PRODUCT_MANAGEMENT: "Product",
     JobFamily.RISK_COMPLIANCE: "Risk & Compliance",
     JobFamily.FINANCE_ACCOUNTING: "Finance",
+    JobFamily.ENGINEERING: "Engineering",
+    JobFamily.SALES_MARKETING: "Sales & Marketing",
+    JobFamily.HUMAN_RESOURCES: "People",
+    JobFamily.LEGAL: "Legal",
+    JobFamily.GENERAL_MANAGEMENT: "General Management",
     JobFamily.OTHER: "Other",
 }
 

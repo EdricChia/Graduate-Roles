@@ -1,0 +1,2891 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/7642974002?gh_jid=7642974002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6006267002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": "",
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": "",
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Cybersecurity Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 7642974002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "4899",
+   "title": "Cybersecurity Detection and Response Analyst",
+   "company_name": "Jane Street",
+   "first_published": "2024-09-23T04:56:09-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We&#39;re looking to add a passionate Cybersecurity Analyst to our Hong Kong or Singapore office to help protect Jane Street’s employees, data and infrastructure from the wilds of the internet. Our cybersecurity analysts are responsible for developing and using monitoring tools to guard the firm, as well as handling incident response and remediation when a threat is found.&lt;/p&gt;\n&lt;p&gt;Our team considers itself to be tapped into the developments happening within the broader cybersecurity space, and able to tell the difference between the latest cool hack by security researchers and what actually matters in our day-to-day. In this role, you’ll carefully consider the context of our decisions as we think about the trade-offs we’re making in our approach to resolving cybersecurity issues.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;We’ll expect you to apply a methodical approach to performing unstructured investigations to locate and repair the source of a security issue. While there will be an element of operational coverage, your time will also be spent on projects to improve our detection capabilities, automation and efficiencies, as well as performing threat hunts, allowing you to grow your skill set and impact.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;You will also act as an ambassador of best practices to the rest of the firm. All of our team members understand and practise good personal cybersecurity hygiene, and are able to talk to others about it. A key component of doing well in this position is bringing everyone else along with you on the cybersecurity journey, and you should be excited to learn from your colleagues and pass that learning on to new analysts.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Bachelor’s degree in computer science, engineering, information systems or equivalent experience preferred&lt;/li&gt;\n&lt;li&gt;An avid follower of cybersecurity news&lt;/li&gt;\n&lt;li&gt;A strong scripter; you should be able to write scripts that are clear, general and could be integrated into existing tooling using a fully featured programming language&lt;/li&gt;\n&lt;li&gt;Comfortable and interested in managing your code and configs in version control, and have a working knowledge of your editor (we don&#39;t care which though)&lt;/li&gt;\n&lt;li&gt;Familiar with threat modelling and able to clearly communicate your understanding of the trade-offs we’re making to internal stakeholders&lt;/li&gt;\n&lt;li&gt;Able to explain the cybersecurity decisions you’ve made in your own life and how you’ve approached thinking about those decisions&lt;/li&gt;\n&lt;li&gt;Able to adapt to changing scenarios and make challenging decisions under pressure&lt;/li&gt;\n&lt;li&gt;Humble attitude about what you know and don’t know; not afraid to ask questions and admit mistakes&lt;/li&gt;\n&lt;li&gt;Curious problem solver with a positive, collaborative attitude&lt;/li&gt;\n&lt;li&gt;Programming experience is a plus&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073096002,
+     "name": "Cybersecurity",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8057314002?gh_jid=8057314002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6189780002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Cybersecurity Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8057314002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "5465",
+   "title": "Cybersecurity Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2026-04-21T00:18:38-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We&#39;re looking to add a full-time, passionate Cybersecurity Engineer to our Singapore office to help protect our company&#39;s people, data, and infrastructure from the wilds of the internet. Our Cybersecurity Engineers work on firm-wide defenses, provide expertise and advice to other groups, lead employee cybersecurity awareness efforts, and handle some of the event analysis and incident response responsibilities of the firm. We&#39;re looking for someone who has a strong technical foundation, who is not afraid to build something themselves, who brings good taste to solving security problems, and who can reason about and explain the “why” behind security practices.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;div class=&quot;job-content row&quot;&gt;\n&lt;div class=&quot;col-12&quot;&gt;\n&lt;ul&gt;\n&lt;li&gt;Have strong scripting or programming, and surrounding practices: You have an interest and ability to automate in a real programming language, ability and desire to manage your code and configs in version control, and knowledge of your editor (we don&#39;t care which editor, though)&lt;/li&gt;\n&lt;li&gt;A measured responder: Not everyone should be locking their entire lives down in the name of security. You can discuss trade-offs when it comes to cybersecurity, think about context, and understand what threat modeling is&lt;/li&gt;\n&lt;li&gt;You understand and practice good personal cybersecurity hygiene, and can talk to others about it: For example, you know what a password manager is, and either use one or have something which you can reasonably argue is better, and can walk someone through the tradeoffs you&#39;ve made (Seriously, we’ll ask you about this sort of thing during the interview process)&lt;/li&gt;\n&lt;li&gt;You’re tapped into cybersecurity developments: You follow cybersecurity news, but can tell the difference between the latest cool hack by security researchers and what actually matters in your day-to-day&lt;/li&gt;\n&lt;li&gt;Have a positive and collaborative attitude: You understand that a key component of cybersecurity is bringing others along with you on the journey&lt;/li&gt;\n&lt;li&gt;Fluency in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;\n&lt;/div&gt;\n&lt;div class=&quot;footnotes&quot;&gt;&amp;nbsp;&lt;/div&gt;",
+   "departments": [
+    {
+     "id": 4073096002,
+     "name": "Cybersecurity",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8210335002?gh_jid=8210335002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6253926002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Facilities Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8210335002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "5873",
+   "title": "Facilities Operations Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2025-10-30T22:02:24-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for an experienced Facilities Operations Engineer to join a highly technical group responsible for operating and maintaining our physical infrastructure. This includes work on our trading floors, amenity spaces and food service areas which are all supported by dedicated mechanical, electrical and IT equipment.&lt;/p&gt;\n&lt;p&gt;Our team is collaborative in nature, spanning many internal departments and external vendors, contractors, consultants and operations teams. Your work will involve managing projects that cover all aspects of our physical infrastructure, along with our relationships with each of these stakeholders, in order to provide 24/7 critical infrastructure.&amp;nbsp;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;We are looking for someone who is professionally trained in electrical, mechanical or building services engineering, or has equivalent experience in engineering facilities management. You should also have experience with managing facilities maintenance service level agreements (SLAs) to ensure the scope meets industry standards and service-level agreements (SLAs).&lt;/p&gt;\n&lt;p&gt;You are encouraged to apply, regardless of your specific discipline, if you have a proven ability to deliver excellence no matter the task, have solid technical experience and can make well-reasoned engineering decisions as they relate to operational risk.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 5+ years of experience working on the maintenance and operation team of mission-critical data centres, trading floors or similar 24/7 environments&lt;/li&gt;\n&lt;li&gt;Familiar with MEP disciplines including plant infrastructure, CRACs, UPSs, office HVAC, generators, fire prevention and building management systems&lt;/li&gt;\n&lt;li&gt;Have strong computer skills; comfortable working with technical people in an IT-centric environment and learning new software and control systems&lt;/li&gt;\n&lt;li&gt;Comfortable working with a wide range of colleagues, including non-engineers, across several business areas&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Excellent written and spoken communicator; able to describe detailed problems with brevity and accuracy&lt;/li&gt;\n&lt;li&gt;Able to solve small problems in the field without a tradesperson&lt;/li&gt;\n&lt;li&gt;Willing to be part of an on-call rotation for nights and weekends to quickly respond to critical system emergencies&lt;/li&gt;\n&lt;li&gt;Creative, collaborative and enthusiastic team player who is eager to learn and take initiative&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Able to prioritise tasks effectively and stay organised; can balance assigned work required for our constantly evolving environments&lt;/li&gt;\n&lt;li&gt;Fluent in English; proficiency in Cantonese and Mandarin is a plus&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073116002,
+     "name": "Real Estate Engineering",
+     "child_ids": [],
+     "parent_id": 4073090002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8159216002?gh_jid=8159216002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6233436002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Production Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8159216002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "5769",
+   "title": "FIX Onboarding and Connectivity Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2025-09-11T23:56:59-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for a FIX Onboarding and Connectivity Engineer to help us grow both our proprietary trading capabilities and client-facing trading business. This role involves working on the technical processes that enable our trading desks to access new products and exchanges, while also onboarding external clients to trade with Jane Street. You&#39;ll work closely with our trading teams to help them grow the business, and with our technology teams to build state-of-the-art connectivity systems.&lt;/p&gt;\n&lt;p&gt;Jane Street is a place where people come to learn new things (and to eventually teach others what they know). While we welcome experience with FIX and other order flow/electronic trading protocols, and value software engineering backgrounds, we&#39;re excited to teach you the specifics of our trading and technology.&lt;/p&gt;\n&lt;p&gt;The majority of your time will focus on onboarding and connectivity projects across both proprietary and client-facing trading. This will involve prioritising requests from the trading desks; working with our developers, infrastructure engineers, and external parties; and seeing the onboarding process all the way through to production. You will often find yourself bridging the gap between our clients, trading teams, and technology teams, requiring strong communication and coordination skills, but you will also need to be comfortable navigating the Unix command line and developing code of varying complexity to deliver these projects.&lt;/p&gt;\n&lt;p&gt;Through this work, we will expect you to keep a thoughtful and empathetic perspective on the way the team functions and collaborates as a whole, and to suggest ways we can improve and promote our best practices. We&#39;ll also look to you for opinions on how we approach and deliver project work, and how we should interface with other internal teams.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Interested in learning about the microstructure of different exchanges and trading systems&lt;/li&gt;\n&lt;li&gt;Proficient with coding; software engineering experience (building apps) highly valued&lt;/li&gt;\n&lt;li&gt;Excellent coordinator and project management skills across multiple stakeholders&lt;/li&gt;\n&lt;li&gt;Detail-oriented with clear written and verbal communication&lt;/li&gt;\n&lt;li&gt;Able to learn new, complicated, and ever-changing systems&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8511548002?gh_jid=8511548002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6399961002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Human Resources Generalist",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8511548002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "6137",
+   "title": "HR Generalist",
+   "company_name": "Jane Street",
+   "first_published": "2026-04-21T12:00:04-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We&#39;re looking for an HR Generalist to support our employees in Singapore as part of our regional Asia HR team.&lt;/p&gt;\n&lt;p&gt;This role is for someone who loves helping people and solving problems, particularly through making HR processes work seamlessly. You&#39;ll be the first point of contact for HR queries on the ground, fielding a wide range of employee and manager inquiries, advising on our policies and processes, assisting with benefit administration and connecting people with the training and support they need to be successful in their roles. You&#39;ll also help maintain HR databases with employee files and records. These responsibilities require incredible attention to detail and the highest levels of internal and external confidentiality.&lt;/p&gt;\n&lt;p&gt;You&#39;ll work with enough autonomy to triage and resolve issues day-to-day, while collaborating closely with the wider regional team on approach and priorities. Our ability to get the little things right and the personal attention we give each of our employees is what drives our HR success and our culture.&lt;/p&gt;\n&lt;p&gt;Beyond day-to-day support, you&#39;ll assist with HR projects and operational improvements. These projects will provide an opportunity to collaborate across global teams within and outside of HR, giving you exposure to a wide range of HR work across our offices. We don&#39;t expect you to know everything immediately, but the right person will be eager to learn and not afraid to ask questions. You should be willing to accept feedback from others and look at any mistake as an opportunity to learn and grow.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have a bachelor&#39;s degree or higher qualification&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;At least 5+ years of HR generalist experience, with a track record of advising employees and managers on HR-related matters&lt;/li&gt;\n&lt;li&gt;Able to work independently while thriving as part of a collaborative regional team&lt;/li&gt;\n&lt;li&gt;Experience with delivering operational projects independently and in larger cross-functional teams&lt;/li&gt;\n&lt;li&gt;Excited by a truly generalist role, focusing on operational excellence&lt;/li&gt;\n&lt;li&gt;Experience with pension and benefits administration preferred&lt;/li&gt;\n&lt;li&gt;Experience with Workday (or similar HRIS) preferred&lt;/li&gt;\n&lt;li&gt;Willing to own administrative tasks&lt;/li&gt;\n&lt;li&gt;Excellent interpersonal and communication skills, both spoken and written&lt;/li&gt;\n&lt;li&gt;Discreet and capable of exercising sound judgment with sensitive and confidential company and personnel data&lt;/li&gt;\n&lt;li&gt;Able to think big-picture, whilst at the same time getting even the smallest details right&lt;/li&gt;\n&lt;li&gt;Intellectually curious and eager to learn; humble about what you know and don&#39;t know and not afraid to ask questions and admit mistakes&lt;/li&gt;\n&lt;li&gt;Reliable and flexible team player with a positive attitude; enjoys helping people and solving problems&lt;/li&gt;\n&lt;li&gt;Comfortable working in a fast-paced environment&lt;/li&gt;\n&lt;li&gt;Comfortable challenging current processes and looking for ways to improve&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073117002,
+     "name": "Human Resources",
+     "child_ids": [],
+     "parent_id": 4072834002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/5701269002?gh_jid=5701269002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 5068599002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": "",
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Linux Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 5701269002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "3057",
+   "title": "Linux Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2021-11-16T23:09:54-05:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;Linux Engineers work with the critical infrastructure underlying the rest of the firm’s technology. Members of this group are hard-working Systems Engineers, Administrators and Programmers, tasked with maintaining and improving the platform that powers Jane Street&#39;s production trading systems. Our mix of in-house and open source software allows you to investigate and innovate at every level. On any given day, you could be debugging kernel performance, developing management tools, or resolving production issues in real time. Diving into tricky systems problems is our specialty.&lt;/p&gt;\n&lt;p&gt;Deployment automation, scalable configuration management, and obsessive monitoring are the focus of some of our ongoing projects. We automate as much of our work as we can, but not because we are lazy. We find that automation reduces our error rate and overall workload - plus, we think it&#39;s fun.&lt;/p&gt;\n&lt;p&gt;Working in our group provides opportunities for involvement with almost every other facet of the company. We work directly with colleagues in Trading, Technology, and Operations to build and maintain systems with a firm-wide scope. Using feedback from other groups and our custom monitoring tools, we strive to resolve production issues quickly, perform comprehensive root-cause analyses, and integrate long-term fixes in a clean and robust way.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;p&gt;We are looking to hire Systems Programmers and Administrators with a deep knowledge of Unix internals and the Linux ecosystem. Candidates should have a willingness to learn OCaml, our language of choice, and meet the following requirements:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Bachelor&#39;s degree in Computer Science, Software Engineering or other technical discipline (or equivalent experience)&lt;/li&gt;\n&lt;li&gt;Clear and concise communication skills, as well as the ability to efficiently analyze and deconstruct technical problems&lt;/li&gt;\n&lt;li&gt;Deep knowledge of operating system fundamentals, especially Linux&lt;/li&gt;\n&lt;li&gt;Fluency with the Unix command line and shell scripting&lt;/li&gt;\n&lt;li&gt;Practical experience with modern Linux systems and systems programming concepts like C, sockets, virtual memory, and the process life cycle&lt;/li&gt;\n&lt;li&gt;Basic understanding of network protocols&lt;/li&gt;\n&lt;li&gt;Strong troubleshooting skills and knowledge of profiling/debugging tools such as gdb, perf, DTrace, eBPF or SystemTap&lt;/li&gt;\n&lt;li&gt;Programming experience in any language (functional languages a plus)&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to&amp;nbsp;&lt;/em&gt;&lt;a href=&quot;mailto:agency-partnerships@janestreet.com&quot;&gt;&lt;em&gt;agency-partnerships@janestreet.com&lt;/em&gt;&lt;/a&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073093002,
+     "name": "IT and Systems Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8480752002?gh_jid=8480752002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6387504002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Network Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8480752002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "6113",
+   "title": "Network Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2026-03-29T22:04:50-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for an experienced Network Engineer to join our Network Security team to help us run, scale, and continuously improve our network security infrastructure through hands-on operations, design, and implementation. The ideal candidate will have strong networking fundamentals and experience with security appliances such as firewalls and proxy.&lt;/p&gt;\n&lt;p&gt;Jane Street’s numerous distributed systems are built on an agile, reliable, multi-vendor network infrastructure that supports all traffic profiles, from trading to internet connectivity. Supporting such a large multi-function network requires advanced tooling for monitoring and automation.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Strong communication and interpersonal skills will be needed to collaborate with colleagues across the firm globally. You will find and resolve issues, plan and execute deployments, and improve systems where possible. We’ll also look to leverage your advanced networking skills and security knowledge to:&amp;nbsp;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Work closely with our Network Engineering team on the design and deployment of security perimeter and adjacent network infrastructure&lt;/li&gt;\n&lt;li&gt;Manage and continuously evolve network segmentation, DMZ, and other aspects of network security&lt;/li&gt;\n&lt;li&gt;Evaluate and lab test new platforms for our network security infrastructure&lt;/li&gt;\n&lt;li&gt;Collaborate with our Cybersecurity team on the detection and mitigation of threats and vulnerabilities on our network&lt;/li&gt;\n&lt;li&gt;Interface with application owners and traders to enable business workflows securely&lt;/li&gt;\n&lt;li&gt;Proactively enhance support by improving network infrastructure observability and scripting, and communicating requirements to our software engineers&lt;/li&gt;\n&lt;li&gt;Improve our network security processes and documentation&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;A holistic approach to system design is critical for this role. Our broader Networking team prioritizes flexibility, compatibility, and efficiency when crafting solutions, all while seeking ongoing buy-in and feedback from users across the firm. Our firm’s culture prizes intellectual humility, openness, and continuous improvement, which translates directly to the daily work of this team. We’re all partners working toward shared goals and are always looking for the next best idea that will make our work stronger.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Your strong communication skills and analytical thinking will be invaluable as we support the daily work of our colleagues and keep our systems operating at the highest standard.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 7+ years of experience operating and deploying network infrastructure&lt;/li&gt;\n&lt;li&gt;Experienced with routing and network protocols (OSPF, BGP, PIM-SM)&lt;/li&gt;\n&lt;li&gt;Experienced with troubleshooting transport protocols (TCP/UDP)&lt;/li&gt;\n&lt;li&gt;Have a strong understanding of firewall hardware architecture, performance metrics, and functional components&lt;/li&gt;\n&lt;li&gt;Experienced with firewall configuration and troubleshooting&lt;/li&gt;\n&lt;li&gt;Understand Public Key Infrastructure and related technologies&lt;/li&gt;\n&lt;li&gt;Understand modern encryption techniques&lt;/li&gt;\n&lt;li&gt;Have a high capacity to learn; we are interested in how you think, not just what you know&lt;/li&gt;\n&lt;li&gt;Able to context-switch, while still being able to prioritize and organize your stack&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Ideally have experience with overlay networks (EVPN, VxLAN)&lt;/li&gt;\n&lt;li&gt;A flexible and reliable team player who enjoys working in a collaborative environment&lt;/li&gt;\n&lt;li&gt;Preferably have proficiency in a programming language&lt;/li&gt;\n&lt;li&gt;Fluency in English required&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, pl",
+   "departments": [
+    {
+     "id": 4073094002,
+     "name": "Network Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/5807405002?gh_jid=5807405002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 5115901002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": "",
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Production Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 5807405002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "3095",
+   "title": "Production Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2022-01-10T02:56:37-05:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We are hiring Production Engineers in our Hong Kong and Singapore office. Jane Street Production Engineers are software developers who spend time both developing software and also providing high-quality support for software systems that are critical to Jane Street&#39;s trading business.&lt;br&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Many of our Production Engineers are embedded in various software teams; others are in standalone teams. In both situations we work alongside application developers with a common goal of creating and running great software systems. As a firm we are big believers in functional programming, and use OCaml as our primary development language.&lt;br&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Production Engineers play an essential role interacting with a wide variety of departments and functions at Jane Street. We solve real-time issues and make a firm-wide impact. We take ownership of the architecture and design of systems th&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;at monitor and support &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;the firm’s trading. We also design and develop the tools that we use, and it feels great to be able to shape these tools and then enjoy the improvements.&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;If you&#39;d like to learn more, you can read about &lt;a href=&quot;https://www.janestreet.com/production-engineering/&quot; target=&quot;_blank&quot;&gt;Production Engineering at Jane Street&lt;/a&gt;.&amp;nbsp;&lt;/p&gt;\n&lt;h3&gt;How is a Production Engineer role different from a generic Software Engineering role?&lt;/h3&gt;\n&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;As Production Engineers:&lt;/span&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We split our time between OCaml software development project work and a support rotation, in which we actively resolve live issues in Jane Street’s critical systems&lt;/span&gt;&lt;/li&gt;\n&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We are curious and eager to learn about a number of different systems and how they fit together. This gives us a breadth of knowledge and opportunities to collaborate with many other dev and business teams across the firm&lt;/span&gt;&lt;/li&gt;\n&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We spend less time in total coding (due to the support rotation), and are interrupted more often, and we enjoy adding value to Jane Street in this way&lt;/span&gt;&lt;/li&gt;\n&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We get satisfaction from helping others, enabling good trades, and getting to the bottom of complex and urgent production issues&lt;/span&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We don’t expect you to have a background in functional programming, finance, or any other specific field—we’re looking for smart software developers who enjoy solving interesting problems. We’re more interested in how you think and learn than just what you currently know. You should be:&lt;/span&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;A strong programmer with a love for technology; able to write and read code well&lt;/span&gt;&lt;/li&gt;\n&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;An intellectually curious person who is motivated, collaborative, and eager to learn&lt;/span&gt;&lt;/li&gt;\n&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;An excellent communicator, able to be cl",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/7284911002?gh_jid=7284911002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 5858099002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": "",
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": "",
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Network Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 7284911002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "4506",
+   "title": "Senior Network Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2024-03-17T22:42:29-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for a Senior Network Engineer who can help us scale our networks to meet increasing business demands, drive standardisation through automation and look for opportunities to leverage AI to improve operations.&lt;/p&gt;\n&lt;p&gt;Jane Street’s numerous distributed systems run on a multi-vendor, highly available network infrastructure and handle a variety of traffic profiles – from high-speed trading to everyday internet connectivity. A typical day on the Network Engineering team includes:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Collaborating on new data centre and colocation initiatives, WAN routing optimisation and other cross-team design projects&lt;/li&gt;\n&lt;li&gt;Interfacing with stakeholders to assess business needs and develop innovative network features/capabilities&lt;/li&gt;\n&lt;li&gt;Leading both reactive support tasks and proactive infrastructure improvements, focusing on thorough documentation to reduce outages and enhance troubleshooting&lt;/li&gt;\n&lt;li&gt;Exploring AI/ML-driven enhancements to streamline operations and continuously improve service quality Using your networking expertise to help us scale our team’s infrastructure at large while maintaining high standards for network performance and reliability&lt;/li&gt;\n&lt;li&gt;Documenting solutions and processes that help the team work more efficiently, using a meticulous attention to detail&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;If you have a passion for innovating within a complex network ecosystem, enjoy building scalable systems and documentation structures and are curious about how AI can refine network operations, this role provides a platform to make a significant impact at Jane Street. We look forward to learning from your expertise and unique perspective.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 7+ years of experience operating and deploying network infrastructure, with 3+ years dedicated to ground-up network design&lt;/li&gt;\n&lt;li&gt;Have deep experience with routing and network protocols (OSPF, BGP, PIM-SM) and the troubleshooting of transport protocols (TCP/UDP)&lt;/li&gt;\n&lt;li&gt;Comfortable operating in Linux environments and proficient in at least one programming language&lt;/li&gt;\n&lt;li&gt;Strongly inclined to automate workflows and explore AI/ML approaches to improve efficiency or reduce overhead&lt;/li&gt;\n&lt;li&gt;Eager to produce comprehensive, scalable documentation that benefits the entire team&lt;/li&gt;\n&lt;li&gt;Have a demonstrated ability to balance multiple priorities, switch contexts effectively and maintain a high level of customer service&lt;/li&gt;\n&lt;li&gt;Excellent collaborator and communicator; ready to build strong partnerships with diverse global teams and stakeholders to share your recommendations, issues and outcomes&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Have a flexible, reliable mindset and enthusiasm for sharing knowledge with peers&lt;/li&gt;\n&lt;li&gt;Any prior exposure to overlay networks (EVPN, VXLAN) is a plus&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to&amp;nbsp;&lt;/em&gt;&lt;a href=&quot;mailto:agency-partnerships@janestreet.com&quot;&gt;&lt;em&gt;agency-partnerships@janestreet.com&lt;/em&gt;&lt;/a&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073094002,
+     "name": "Network Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8075770002?gh_jid=8075770002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6197422002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: New Grad",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Software Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8075770002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "R-0985",
+   "title": "Software Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2025-08-13T05:14:10-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We’re looking for Software Engineers who want to help us design and build the systems and tools that run the firm. You’ll find Software Engineers in all parts of Jane Street, solving real problems in critical areas ranging from trading desks to our accounting team, as well as building foundational infrastructure, whether that means implementing network monitoring or risk models.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;We are big believers in functional programming and, using OCaml, a statically -typed functional programming language, as our primary tool. More recently, Python has become a vital part of Jane Street’s research and trading work, acting as the go-to language for data analysis, visualization, and machine learning.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Beyond our own environment, we also recognize the value of open source software, leveraging it in our daily work and releasing over a million lines of our own code as open source. We’re also always looking for ways to expand open source projects, and provide ongoing support to things like Mercurial, the OCaml compiler, and the OPAM package manager. That said, we’re interested in talented engineers with experience in any language—most of us came in with little to no practical experience in OCaml before we joined.&lt;/p&gt;\n&lt;p&gt;If you’d like to learn more, you can read about our&amp;nbsp;&lt;a href=&quot;https://blog.janestreet.com/applying-to-jane-street/&quot;&gt;interview process&lt;/a&gt; and meet some of our &lt;a href=&quot;https://www.janestreet.com/join-jane-street/get-to-know-us/&quot;&gt;newest hires&lt;/a&gt;.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;p&gt;We &lt;em&gt;don’t&lt;/em&gt; expect you to have a background in functional programming, OCaml, Python, finance, or any other specific field—we’re looking for smart programmers who enjoy solving interesting problems. We’re more interested in how you think and learn than what you currently know. You should be:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;A top-notch programmer with a love for technology&lt;/li&gt;\n&lt;li&gt;Intellectually curious, collaborative, and eager to learn&lt;/li&gt;\n&lt;li&gt;Humble and unafraid to ask questions and admit mistakes&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;If you&#39;d like to get an idea of what we cover in our software engineering interview process, you can visit our &lt;a href=&quot;https://www.janestreet.com/preparing-for-a-software-engineering-interview/&quot;&gt;interview prep page&lt;/a&gt;.&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to &lt;/em&gt;&lt;em&gt;agency-partnerships@janestreet.com&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/5791948002?gh_jid=5791948002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "education": "education_required",
+   "internal_job_id": 5109013002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": "",
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Software Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 5791948002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "3091",
+   "title": "Software Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2021-12-29T01:07:46-05:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We&#39;re always hiring software engineers for all of our offices. Technology is at the core of how we approach our work, and engineers are intimately involved in every area of the business.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;We are big believers in functional programming and use OCaml, a statically typed functional programming language, as our primary tool. More recently, Python has become a vital part of Jane Street’s research and trading work, acting as the go-to language for data analysis, visualization, and machine learning.&lt;/p&gt;\n&lt;p&gt;We also believe in the value of open source software, using it in our daily work and releasing over a million lines of our own code as open source.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Top-notch programming skills&lt;/li&gt;\n&lt;li&gt;Deep experience with—and love for—technology. There&#39;s no specific checklist; we use software to approach a variety of problems, so we&#39;re interested in everything from machine learning to systems administration to programming language design&lt;/li&gt;\n&lt;li&gt;Strong interpersonal skills. Software engineering at Jane Street is highly collaborative, and we are looking for people who can work effectively in small, close-knit teams&lt;/li&gt;\n&lt;li&gt;We &lt;em&gt;don’t &lt;/em&gt;expect you to have experience with functional programming, OCaml, Python, or finance; we’re happy to hire talented engineers and teach them what they need to know.&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;If you&#39;d like to get an idea of what we cover in our software engineering interview process, you can visit our &lt;a href=&quot;https://www.janestreet.com/preparing-for-a-software-engineering-interview/&quot;&gt;interview prep page&lt;/a&gt;.&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to&amp;nbsp;&lt;/em&gt;&lt;a href=&quot;mailto:agency-partnerships@janestreet.com&quot;&gt;&lt;em&gt;agency-partnerships@janestreet.com&lt;/em&gt;&lt;/a&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8632392002?gh_jid=8632392002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6447635002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Summer Internship",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "May-August",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Technology Intern",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8632392002,
+   "updated_at": "2026-08-07T01:30:26-04:00",
+   "requisition_id": "R-1613",
+   "title": "Software Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2026-07-21T02:03:40-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;&lt;/h3&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;Our goal is to give you a real sense of what it&#39;s like to work at Jane Street full time while also providing a truly unparalleled educational experience. As an intern, you are paired with full-time employees who act as mentors, collaborating with you on real-world projects we actually need done.&lt;/p&gt;\n&lt;p&gt;As a Software Engineering intern, you’ll learn how we use OCaml (our primary development language) in our day to day work, and gain exposure to the libraries and tools that are foundational to our internal systems. Some teams also use Python, so depending on the project, you might do some work with Python as well.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;During the internship, you&#39;ll be closely mentored by full-time software engineers. Mentors design intern projects based on their team&#39;s current needs and are heavily invested in helping interns build maintainable, high-quality software that is intended to reach production. The projects you will work on are as varied and diverse as those full-timers work on, covering a wide range of problems, from high performance trading systems to programming language design and everything in between.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Our internship in the Singapore office runs for 12 weeks, from mid May to mid August, and you&#39;ll need to be available for the entire period. If these dates don&#39;t align with your academic schedule, we encourage you to apply to our Hong Kong Software Engineering internship instead, which can accommodate a wider range of start and end dates. At the beginning of the program, you&#39;ll spend time training in our Hong Kong office, and you&#39;ll also visit our New York office for a week, giving you the chance to learn and work alongside interns and full-time employees across our global offices.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;If you’d like to learn more, you can read about our &lt;a href=&quot;https://www.janestreet.com/preparing-for-a-software-engineering-interview/&quot;&gt;interview&lt;/a&gt; and&lt;a href=&quot;https://blog.janestreet.com/project-pairing/#fn:1&quot;&gt; team placement&lt;/a&gt; processes and get a sense of what our &lt;a href=&quot;https://blog.janestreet.com/tag/internship/&quot;&gt;most recent intern projects&lt;/a&gt; looked like! You can also learn more about Jane Street’s internship program &lt;a href=&quot;https://www.janestreet.com/join-jane-street/internships/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;p&gt;If you’ve never thought about a career in finance, you’re in good company. Many of us were in the same position before working here. If you have a curious mind, a collaborative spirit, and a passion for solving interesting problems, we have a feeling you’ll fit right in. We&#39;re more interested in how you think and learn than what you currently know. You should be:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;A top-notch programmer with a love for technology&lt;/li&gt;\n&lt;li&gt;Intellectually curious, collaborative, and eager to learn&lt;/li&gt;\n&lt;li&gt;Humble and unafraid to ask questions and admit mistakes&lt;/li&gt;\n&lt;li&gt;Fluent in English&amp;nbsp;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Please note: Jane Street will provide flights to and from Hong Kong as well as accommodation&amp;nbsp;throughout the entirety of the program.&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;h3&gt;&lt;/h3&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8580160002?gh_jid=8580160002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6427110002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Tax Specialist",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8580160002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "6214",
+   "title": "Tax Structuring & Advisory Specialist",
+   "company_name": "Jane Street",
+   "first_published": "2026-06-08T08:16:59-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are hiring a newly created Tax Structuring and Advisory role in our Hong Kong or Singapore office with a focus (though not exclusively) on APAC-region tax issues . You will help us manage tax and related structural aspects of internal restructurings, including investment structures for senior individuals within the group, acquisitions, dispositions, and other complex transactions related to the broader business of Jane Street. You will also work on structuring and advisory matters relating to the firm&#39;s trading activities.&lt;/p&gt;\n&lt;p&gt;To do this, you can expect to collaborate extensively with our local and global Tax team, along with a range of non-tax professionals throughout the organisation. &amp;nbsp;&lt;/p&gt;\n&lt;p&gt;This role provides a great opportunity to join a dynamic and entrepreneurial work environment where you will interact closely with colleagues in various departments at Jane Street. The right person will be commercially driven, very comfortable with numbers, extremely collaborative and entrepreneurial, and adept at working in a deadline-driven environment.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Qualified lawyer or accountant with 8+ years PQE in leading law firms, accountancy firms, and/or financial institutions, preferably with in-house experience&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Have excellent attention to detail, strong analytical skills, and the ability to manage complex tax issues&lt;/li&gt;\n&lt;li&gt;Highly organised and flexible; able to multitask and manage a range of competing priorities and projects with tight deadlines&lt;/li&gt;\n&lt;li&gt;Have strong interpersonal skills; can work independently and as part of a team&lt;/li&gt;\n&lt;li&gt;Able to communicate with professionals within and outside Jane Street across all levels and areas of expertise&lt;/li&gt;\n&lt;li&gt;Having experience with the taxation of financial products and/or experience with international tax issues is a plus&lt;/li&gt;\n&lt;li&gt;Having significant tax transaction and structuring experience is strongly preferred&lt;/li&gt;\n&lt;li&gt;Fluency in English is required&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073111002,
+     "name": "Tax",
+     "child_ids": [],
+     "parent_id": 4073088002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/7961649002?gh_jid=7961649002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6148010002,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "UC/AV Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 7961649002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "5292",
+   "title": "Unified Communications Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2025-04-17T22:52:22-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for a Unified Communications Engineer to help grow, monitor and manage our global voice and video infrastructure. This role sits within our larger IT group and will require you to deliver smart solutions in a fast-paced environment without disrupting the daily workflow.&lt;/p&gt;\n&lt;p&gt;The Unified Communications team is responsible for end-user setup (devices and profiles), asset management and all infrastructure related to collaboration and telephony. Our projects include improving tooling and monitoring, refreshing hardware for meeting rooms and executing software and hardware configuration changes globally, while minimising downtime for various collaboration services.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Our UC Engineers are experts at multitasking, monitoring alarms generated by our voice and video systems and juggling project-related tasks, all while serving as an escalation point for users and other technology groups. You’ll interface daily with different tech teams across the firm — IT Operations, Cybersecurity and Networking — to provide capacity planning, develop standards and best practices and improve documentation across our global UC infrastructure.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;The right candidate will be passionate about solving complex problems and supporting users with robust and flexible technical solutions.&amp;nbsp;&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 7+ years of in-depth experience configuring and supporting the Cisco UC and Collaboration Product Suite in a multi-cluster environment, including:&amp;nbsp;\n&lt;ul&gt;\n&lt;li&gt;Cisco Unified Communications Manager versions 12.5+&lt;/li&gt;\n&lt;li&gt;Cisco Meeting Server&lt;/li&gt;\n&lt;li&gt;Cisco Expressway&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;Have excellent knowledge of SIP, including implementing Session Border Controllers and PSTN SIP trunking&lt;/li&gt;\n&lt;li&gt;Understand UC compliance products, and have experience with modern voice recording platforms (Verint, Nice, Calabrio, etc.) and messaging archiving products (Movius, LeapXpert, Smarsh, etc.)&lt;/li&gt;\n&lt;li&gt;Have a working knowledge of Cisco APIs related to UC products, and experience with creating API automations using Python, PowerShell, etc.&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Experienced with upgrading and maintaining Cisco UC products, including supporting phones, softphones and video conferencing endpoints&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Experienced with integrating cloud-based conferencing technologies (Webex, Zoom, Teams, etc.) to on-premise infrastructure&lt;/li&gt;\n&lt;li&gt;Able to collect and interpret log files, collaborate with support partners to solve problems while maintaining system stability and properly manage expectations with colleagues and users&lt;/li&gt;\n&lt;li&gt;Familiar with the virtualisation of Cisco UC applications on enterprise-grade servers (HPE, Dell, Cisco, etc.)&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Have a strong understanding of current security standards and expectations, and the ability to troubleshoot and use creative thinking to resolve issues&lt;/li&gt;\n&lt;li&gt;Fluent in English; fluency in Mandarin is preferred&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to &lt;/em&gt;&lt;em&gt;agency-partnerships@janestreet.com&lt;/em&gt;&lt;em&gt;.&amp;nbsp;&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073093002,
+     "name": "IT and Systems Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4045800002,
+     "name": "Singapore",
+     "location": "Singapore",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8594416002?gh_jid=8594416002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6432830002,
+   "location": {
+    "name": "London, England, United Kingdom"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Summer Internship",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "June-September",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "ML Research Intern",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8594416002,
+   "updated_at": "2026-08-03T05:38:42-04:00",
+   "requisition_id": "R-1547",
+   "title": "ꓟachine ꓡearning ꓣesearcher",
+   "company_name": "Jane Street",
+   "first_published": "2026-06-22T16:11:51-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;Our goals are to give you a real sense of what it&#39;s like to work at Jane Street as a Machine Learning Researcher while also providing a truly unparalleled educational experience. You&#39;ll work side by side with experienced ML Researchers on projects that we&#39;ve selected for their combination of novel ML ideas and relevance to real-world systematic trading strategies. You&#39;ll learn how we think about markets through challenging classes and activities, and practice using established methods alongside our own unique twists to train practical models.&lt;/p&gt;\n&lt;p&gt;At Jane Street, the lines between research, technology, and trading are intentionally blurry, and you’ll have access to petabytes of data, a computing cluster with hundreds of thousands of cores, and a growing GPU cluster containing tens of thousands of high-end GPUs. Trading poses unusual challenges—large models and nonstationary datasets in a competitive multi-agent environment—that force us to search for novel techniques.&lt;/p&gt;\n&lt;p&gt;You&#39;ll spend the bulk of your internship working closely with full-time machine learning researchers on projects drawn from their own work. You might conduct an end-to-end study of an unexplored dataset, try a new modelling paradigm for a thorny problem, or consider blue-sky approaches that we&#39;re still trying to figure out. The problems we work on rarely have clean, definitive answers, and they often require insights from colleagues across the firm with different areas of expertise. Depending on the day, you might be diving deep into market data, tuning hyperparameters, debugging training issues, or analysing the predictions your model makes.&lt;/p&gt;\n&lt;p&gt;Note that given the IP-sensitive nature of machine learning research at Jane Street, it is unlikely that any research findings associated with the internship will be suitable for outside academic publication.&lt;/p&gt;\n&lt;h3&gt;About you&lt;/h3&gt;\n&lt;p&gt;If you&#39;ve never thought about a career in finance, you&#39;re in good company. Many of us were in the same position before working here. If you have a curious mind and a passion for solving interesting problems, we have a feeling you&#39;ll fit right in. We&#39;re more interested in how you think and learn than what you currently know. You should be:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;An undergraduate, PhD student, or postdoc with practical experience working on ML problems&lt;/li&gt;\n&lt;li&gt;Interested in applying logical and mathematical thinking to all kinds of problems&lt;/li&gt;\n&lt;li&gt;Curious about the machine learning landscape and excited to apply state-of-the-art techniques drawn from many problem domains&lt;/li&gt;\n&lt;li&gt;Fluent with a versatile set of models and tricks&lt;/li&gt;\n&lt;li&gt;Able to rapidly implement and iterate on your ideas in Python and your favourite ML framework&lt;/li&gt;\n&lt;li&gt;Eager to ask questions, admit mistakes, and learn new things&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;If you&#39;d like to learn more, you can read about our &lt;a href=&quot;https://www.janestreet.com/join-jane-street/ml-research-interviews&quot;&gt;interview process&lt;/a&gt; and &lt;a href=&quot;https://www.janestreet.com/join-jane-street/get-to-know-us/&quot;&gt;meet some of the team&lt;/a&gt;. Learn more about Jane Street&#39;s internship program &lt;a href=&quot;https://www.janestreet.com/join-jane-street/internships/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4102660002,
+     "name": "Machine Learning",
+     "child_ids": [],
+     "parent_id": 4026211002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013332002,
+     "name": "London",
+     "location": "London, England, United Kingdom",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8596771002?gh_jid=8596771002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6433585002,
+   "location": {
+    "name": "Hong Kong, Hong Kong"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Summer Internship",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "May-August",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "ML Research Intern",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8596771002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "R-1546",
+   "title": "ꓟachine ꓡearning ꓣesearcher",
+   "company_name": "Jane Street",
+   "first_published": "2026-06-22T16:14:59-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;p&gt;&lt;strong&gt;About the position&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;Our goals are to give you a real sense of what it&#39;s like to work at Jane Street as a Machine Learning Researcher while also providing a truly unparalleled educational experience. You&#39;ll work side by side with experienced ML Researchers on projects that we&#39;ve selected for their combination of novel ML ideas and relevance to real-world systematic trading strategies. You&#39;ll learn how we think about markets through challenging classes and activities, and practice using established methods alongside our own unique twists to train practical models.&lt;/p&gt;\n&lt;p&gt;At Jane Street, the lines between research, technology, and trading are intentionally blurry, and you’ll have access to petabytes of data, a computing cluster with hundreds of thousands of cores, and a growing GPU cluster containing tens of thousands of high-end GPUs. Trading poses unusual challenges—large models and nonstationary datasets in a competitive multi-agent environment—that force us to search for novel techniques.&lt;/p&gt;\n&lt;p&gt;You&#39;ll spend the bulk of your internship working closely with full-time machine learning researchers on projects drawn from their own work. You might conduct an end-to-end study of an unexplored dataset, try a new modeling paradigm for a thorny problem, or consider blue-sky approaches that we&#39;re still trying to figure out. The problems we work on rarely have clean, definitive answers, and they often require insights from colleagues across the firm with different areas of expertise. Depending on the day, you might be diving deep into market data, tuning hyperparameters, debugging training issues, or analyzing the predictions your model makes.&lt;/p&gt;\n&lt;p&gt;Note that given the IP-sensitive nature of machine learning research at Jane Street, it is unlikely that any research findings associated with the internship will be suitable for outside academic publication.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;About you&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;If you&#39;ve never thought about a career in finance, you&#39;re in good company. Many of us were in the same position before working here. If you have a curious mind and a passion for solving interesting problems, we have a feeling you&#39;ll fit right in. We&#39;re more interested in how you think and learn than what you currently know. You should be:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;An undergraduate, PhD student, or postdoc with practical experience working on ML problems&lt;/li&gt;\n&lt;li&gt;Interested in applying logical and mathematical thinking to all kinds of problems&lt;/li&gt;\n&lt;li&gt;Curious about the machine learning landscape and excited to apply state-of-the-art techniques drawn from many problem domains&lt;/li&gt;\n&lt;li&gt;Fluent with a versatile set of models and tricks&lt;/li&gt;\n&lt;li&gt;Able to rapidly implement and iterate on your ideas in Python and your favorite ML framework&lt;/li&gt;\n&lt;li&gt;Eager to ask questions, admit mistakes, and learn new things&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;If you&#39;d like to learn more, you can read about our &lt;a href=&quot;https://www.janestreet.com/join-jane-street/ml-research-interviews&quot;&gt;interview process&lt;/a&gt; and &lt;a href=&quot;https://www.janestreet.com/join-jane-street/get-to-know-us/&quot;&gt;meet some of the team&lt;/a&gt;. Learn more about Jane Street&#39;s internship program &lt;a href=&quot;https://www.janestreet.com/join-jane-street/internships/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;\n&lt;p&gt;Plеаsе nоtе: Jаnе Strееt will prоvidе flights tо аnd frоm Hоng Kоng, аnd ассоmmоdаtiоn thrоughоut thе еntirеty оf thе prоgrаm.&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4102660002,
+     "name": "Machine Learning",
+     "child_ids": [],
+     "parent_id": 4026211002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013331002,
+     "name": "Hong Kong",
+     "location": "Hong Kong, Hong Kong",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8347073002?gh_jid=8347073002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6333630002,
+   "location": {
+    "name": "New York, New York, United States"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": "120,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": "135,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Compliance Specialist",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8347073002,
+   "updated_at": "2026-08-04T14:58:04-04:00",
+   "requisition_id": "5968",
+   "title": "AML Onboarding Analyst",
+   "company_name": "Jane Street",
+   "first_published": "2025-12-19T12:38:28-05:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for an Anti-Money Laundering (AML) and Onboarding Analyst to help our Legal &amp;amp; Compliance team implement complex and evolving regulatory requirements across multiple business lines and global jurisdictions.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;In this role, you will collaborate with colleagues on teams across our global offices, including Operations, Traders, and Banking, as well as with external trading counterparties to:&amp;nbsp;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Onboard trading counterparties and support existing relationships&lt;/li&gt;\n&lt;li&gt;Field inquiries for information about Jane Street’s legal structure and operations&lt;/li&gt;\n&lt;li&gt;Analyze and investigate counterparty risk&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Continue to develop your understanding of regulatory frameworks and AML rules as they apply to Jane Street’s business&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Support other teams in multiple stages of the counterparty relationship&lt;/li&gt;\n&lt;li&gt;Assist the team with building out policies and procedures to meet the evolving needs of Jane Street’s business&amp;nbsp;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Bachelor’s degree&lt;/li&gt;\n&lt;li&gt;Prior experience with corporate documentation in a compliance, corporate paralegal, or client services role is preferred&lt;/li&gt;\n&lt;li&gt;Resourceful; able to seek out answers both internally and externally to solve problems&lt;/li&gt;\n&lt;li&gt;Motivated self-starter who can handle competing priorities and work effectively in a challenging, fast-paced environment&lt;/li&gt;\n&lt;li&gt;Excellent attention to detail and organizational skills&lt;/li&gt;\n&lt;li&gt;Communicates clearly with colleagues and external partners&lt;/li&gt;\n&lt;li&gt;Discreet and trustworthy; able to exercise sound judgement with sensitive information&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&amp;nbsp;&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073089002,
+     "name": "Legal and Compliance",
+     "child_ids": [],
+     "parent_id": 4073113002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013330002,
+     "name": "New York",
+     "location": "New York, New York, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8233259002?gh_jid=8233259002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6262967002,
+   "location": {
+    "name": "London, England, United Kingdom"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Hardware Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8233259002,
+   "updated_at": "2026-08-07T04:08:23-04:00",
+   "requisition_id": "5905",
+   "title": "ASIC Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2025-10-29T13:12:15-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the position&lt;/h3&gt;\n&lt;p&gt;We are looking to hire an experienced ASIC Engineer to help us design, test and deploy advanced hardware designs. As part of our Ultra Low Latency team, you’ll have the opportunity to collaborate with people in areas across the firm, including trading, networking and research infrastructure. We are looking for someone who can contribute to all of our projects and be happy to work on both FPGA-based and ASIC-based technologies.&lt;/p&gt;\n&lt;p&gt;We’re big believers in the ability of tools to improve the productivity, reliability and day-to-day joy of hardware engineering. That’s why we created Hardcaml, a hardware development toolchain embedded in OCaml. We don’t expect you to know OCaml (we’ll teach you here), but we are looking for hardware engineers who are excited about the advantages that better tools can bring, and are willing to try new things as a result.&lt;/p&gt;\n&lt;h3&gt;About you&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 4+ years practical experience in RTL design and verification&lt;/li&gt;\n&lt;li&gt;Experienced in ASIC design using either Synopsys or Cadence flows, including at least one of the following:&lt;br&gt;\n&lt;ul&gt;\n&lt;li&gt;Front-end RTL design and synthesis&lt;/li&gt;\n&lt;li&gt;Back-end physical design&lt;/li&gt;\n&lt;li&gt;Verification (including formal)&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;Interested in using software engineering techniques to improve the hardware design process, and experience programming in some high-level languages (Python, C++, Java, Haskell, etc.)&lt;/li&gt;\n&lt;li&gt;Fluent in English&amp;nbsp;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&amp;nbsp;&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013332002,
+     "name": "London",
+     "location": "London, England, United Kingdom",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8213653002?gh_jid=8213653002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6255104002,
+   "location": {
+    "name": "New York, New York, United States"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": "250,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": "300,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Hardware Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8213653002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "5880",
+   "title": "ASIC Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2025-10-29T10:54:57-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking to hire an experienced ASIC Engineer to help us design, test and deploy advanced hardware designs. As part of our Ultra Low Latency team, you’ll have the opportunity to collaborate with people in areas across the firm, including trading, networking and research infrastructure. We are looking for someone who can contribute to all of our projects and be happy to work on both FPGA-based and ASIC-based technologies.&lt;/p&gt;\n&lt;p&gt;We’re big believers in the ability of tools to improve the productivity, reliability and day-to-day joy of hardware engineering. That’s why we created Hardcaml, a hardware development toolchain embedded in OCaml. We don’t expect you to know OCaml (we’ll teach you here), but we are looking for hardware engineers who are excited about the advantages that better tools can bring, and are willing to try new things as a result.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 4+ years practical experience in RTL design and verification&lt;/li&gt;\n&lt;li&gt;Experienced in ASIC design using either Synopsys or Cadence flows, including at least one of the following:\n&lt;ul&gt;\n&lt;li&gt;Front-end RTL design and synthesis&lt;/li&gt;\n&lt;li&gt;Back-end physical design&lt;/li&gt;\n&lt;li&gt;Verification (including formal)&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;Interested in using software engineering techniques to improve the hardware design process, and experience programming in some high-level languages (Python, C++, Java, Haskell, etc.)&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to &lt;/em&gt;&lt;em&gt;agency-partnerships@janestreet.com&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013330002,
+     "name": "New York",
+     "location": "New York, New York, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8512072002?gh_jid=8512072002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6262967002,
+   "location": {
+    "name": "London, England, United Kingdom"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Hardware Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8512072002,
+   "updated_at": "2026-08-07T04:08:46-04:00",
+   "requisition_id": "5905",
+   "title": "ASIC Physical Design Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2026-04-17T11:25:23-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the position&lt;/h3&gt;\n&lt;p&gt;We are looking to hire an ASIC Physical Design Engineer to help us design, test and deploy advanced hardware. As part of our Ultra Low Latency team, you&#39;ll have the opportunity to collaborate with people in areas across the firm, including trading, networking and research infrastructure.&lt;/p&gt;\n&lt;p&gt;This isn&#39;t a traditional PD role. We&#39;re a small team where everyone works across the chip design process, and we expect our PD engineers to lead with physical design expertise but think like chip designers. You should be comfortable owning a PD flow end-to-end, but also able to read and write RTL and reason about design decisions that cross the front-end/back-end boundary.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;If you&#39;ve spent your career exclusively in PD, this probably isn&#39;t the right fit—but if you&#39;ve worked across the stack, either because you started as an RTL designer and moved into PD, or because you were on a smaller team where you had to wear multiple hats, we&#39;d love to talk.&lt;/p&gt;\n&lt;p&gt;We&#39;re big believers in the ability of tools to improve the productivity, reliability and day-to-day joy of hardware engineering. That&#39;s why we created Hardcaml, a hardware development toolchain embedded in OCaml. We don&#39;t expect you to know OCaml (we&#39;ll teach you here), but we are looking for hardware engineers who are excited about the advantages that better tools can bring, and are willing to try new things as a result.&lt;/p&gt;\n&lt;h3&gt;About you&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;You have 8+ years hands-on experience building and running modern physical design flows (e.g., floorplanning, place and route, timing closure, physical verification, power analysis)&lt;/li&gt;\n&lt;li&gt;You don&#39;t need to have optimised every last detail of every flow, but you should have broad enough experience across PD that you can own a flow end-to-end and know where the risks are&lt;/li&gt;\n&lt;li&gt;Beyond PD, you can read and write RTL and understand how front-end design decisions affect physical implementation—and vice versa; You think about physical design in the context of the overall chip, not just as a downstream consumer of a netlist&lt;/li&gt;\n&lt;li&gt;You&#39;re interested in using software engineering techniques to improve the hardware design process, and you have experience programming in a high-level language (Python, C++, Haskell, etc.)&lt;/li&gt;\n&lt;li&gt;Fluent in English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013332002,
+     "name": "London",
+     "location": "London, England, United Kingdom",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8531243002?gh_jid=8531243002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6255104002,
+   "location": {
+    "name": "New York, New York, United States"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": "250,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": "300,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Hardware Engineer",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8531243002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "5880",
+   "title": "ASIC Physical Design Engineer",
+   "company_name": "Jane Street",
+   "first_published": "2026-04-30T09:45:21-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking to hire an ASIC Physical Design Engineer to help us design, test, and deploy advanced hardware. As part of our Ultra Low Latency team, you&#39;ll have the opportunity to collaborate with people in areas across the firm, including trading, networking, and research infrastructure.&lt;/p&gt;\n&lt;p&gt;This isn&#39;t a traditional PD role. We&#39;re a small team where everyone works across the chip design process, and we expect our PD engineers to lead with physical design expertise but think like chip designers. You should be comfortable owning a PD flow end-to-end, but also able to read and write RTL and reason about design decisions that cross the front-end/back-end boundary.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;If you&#39;ve spent your career exclusively in PD, this probably isn&#39;t the right fit— but if you&#39;ve worked across the stack, either because you started as an RTL designer and moved into PD, or because you were on a smaller team where you had to wear multiple hats, we&#39;d love to talk.&lt;/p&gt;\n&lt;p&gt;We&#39;re big believers in the ability of tools to improve the productivity, reliability, and day-to-day joy of hardware engineering. That&#39;s why we created Hardcaml, a hardware development toolchain embedded in OCaml. We don&#39;t expect you to know OCaml (we&#39;ll teach you here), but we are looking for hardware engineers who are excited about the advantages that better tools can bring, and are willing to try new things as a result.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;You have 8+ years hands-on experience building and running modern physical design flows (e.g., floor planning, place and route, timing closure, physical verification, power analysis)&lt;/li&gt;\n&lt;li&gt;You don&#39;t need to have optimized every last detail of every flow, but you should have broad enough experience across PD that you can own a flow end-to-end and know where the risks are&lt;/li&gt;\n&lt;li&gt;Beyond PD, you can read and write RTL and understand how front-end design decisions affect physical implementation—and vice versa; You think about physical design in the context of the overall chip, not just as a downstream consumer of a netlist&lt;/li&gt;\n&lt;li&gt;You&#39;re interested in using software engineering techniques to improve the hardware design process, and you have experience programming in a high-level language (Python, C++, Haskell, etc.)&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4026210002,
+     "name": "Software Engineering",
+     "child_ids": [],
+     "parent_id": 4027373002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013330002,
+     "name": "New York",
+     "location": "New York, New York, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8469230002?gh_jid=8469230002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6382952002,
+   "location": {
+    "name": "Hong Kong, Hong Kong"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "University Recruiter",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8469230002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "6100",
+   "title": "Campus Recruiter",
+   "company_name": "Jane Street",
+   "first_published": "2026-04-27T07:56:58-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for an experienced Campus Recruiter to help us find and hire outstanding interns to join Jane Street. We’re focused on growing and diversifying our recruiting efforts, and the candidate landscape is more competitive than ever—your input will be critical as we work to stay ahead of the curve.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;We’re looking for someone who can manage their own pipeline while also bringing fresh ideas to our approach and processes. This will require finding solutions to big, interesting problems while also getting the details right.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;You will be instrumental in helping to grow our internship and in-house programme pipelines. Your day-to-day work will involve facilitating interviews, sourcing and pipelining, maintaining real-time updates in our applicant tracking system and data reporting tools and assisting with various recruitment events.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Our team has a long record of hiring great recruiters and coaching them to their full potential, and we spend a lot of time teaching our new hires the ins and outs of recruiting at Jane Street. This includes a thoughtful onboarding process that offers a deep dive into our big-picture strategy and how it applies to our daily work. Over time, we will continue to support your professional growth with hands-on training and mentorship.&lt;/p&gt;\n&lt;p&gt;Our Recruiting team is an energetic, tight-knit team of people who believe Jane Street’s greatest assets are the people working around us. We love what we do, and who we work with—and this drives our passion for connecting others at the firm with great teammates of their own.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Over the past 25 years, we have developed a dynamic and engaging search and interview process to find more than 3,000 of the strongest hires from all corners of the world, and we’ll rely on your expertise and insights to help drive our strategy forward.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 8+ years of university recruiting experience (no financial industry experience required)&lt;/li&gt;\n&lt;li&gt;Eager to learn new skills and make an immediate impact&lt;/li&gt;\n&lt;li&gt;Creative thinker with a deep understanding of the candidate landscape; able to help us anticipate where we need to go next to find great hires&lt;/li&gt;\n&lt;li&gt;Self-starter who can prioritise tasks, stay organised and turn ideas into action&lt;/li&gt;\n&lt;li&gt;Flexible team player with a roll-up-your-sleeves, no-job-too-small attitude&lt;/li&gt;\n&lt;li&gt;Able to communicate clearly with colleagues, candidates and external partners&lt;/li&gt;\n&lt;li&gt;Approachable and humble about what you know and don’t know; not afraid to ask for help&lt;/li&gt;\n&lt;li&gt;Curious about the operations of the firm and how recruiting fits into the bigger picture&lt;/li&gt;\n&lt;li&gt;Willing and excited to travel to recruiting conferences and events as needed&lt;/li&gt;\n&lt;li&gt;Fluent in English; another Asian language would be a plus (but not required)&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073118002,
+     "name": "Recruiting",
+     "child_ids": [],
+     "parent_id": 4072834002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013331002,
+     "name": "Hong Kong",
+     "location": "Hong Kong, Hong Kong",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8448713002?gh_jid=8448713002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6374933002,
+   "location": {
+    "name": "New York, New York, United States"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": "200,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": "300,000",
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Recruiting Generalist",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8448713002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "6086",
+   "title": "Campus Recruiter, Early Careers Partnerships & Initiatives",
+   "company_name": "Jane Street",
+   "first_published": "2026-03-04T10:49:19-05:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for a strategic thinker and skilled relationship builder to help us spearhead the planning and execution of a range of campus recruiting initiatives to attract outstanding interns and full-time employees across multiple business areas. The ideal candidate will excel at cultivating productive relationships with universities and student organizations, enthusiastically engage potential candidates, and think critically about our strategy to build this talent pipeline.&lt;/p&gt;\n&lt;p&gt;This role sits on our Early Careers Partnerships &amp;amp; Initiatives (ECPI) team, which is part of our broader global Campus Recruiting team. Our ECPI team is a highly supportive, collaborative and inventive group that spans our New York, London, Singapore, and Hong Kong offices.&lt;/p&gt;\n&lt;p&gt;The ECPI team owns a wide range of work — building and maintaining partnerships across academic levels and fields, planning and attending recruiting events, responding to immediate hiring priorities, and developing new initiatives from the ground up. The scope of this role will evolve based on your strengths and interests, but you should expect to move fluidly between strategic thinking and hands-on execution. On any given day, you might be shaping a new project&#39;s long-term direction and drafting the flyer to promote it, or digging into data to drive decision-making and confirming catering for an upcoming event. None of this happens in a silo — our best work comes from close collaboration with each other and teams across the firm. This will require finding solutions to big, interesting problems while also getting the little details right.&lt;/p&gt;\n&lt;p&gt;Like our Recruiting team at large, we believe that Jane Street&#39;s greatest assets are the people working around us. We love what we do, and perhaps more importantly, we love who we work with. This camaraderie fuels our passion for helping other teams at Jane Street find and hire great teammates of their own.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 8+ years of campus recruiting experience; knowledge of the quantitative or tech recruiting landscape is a plus, but not a prerequisite&lt;/li&gt;\n&lt;li&gt;Energized by identifying ways to grow and improve our campus recruiting efforts and able to develop and follow through on a plan to get us there, with a flexible mindset and openness to competing viewpoints&lt;/li&gt;\n&lt;li&gt;Humble about what you know and don’t know; not afraid to ask questions and admit mistakes&lt;/li&gt;\n&lt;li&gt;Strong team player; able to work effectively within and across various teams, and independently as appropriate&lt;/li&gt;\n&lt;li&gt;Highly organized with excellent attention to detail and a no-job-too-small attitude&lt;/li&gt;\n&lt;li&gt;Motivated self-starter with excellent project and stakeholder management skills and the ability to juggle competing priorities&lt;/li&gt;\n&lt;li&gt;Skilled event planner; excited about global travel to coordinate and attend events&lt;/li&gt;\n&lt;li&gt;Curious about the operations of the firm and how recruiting fits into the bigger picture&lt;/li&gt;\n&lt;li&gt;Travel to recruiting conferences and events will be required for this position&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073118002,
+     "name": "Recruiting",
+     "child_ids": [],
+     "parent_id": 4072834002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013330002,
+     "name": "New York",
+     "location": "New York, New York, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://www.janestreet.com/join-jane-street/apply/8151903002?gh_jid=8151903002",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 6230321002,
+   "location": {
+    "name": "Hong Kong, Hong Kong"
+   },
+   "metadata": [
+    {
+     "id": 4246316002,
+     "name": "Employment Type",
+     "value": "Full-Time: Experienced",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453104002,
+     "name": "Event Date",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 4453107002,
+     "name": "Event Location",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453108002,
+     "name": "Event Time",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 4453114002,
+     "name": "Event Type",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453115002,
+     "name": "Event Continent",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 4453117002,
+     "name": "Event URL",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 19843245002,
+     "name": "Duration",
+     "value": "Permanent",
+     "value_type": "single_select"
+    },
+    {
+     "id": 20495683002,
+     "name": "Event Registration Deadline",
+     "value": null,
+     "value_type": "date"
+    },
+    {
+     "id": 24844645002,
+     "name": "Min salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 24844702002,
+     "name": "Max salary",
+     "value": null,
+     "value_type": "short_text"
+    },
+    {
+     "id": 31769182002,
+     "name": "Workday Job Profile",
+     "value": "Recruiting University Relations",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8151903002,
+   "updated_at": "2026-07-30T11:44:38-04:00",
+   "requisition_id": "5752",
+   "title": "Campus Recruiter, Early Careers Partnerships & Initiatives ",
+   "company_name": "Jane Street",
+   "first_published": "2025-09-04T21:43:41-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;h3&gt;About the Position&lt;/h3&gt;\n&lt;p&gt;We are looking for a strategic thinker and skilled relationship-builder who can help us spearhead the planning and execution of a range of campus recruiting initiatives to attract outstanding interns and full-time employees across multiple countries and business areas. &lt;br&gt;&lt;br&gt;The ideal candidate will excel at cultivating and maintaining productive partnerships with universities, career centres and student organisations throughout the region, while enthusiastically engaging potential candidates and thinking critically about our strategy to build this pipeline of talent. Campus recruiting experience is required, while knowledge of the recruiting landscape across the APAC region would be ideal, but is not a prerequisite. &lt;br&gt;&lt;br&gt;Our team has a long record of hiring great recruiters and coaching them to their full potential, and we spend a lot of time teaching our new hires the ins and outs of recruiting at Jane Street. This includes a thoughtful onboarding process that offers a deep dive into our big-picture strategy and how it applies to our daily work. Over time, we will continue to support your professional growth with hands-on training and mentorship.&lt;br&gt;&lt;br&gt;To start, your day-to-day will involve planning and attending various types of recruiting events (e.g., on-campus, virtual and in-office), building and maintaining relationships with universities and external partners, and communicating with prospective candidates. We will rely on your expertise in event coordination and relationship management to bring fresh ideas to our approach, and to help us anticipate where and how we need to engage to find the next wave of exceptional talent. This will require finding solutions to big, interesting problems while also getting the little details right.&lt;br&gt;&lt;br&gt;This role sits on our Early Careers Partnerships &amp;amp; Initiatives (ECPI) team, which is part of our broader global Campus Recruiting team. Our ECPI team is a highly supportive, collaborative and inventive group of people that spans across our New York, London, Singapore, and Hong Kong offices.&lt;br&gt;&lt;br&gt;Like our Recruiting team at large, we believe that Jane Street’s greatest assets are the people working around us. We love what we do, and perhaps more importantly, we love who we work with. This camaraderie fuels our passion for helping other teams at Jane Street find and hire great teammates of their own.&lt;br&gt;&lt;br&gt;This person should expect to spend the first 6+ months in our New York City office before relocating to Hong Kong.&lt;/p&gt;\n&lt;h3&gt;About You&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Have 6+ years of campus recruiting experience (financial services industry experience would be useful but not required)&lt;/li&gt;\n&lt;li&gt;Preferably knowledgeable about the recruiting landscape across APAC (but not required)&lt;/li&gt;\n&lt;li&gt;Humble about what you know and don’t know; not afraid to ask questions and admit mistakes&lt;/li&gt;\n&lt;li&gt;Strong team player; able to work effectively within and across various teams, and independently as appropriate&lt;/li&gt;\n&lt;li&gt;Highly organised with excellent attention to detail and a no-job-too-small attitude&lt;/li&gt;\n&lt;li&gt;Motivated self-starter who can manage competing priorities effectively&lt;/li&gt;\n&lt;li&gt;Excellent project and stakeholder management skills&lt;/li&gt;\n&lt;li&gt;Skilled event planner; excited about global travel to coordinate and attend events&lt;/li&gt;\n&lt;li&gt;Curious about the operations of the firm and how recruiting fits into the bigger picture&lt;/li&gt;\n&lt;li&gt;Fluency in English required; another Asian language would be a plus (but not required)&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;If you&#39;re a recruiting agency and want to partner with us, please reach out to agency-partnerships@janestreet.com.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 4073118002,
+     "name": "Recruiting",
+     "child_ids": [],
+     "parent_id": 4072834002
+    }
+   ],
+   "offices": [
+    {
+     "id": 4013331002,
+     "name": "Hong Kong",
+     "location": "Hong Kong, Hong Kong",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  }
+ ],
+ "meta": {
+  "total": 230,
+  "kept_singapore": 14,
+  "kept_other": 10,
+  "captured": "2026-08-08"
+ }
+}
