@@ -25,11 +25,11 @@ from __future__ import annotations
 from datetime import date, datetime
 
 import httpx
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
 from gradtrack.config import Config
 from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
-from gradtrack.sources.base import FetchOutcome, RateLimiter, get_json
+from gradtrack.sources.base import FetchOutcome, LenientModel, RateLimiter, get_json
 
 SEARCH_URL = "https://api.mycareersfuture.gov.sg/v2/jobs"
 PAGE_SIZE = 100
@@ -77,39 +77,33 @@ SEARCH_TERMS: tuple[str, ...] = (
 )
 
 
-class _SalaryType(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _SalaryType(LenientModel):
     salaryType: str = ""
 
 
-class _Salary(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _Salary(LenientModel):
     minimum: float | None = None
     maximum: float | None = None
     type: _SalaryType | None = None
 
 
-class _Company(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _Company(LenientModel):
     name: str = ""
     uen: str = ""
 
 
-class _Named(BaseModel):
+class _Named(LenientModel):
     """positionLevels / employmentTypes / categories all share this shape with a different key."""
 
-    model_config = ConfigDict(extra="ignore")
     position: str = ""
     employmentType: str = ""
     category: str = ""
 
 
-class _Metadata(BaseModel):
-    # extra="ignore" rather than "forbid": the metadata block carries a couple of dozen
+class _Metadata(LenientModel):
+    # LenientModel ignores unknown keys, and the metadata block carries a couple of dozen
     # operational fields we have no use for. The ones we depend on are required below, so a
     # removal still fails loudly — which is the property the ingest rule actually asks for.
-    model_config = ConfigDict(extra="ignore")
-
     jobPostId: str
     jobDetailsUrl: str
     originalPostingDate: date
@@ -123,10 +117,8 @@ class _Metadata(BaseModel):
     totalNumberJobApplication: int = 0
 
 
-class McfJob(BaseModel):
+class McfJob(LenientModel):
     """One MyCareersFuture posting, validated at the ingest boundary."""
-
-    model_config = ConfigDict(extra="ignore")
 
     uuid: str
     title: str

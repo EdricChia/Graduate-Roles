@@ -16,19 +16,22 @@ from __future__ import annotations
 from datetime import date
 
 import httpx
-from pydantic import BaseModel, ConfigDict
 
 from gradtrack.config import Config
 from gradtrack.firms import Firm
 from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
-from gradtrack.sources.base import FetchOutcome, RateLimiter, contains_singapore, get_json
+from gradtrack.sources.base import (
+    FetchOutcome,
+    LenientModel,
+    RateLimiter,
+    contains_singapore,
+    get_json,
+)
 
 ACCOUNT_URL = "https://apply.workable.com/api/v1/widget/accounts/{account}"
 
 
-class WorkableJob(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
+class WorkableJob(LenientModel):
     title: str
     shortcode: str
     code: str = ""

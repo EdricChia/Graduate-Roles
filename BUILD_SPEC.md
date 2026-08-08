@@ -57,23 +57,38 @@ misattributions found in live runs.
 
 ## Phase 4 — the hard ATS platforms 🔶
 
-Workday is wired and verified against four live tenants (NVIDIA, Salesforce, DBS, Micron).
+**Workday** is wired and verified against four live tenants (NVIDIA, Salesforce, DBS, Micron).
 Everything measured about it is in `SOURCES.md`; the load-bearing facts are that `limit` above 20
 returns an empty array, that `searchText` is the only affordable way to narrow a 2,700-posting
 tenant, and that multi-location rows hide their locations behind "N Locations".
 
-**Still to do:** SuccessFactors, Oracle Recruiting Cloud, Eightfold, Phenom. SuccessFactors is
-confirmed as Temasek's ATS but needs per-tenant discovery and may be better served by Phase 5.
+**SuccessFactors** is wired and verified against Temasek (42 Singapore postings). It was expected
+to need Phase 5 and does not — see below.
+
+**Still to do:** Oracle Recruiting Cloud, Eightfold, Phenom. None has a confirmed target firm yet;
+they should be built when discovery identifies one, not before.
 
 ---
 
-## Phase 5 — Playwright fallback ⬜
+## Phase 5 — Playwright fallback ⬜ deliberately not built
 
-For careers sites that render entirely in JS, expose no feed, and whose `robots.txt` permits
-crawling. Optional `browser` extra, separate CI workflow, never on the critical path.
+Scope was "strict robots.txt plus a headless browser for JS-only career sites". The hook is in
+place — `Platform.BROWSER` exists in the schema, the registry validates a `browser` row as needing
+a `careers_url`, and `pyproject.toml` carries an optional `browser` extra — but no client is
+written, on purpose.
 
-**Acceptance:** remaining Tier-1 firms either covered or explicitly recorded in `SOURCES.md` as
-`unavailable`.
+**No firm has been shown to need one.** The candidate that motivated the phase was Temasek, whose
+SuccessFactors site turned out to be server-rendered and robots-permitted. Every source wired so
+far is JSON or server-rendered HTML.
+
+Writing an untested browser client now would add a ~400MB dependency, a second CI workflow and the
+project's most fragile code path, in exchange for zero demonstrated coverage. The honest sequence
+is the other way round: finish Workday, Oracle, Eightfold and Phenom discovery, see which Tier-1
+firms are still unreachable, check their `robots.txt`, and build the fallback against a real
+target.
+
+**Acceptance, when it is built:** remaining Tier-1 firms either covered or explicitly recorded in
+`SOURCES.md` as `unavailable`.
 
 ---
 

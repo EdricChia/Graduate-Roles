@@ -18,33 +18,35 @@ from __future__ import annotations
 from datetime import UTC, datetime
 
 import httpx
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
 from gradtrack.config import Config
 from gradtrack.firms import Firm
 from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
-from gradtrack.sources.base import FetchOutcome, RateLimiter, contains_singapore, get_json
+from gradtrack.sources.base import (
+    FetchOutcome,
+    LenientModel,
+    RateLimiter,
+    contains_singapore,
+    get_json,
+)
 
 POSTINGS_URL = "https://api.lever.co/v0/postings/{slug}"
 
 
-class _Categories(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _Categories(LenientModel):
     commitment: str = ""
     department: str = ""
     location: str = ""
     team: str = ""
 
 
-class _ListItem(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _ListItem(LenientModel):
     text: str = ""
     content: str = ""
 
 
-class LeverJob(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
+class LeverJob(LenientModel):
     id: str
     text: str
     hostedUrl: str = ""

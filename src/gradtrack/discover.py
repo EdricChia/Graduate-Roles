@@ -190,9 +190,23 @@ class Hit:
         # `ratio` penalises the length gap and scores those 61, 63 and 53, while an exact
         # brand like "optiver" or "openai" still scores 100.
         score = fuzz.ratio(_norm(self.token), _norm(target))
-        if score >= TOKEN_MATCH_THRESHOLD:
-            return True, f"token matches firm name ({score:.0f})"
-        return False, f"no company name or employer domain to verify against ({score:.0f})"
+        if score < TOKEN_MATCH_THRESHOLD:
+            return False, f"no company name or employer domain to verify against ({score:.0f})"
+
+        # An exact token match is still not proof, because brand names are not unique. The
+        # second run wired two boards on a perfect token score and both were somebody else:
+        # `lever/linkedin` is a sandbox account whose postings are titled "BO Prim" and
+        # "Anirban jobReq 3 - public", and `ashby/amber` is a German company in Köln and
+        # Aachen, not Amber Group.
+        #
+        # Requiring at least one Singapore posting is the corroboration that separates them
+        # from OpenAI, Snowflake and Palantir, which all have some. It costs nothing to be
+        # strict here: a board with no Singapore roles contributes nothing to a Singapore
+        # tracker today, so auto-wiring it is pure risk. The row stays `todo` and a human can
+        # confirm it with the add-firm skill.
+        if self.singapore_jobs <= 0:
+            return False, f"token matches ({score:.0f}) but no Singapore roles to corroborate it"
+        return True, f"token matches firm name ({score:.0f}), {self.singapore_jobs} SG roles"
 
     @property
     def verified(self) -> bool:

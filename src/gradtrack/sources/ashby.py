@@ -16,24 +16,27 @@ from __future__ import annotations
 from datetime import datetime
 
 import httpx
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
 from gradtrack.config import Config
 from gradtrack.firms import Firm
 from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
-from gradtrack.sources.base import FetchOutcome, RateLimiter, contains_singapore, get_json
+from gradtrack.sources.base import (
+    FetchOutcome,
+    LenientModel,
+    RateLimiter,
+    contains_singapore,
+    get_json,
+)
 
 BOARD_URL = "https://api.ashbyhq.com/posting-api/job-board/{name}"
 
 
-class _SecondaryLocation(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _SecondaryLocation(LenientModel):
     location: str = ""
 
 
-class AshbyJob(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
+class AshbyJob(LenientModel):
     id: str
     title: str
     location: str = ""

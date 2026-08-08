@@ -42,13 +42,14 @@ import re
 from datetime import date, timedelta
 
 import httpx
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
 from gradtrack.config import Config
 from gradtrack.firms import Firm
 from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
 from gradtrack.sources.base import (
     FetchOutcome,
+    LenientModel,
     RateLimiter,
     contains_singapore,
     get_json,
@@ -106,9 +107,7 @@ def parse_posted_on(text: str, today: date) -> tuple[date | None, PostedDateBasi
     return None, None
 
 
-class WorkdayPosting(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
+class WorkdayPosting(LenientModel):
     title: str
     externalPath: str
     locationsText: str = ""

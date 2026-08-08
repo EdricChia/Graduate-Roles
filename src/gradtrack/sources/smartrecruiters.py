@@ -21,12 +21,11 @@ from __future__ import annotations
 from datetime import datetime
 
 import httpx
-from pydantic import BaseModel, ConfigDict
 
 from gradtrack.config import Config
 from gradtrack.firms import Firm
 from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
-from gradtrack.sources.base import FetchOutcome, RateLimiter, get_json
+from gradtrack.sources.base import FetchOutcome, LenientModel, RateLimiter, get_json
 
 POSTINGS_URL = "https://api.smartrecruiters.com/v1/companies/{company}/postings"
 DETAIL_URL = "https://api.smartrecruiters.com/v1/companies/{company}/postings/{posting}"
@@ -35,22 +34,18 @@ PAGE_SIZE = 100
 MAX_PAGES = 20
 
 
-class _Label(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _Label(LenientModel):
     label: str = ""
 
 
-class _Location(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _Location(LenientModel):
     city: str = ""
     region: str = ""
     country: str = ""
     remote: bool = False
 
 
-class SmartRecruitersPosting(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
+class SmartRecruitersPosting(LenientModel):
     id: str
     name: str
     uuid: str = ""

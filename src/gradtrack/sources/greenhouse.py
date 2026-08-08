@@ -20,29 +20,31 @@ import html
 from datetime import datetime
 
 import httpx
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
 from gradtrack.config import Config
 from gradtrack.firms import Firm
 from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
-from gradtrack.sources.base import FetchOutcome, RateLimiter, contains_singapore, get_json
+from gradtrack.sources.base import (
+    FetchOutcome,
+    LenientModel,
+    RateLimiter,
+    contains_singapore,
+    get_json,
+)
 
 BOARD_URL = "https://boards-api.greenhouse.io/v1/boards/{token}/jobs"
 
 
-class _Location(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _Location(LenientModel):
     name: str = ""
 
 
-class _Department(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+class _Department(LenientModel):
     name: str = ""
 
 
-class GreenhouseJob(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-
+class GreenhouseJob(LenientModel):
     id: int
     title: str
     absolute_url: str

@@ -78,6 +78,28 @@ class TestRealMisattributions:
         """token_set_ratio scores a subset as a perfect match; these all hit 100 once."""
         assert not hit(firm_id, firm_name, Platform.ASHBY, token, jobs).verified
 
+    @pytest.mark.parametrize(
+        ("firm_id", "firm_name", "platform", "token", "jobs"),
+        [
+            # A sandbox account. Its postings are titled "BO Prim" and "Anirban jobReq 3".
+            ("linkedin", "LinkedIn", Platform.LEVER, "linkedin", 23),
+            # A German company in Köln and Aachen, not Amber Group.
+            ("ambergroup", "Amber Group", Platform.ASHBY, "amber", 22),
+        ],
+    )
+    def test_an_exact_token_with_no_singapore_roles_is_not_corroborated(
+        self, firm_id: str, firm_name: str, platform: Platform, token: str, jobs: int
+    ) -> None:
+        """Both scored a perfect token match and both were the wrong company.
+
+        Brand names are not unique, and on Lever and Ashby there is no company name or
+        employer domain to check against.
+        """
+        h = hit(firm_id, firm_name, platform, token, jobs, sg=0)
+        ok, reason = h.verify()
+        assert not ok
+        assert "Singapore" in reason
+
     def test_workable_invents_a_board_name_from_the_token(self) -> None:
         """Workable answers 200 for any account and titlecases the token.
 
@@ -124,18 +146,19 @@ class TestGenuineHits:
         ).verified
 
     @pytest.mark.parametrize(
-        ("firm_id", "firm_name", "token", "jobs"),
+        ("firm_id", "firm_name", "token", "jobs", "sg"),
         [
-            ("openai", "OpenAI", "openai", 747),
-            ("snowflake", "Snowflake", "snowflake", 395),
-            ("palantir", "Palantir", "palantir", 305),
+            ("openai", "OpenAI", "openai", 747, 27),
+            ("snowflake", "Snowflake", "snowflake", 395, 8),
+            ("palantir", "Palantir", "palantir", 305, 2),
         ],
     )
-    def test_exact_token_verification_without_a_board_name(
-        self, firm_id: str, firm_name: str, token: str, jobs: int
+    def test_exact_token_plus_singapore_roles_verifies(
+        self, firm_id: str, firm_name: str, token: str, jobs: int, sg: int
     ) -> None:
-        """Lever and Ashby report no company name, so an exact brand token is all there is."""
-        assert hit(firm_id, firm_name, Platform.ASHBY, token, jobs).verified
+        """Lever and Ashby report no company name, so the token plus Singapore presence is
+        all the evidence there is — and both halves are required."""
+        assert hit(firm_id, firm_name, Platform.ASHBY, token, jobs, sg=sg).verified
 
     def test_an_employer_domain_that_agrees_verifies(self) -> None:
         h = hit(

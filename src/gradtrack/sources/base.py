@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from typing import Any
 
 import httpx
+from pydantic import BaseModel, ConfigDict, model_validator
 from tenacity import (
     retry,
     retry_if_exception,
@@ -34,6 +35,42 @@ from gradtrack.config import Config
 # what exponential backoff would have chosen.
 RATE_LIMITED_BACKOFF_SECONDS = 60.0
 MAX_ATTEMPTS = 5
+
+
+class LenientModel(BaseModel):
+    """Base for every source payload model: JSON null on a string field means "absent".
+
+    This exists because of a real, silent data loss. Greenhouse sends
+    ``"requisition_id": null`` for boards that do not use requisition ids. A field declared
+    ``requisition_id: str = ""`` looks like it tolerates that and does not — Pydantic rejects
+    null for a ``str``, the whole row fails validation, and the client counts it as a bad row
+    and moves on.
+
+    The result was that **all 104 of Jump Trading's postings, including 17 in Singapore, were
+    dropped**, and the run reported "ok, 0 SG postings" — indistinguishable from a firm that
+    simply is not hiring here. Akuna lost 16 rows the same way and Point72 lost 2.
+
+    Every ATS in this project is a JSON API that omits optional fields as null, so this is not
+    a Greenhouse quirk to patch in one place. Coercing null to empty string for
+    plainly-``str`` fields is the right default at the boundary: it keeps a genuinely changed
+    payload shape failing loudly, while an absent optional value stops destroying the row.
+    """
+
+    model_config = ConfigDict(extra="ignore")
+
+    @model_validator(mode="before")
+    @classmethod
+    def _null_strings_become_empty(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+        cleaned = dict(data)
+        for name, field in cls.model_fields.items():
+            key = field.alias or name
+            # `is str` and not `issubclass`: a field annotated `str | None` already means to
+            # keep the null, and should not be quietly rewritten.
+            if field.annotation is str and cleaned.get(key, "") is None:
+                cleaned[key] = ""
+        return cleaned
 
 
 class RateLimiter:

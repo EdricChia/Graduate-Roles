@@ -49,22 +49,22 @@ optiver,Optiver,quant,1,,,,,,unknown,todo,
 imc,IMC Trading,quant,1,,,,,,unknown,todo,
 citadel,Citadel,quant,1,,,,,,unknown,todo,
 citadelsecurities,Citadel Securities,quant,1,,,,,,unknown,todo,
-jumptrading,Jump Trading,quant,1,,,,,,unknown,todo,
+jumptrading,Jump Trading,quant,1,greenhouse,jumptrading,,,,allowed,wired,discovered 104 jobs (17 SG); board name 'Jump Trading' matches (100.0)
 drw,DRW,quant,1,,,,,,unknown,todo,
 sig,Susquehanna International Group,quant,1,,,,,,unknown,todo,
-towerresearch,Tower Research Capital,quant,1,,,,,,unknown,todo,
+towerresearch,Tower Research Capital,quant,1,greenhouse,towerresearchcapital,,,,allowed,wired,discovered 72 jobs (16 SG); board name 'Tower Research Capital' matches (100.0)
 hudsonrivertrading,Hudson River Trading,quant,1,,,,,,unknown,todo,
 twosigma,Two Sigma,quant,1,,,,,,unknown,todo,
 millennium,Millennium Management,quant,1,,,,,,unknown,todo,
-point72,Point72,quant,1,,,,,,unknown,todo,
-squarepoint,Squarepoint Capital,quant,1,,,,,,unknown,todo,
+point72,Point72,quant,1,greenhouse,point72,,,,allowed,wired,discovered 231 jobs (21 SG); board name 'Point72 ' matches (100.0)
+squarepoint,Squarepoint Capital,quant,1,greenhouse,squarepointcapital,,,,allowed,wired,discovered 87 jobs (45 SG); board name 'Squarepoint Capital' matches (100.0)
 maven,Maven Securities,quant,2,,,,,,unknown,todo,
-davinci,Da Vinci Derivatives,quant,2,,,,,,unknown,todo,
-akuna,Akuna Capital,quant,2,,,,,,unknown,todo,
-grasshopper,Grasshopper Asia,quant,2,,,,,,unknown,todo,
+davinci,Da Vinci Derivatives,quant,2,greenhouse,davinciderivatives,,,,allowed,wired,discovered 12 jobs (0 SG); board name 'Da Vinci' matches (100.0)
+akuna,Akuna Capital,quant,2,greenhouse,akunacapital,,,,allowed,wired,discovered 34 jobs (1 SG); board name 'Akuna Capital' matches (100.0)
+grasshopper,Grasshopper Asia,quant,2,greenhouse,grasshopperasia,,,,allowed,wired,discovered 7 jobs (7 SG); board name 'Grasshopper' matches (100.0)
 xtx,XTX Markets,quant,1,,,,,,unknown,todo,
 qube,Qube Research & Technologies,quant,2,,,,,,unknown,todo,
-flowtraders,Flow Traders,quant,2,,,,,,unknown,todo,
+flowtraders,Flow Traders,quant,2,greenhouse,flowtraders,,,,allowed,wired,discovered 42 jobs (0 SG); board name 'Flow Traders' matches (100.0)
 aqr,AQR Capital Management,quant,2,,,,,,unknown,todo,
 deshaw,D. E. Shaw Group,quant,1,,,,,,unknown,todo,
 google,Google,bigtech,1,,,,,,unknown,todo,
@@ -74,32 +74,32 @@ microsoft,Microsoft,bigtech,1,,,,,,unknown,todo,
 apple,Apple,bigtech,1,,,,,,unknown,todo,
 nvidia,NVIDIA,bigtech,1,workday,nvidia,nvidia.wd5.myworkdayjobs.com,NVIDIAExternalCareerSite,,allowed,wired,workday tenant verified live
 netflix,Netflix,bigtech,1,,,,,,unknown,todo,
-bytedance,ByteDance / TikTok,bigtech,1,,,,,,unknown,todo,posts to MCF as BYTEDANCE PTE. LTD.
+bytedance,ByteDance / TikTok,bigtech,1,smartrecruiters,bytedance,,,,allowed,wired,posts to MCF as BYTEDANCE PTE. LTD.; discovered 2 jobs (0 SG); board name 'bytedance' matches (100.0)
 sea,Sea Group / Shopee,tech,1,,,,,,unknown,todo,
 grab,Grab,tech,1,,,,,,unknown,todo,
-stripe,Stripe,tech,1,,,,,,unknown,todo,
-databricks,Databricks,tech,1,,,,,,unknown,todo,
+stripe,Stripe,tech,1,greenhouse,stripe,,,,allowed,wired,discovered 550 jobs (37 SG); board name 'Stripe' matches (100.0)
+databricks,Databricks,tech,1,greenhouse,databricks,,,,allowed,wired,discovered 820 jobs (33 SG); board name 'Databricks' matches (100.0)
 salesforce,Salesforce,tech,1,workday,salesforce,salesforce.wd12.myworkdayjobs.com,External_Career_Site,,allowed,wired,workday tenant verified live
 adobe,Adobe,tech,2,,,,,,unknown,todo,
 uber,Uber,tech,2,,,,,,unknown,todo,
-airbnb,Airbnb,tech,2,,,,,,unknown,todo,
+airbnb,Airbnb,tech,2,greenhouse,airbnb,,,,allowed,wired,discovered 189 jobs (1 SG); board name 'Airbnb' matches (100.0)
 atlassian,Atlassian,tech,2,,,,,,unknown,todo,
-palantir,Palantir,tech,1,,,,,,unknown,todo,
-openai,OpenAI,tech,1,,,,,,unknown,todo,
-anthropic,Anthropic,tech,1,,,,,,unknown,todo,
-snowflake,Snowflake,tech,2,,,,,,unknown,todo,
-linkedin,LinkedIn,tech,2,,,,,,unknown,todo,careers site only; the job board itself is out of scope by ToS
+palantir,Palantir,tech,1,lever,palantir,,,,allowed,wired,discovered 305 jobs (2 SG); token matches firm name (100)
+openai,OpenAI,tech,1,ashby,openai,,,,allowed,wired,discovered 747 jobs (27 SG); token matches firm name (100)
+anthropic,Anthropic,tech,1,greenhouse,anthropic,,,,allowed,wired,discovered 393 jobs (4 SG); board name 'Anthropic' matches (100.0)
+snowflake,Snowflake,tech,2,ashby,snowflake,,,,allowed,wired,discovered 395 jobs (8 SG); token matches firm name (100)
+linkedin,LinkedIn,tech,2,,,,,,unknown,todo,"lever/linkedin is a sandbox account - postings titled 'BO Prim', 'Anirban jobReq 3'"
 visa,Visa,tech,2,,,,,,unknown,todo,
 mastercard,Mastercard,tech,2,,,,,,unknown,todo,
 paypal,PayPal,tech,2,,,,,,unknown,todo,
 kraken,Kraken,crypto,1,,,,,,unknown,todo,
-binance,Binance,crypto,1,,,,,,unknown,todo,
+binance,Binance,crypto,1,greenhouse,binance,,,,allowed,wired,discovered 1 jobs (1 SG); board name 'Binance' matches (100.0)
 okx,OKX,crypto,2,,,,,,unknown,todo,
 cryptocom,Crypto.com,crypto,2,,,,,,unknown,todo,
-ripple,Ripple,crypto,2,,,,,,unknown,todo,
+ripple,Ripple,crypto,2,greenhouse,ripple,,,,allowed,wired,discovered 132 jobs (1 SG); board name 'Ripple ' matches (100.0)
 circle,Circle,crypto,2,,,,,,unknown,todo,
 chainalysis,Chainalysis,crypto,2,,,,,,unknown,todo,
-ambergroup,Amber Group,crypto,2,,,,,,unknown,todo,
+ambergroup,Amber Group,crypto,2,,,,,,unknown,todo,"ashby/amber is a German company in Koln/Aachen, not Amber Group"
 qcpgroup,QCP Group,crypto,2,,,,,,unknown,todo,
 mckinsey,McKinsey & Company,consulting,1,,,,,,unknown,todo,
 bcg,Boston Consulting Group,consulting,1,,,,,,unknown,todo,
@@ -112,19 +112,19 @@ pwc,PwC,consulting,1,,,,,,unknown,todo,
 ey,EY,consulting,1,,,,,,unknown,todo,
 accenture,Accenture,consulting,1,,,,,,unknown,todo,
 kearney,Kearney,consulting,1,,,,,,unknown,todo,
-oliverwyman,Oliver Wyman,consulting,1,,,,,,unknown,todo,
+oliverwyman,Oliver Wyman,consulting,1,,,,,,unknown,todo,"lever/oliverwyman had 2 jobs and 0 SG - unverifiable, needs a human check"
 lek,L.E.K. Consulting,consulting,1,,,,,,unknown,todo,
-rolandberger,Roland Berger,consulting,2,,,,,,unknown,todo,
+rolandberger,Roland Berger,consulting,2,smartrecruiters,rolandberger,,,,allowed,wired,discovered 193 jobs (0 SG); board name 'Roland Berger' matches (100.0)
 arthurdlittle,Arthur D. Little,consulting,1,,,,,,unknown,todo,
 altmansolon,Altman Solon,consulting,1,,,,,,unknown,todo,
 analysisgroup,Analysis Group,consulting,2,,,,,,unknown,todo,
-charlesriver,Charles River Associates,consulting,2,,,,,,unknown,todo,
+charlesriver,Charles River Associates,consulting,2,greenhouse,charlesriverassociates,,,,allowed,wired,discovered 76 jobs (0 SG); board name 'Charles River Associates' matches (100.0)
 simonkucher,Simon-Kucher,consulting,2,,,,,,unknown,todo,
 zsassociates,ZS Associates,consulting,2,,,,,,unknown,todo,
 alvarezmarsal,Alvarez & Marsal,consulting,2,,,,,,unknown,todo,
 fticonsulting,FTI Consulting,consulting,2,,,,,,unknown,todo,
 gartner,Gartner,consulting,2,,,,,,unknown,todo,
-nielseniq,NielsenIQ,consulting,2,,,,,,unknown,todo,
+nielseniq,NielsenIQ,consulting,2,smartrecruiters,nielseniq,,,,allowed,wired,discovered 444 jobs (0 SG); board name 'NielsenIQ' matches (100.0)
 procterandgamble,Procter & Gamble,consumer,1,,,,,,unknown,todo,
 unilever,Unilever,consumer,1,,,,,,unknown,todo,
 nestle,Nestle,consumer,1,,,,,,unknown,todo,
@@ -168,7 +168,7 @@ exxonmobil,ExxonMobil,energy,1,,,,,,unknown,todo,
 bp,BP,energy,2,,,,,,unknown,todo,
 totalenergies,TotalEnergies,energy,2,,,,,,unknown,todo,
 trafigura,Trafigura,energy,1,,,,,,unknown,todo,
-vitol,Vitol,energy,1,,,,,,unknown,todo,
+vitol,Vitol,energy,1,smartrecruiters,vitol,,,,allowed,wired,discovered 34 jobs (0 SG); board name 'Vitol' matches (100.0)
 glencore,Glencore,energy,2,,,,,,unknown,todo,
 sembcorp,Sembcorp Industries,energy,2,,,,,,unknown,todo,
 singaporeairlines,Singapore Airlines,aviation,1,,,,,,unknown,todo,
