@@ -129,16 +129,46 @@ _WORKDAY_NON_SITES = {
 }
 
 
-def workday_site_candidates(body: str) -> list[str]:
-    """Career-site ids named in a Workday tenant's robots.txt.
+_SITEMAP = re.compile(r"^\s*Sitemap:\s*(\S+)\s*$", re.I | re.M)
+_ALLOW = re.compile(r"^\s*Allow:\s*(\S+)\s*$", re.I | re.M)
+_WORKDAY_SITE_IN_URL = re.compile(r"myworkdayjobs\.com/([A-Za-z0-9_\-]+)/", re.I)
 
-    `Disallow: /DBS_Careers/` means the site id is `DBS_Careers`. Not every tenant lists one
-    — Salesforce and Micron disallow nothing — so this narrows the search rather than ending
-    it.
+
+def workday_site_candidates(body: str) -> list[str]:
+    """Career-site ids named in a Workday tenant's robots.txt, best first.
+
+    **Order matters more than completeness here**, and getting it wrong picked the wrong
+    board twice.
+
+    An earlier version read site ids out of `Disallow` lines only. For DBS that is right —
+    `Disallow: /DBS_Careers/` names its one career site. For two others it inverted the
+    operator's intent:
+
+    * Manulife serves `Allow: /MFCJH_Jobs/` and `Disallow: /MFCJH_AdminJobs/`. Reading only
+      the Disallow line picked `MFCJH_AdminJobs`, a board of director and CEO postings that
+      robots.txt explicitly asks crawlers to leave alone.
+    * PwC lists sitemaps for `Global_Campus_Careers`, `Catalyst`,
+      `Global_Experienced_Careers` and `Global_Strategyand_Careers`, and disallows
+      `NonPublic_Postings`. The Disallow-only reading picked the non-public one and missed
+      the campus board — which for a graduate tracker is the single most useful site PwC has.
+
+    So: sitemaps first (a site the operator publishes for indexing), then `Allow`, then
+    `Disallow` as a last resort — useful as a name hint when a tenant offers nothing else,
+    which is the DBS case.
     """
     names: list[str] = []
-    for path in disallowed_paths(body):
-        first = path.strip("/").split("/")[0]
+
+    def add(candidate: str) -> None:
+        first = candidate.strip("/").split("/")[0]
         if first and first.lower() not in _WORKDAY_NON_SITES and first not in names:
             names.append(first)
+
+    for url in _SITEMAP.findall(body):
+        match = _WORKDAY_SITE_IN_URL.search(url)
+        if match:
+            add(match.group(1))
+    for path in _ALLOW.findall(body):
+        add(path)
+    for path in disallowed_paths(body):
+        add(path)
     return names

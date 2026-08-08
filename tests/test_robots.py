@@ -112,10 +112,52 @@ class TestEnforcement:
         assert len(calls) == 1
 
 
+PWC_ROBOTS = """
+Sitemap: https://pwc.wd3.myworkdayjobs.com/Global_Campus_Careers/siteMap.xml
+Sitemap: https://pwc.wd3.myworkdayjobs.com/Global_Experienced_Careers/siteMap.xml
+
+User-agent: *
+Disallow: /NonPublic_Postings/
+Disallow: /refreshFacet/
+"""
+
+MANULIFE_ROBOTS = """
+Sitemap: https://manulife.wd3.myworkdayjobs.com/MFCJH_Jobs/siteMap.xml
+
+User-agent: *
+Allow: /MFCJH_Jobs/
+Disallow: /MFCJH_AdminJobs/
+Disallow: /refreshFacet/
+"""
+
+
 class TestWorkdaySiteCandidates:
     def test_the_site_id_is_read_out_of_disallow(self) -> None:
         """DBS names its career site in robots.txt, which is what makes discovery cheap."""
         assert workday_site_candidates(DBS_ROBOTS) == ["DBS_Careers"]
+
+    def test_a_sitemap_beats_a_disallow(self) -> None:
+        """PwC disallows NonPublic_Postings and publishes sitemaps for its real boards.
+
+        Reading Disallow lines alone picked the non-public board and missed
+        Global_Campus_Careers — 139 postings, and the single most useful site PwC has for a
+        graduate tracker.
+        """
+        candidates = workday_site_candidates(PWC_ROBOTS)
+        assert candidates[0] == "Global_Campus_Careers"
+        assert candidates.index("NonPublic_Postings") > candidates.index(
+            "Global_Experienced_Careers"
+        )
+
+    def test_an_allow_beats_a_disallow(self) -> None:
+        """Manulife allows MFCJH_Jobs and disallows MFCJH_AdminJobs.
+
+        Picking the disallowed one inverted the operator's stated intent and pointed the
+        tracker at a board of director and CEO postings.
+        """
+        candidates = workday_site_candidates(MANULIFE_ROBOTS)
+        assert candidates[0] == "MFCJH_Jobs"
+        assert candidates.index("MFCJH_AdminJobs") > 0
 
     def test_operational_paths_are_not_site_ids(self) -> None:
         assert workday_site_candidates(NVIDIA_ROBOTS) == []
