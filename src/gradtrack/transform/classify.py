@@ -64,6 +64,21 @@ SUBJECT_MATTER_GRADUATE = re.compile(
 
 # Academic career-track roles. A Research Fellow is a postdoc, not a graduate hire, and NTU
 # posts several whose descriptions mention graduate study.
+# Not a job. Careers sites list these alongside postings and they match graduate patterns
+# perfectly — Temasek advertises a "Campus Recruitment Event - Temasek Countrywide Networking
+# Event (Singapore)", which is worth knowing about but is not a role to apply for.
+#
+# It also catches test requisitions left live on a tenant. DBS's Workday board carries
+# "[JIM LV TEST – Do NOT Apply] 2027 Management Associate", which is a perfect graduate
+# title attached to a posting that explicitly says not to apply.
+NOT_A_ROLE = re.compile(
+    r"\b(recruitment event|networking event|info(rmation)? session|open house|career fair|"
+    r"webinar|meet[- ]?(the|and)[- ]?(team|greet)|talent (community|network|pool)|"
+    r"expression of interest|speculative application|do not apply|test (post|req|requisition))\b"
+    r"|\[[^\]]*\btest\b[^\]]*\]",
+    re.I,
+)
+
 ACADEMIC_TRACK = re.compile(
     r"\b(research fellow|post[- ]?doc|postdoctoral|adjunct|professor|lecturer|tutor|"
     r"teaching assistant|dean|provost)\b",
@@ -92,6 +107,21 @@ YEARS_DEMANDED = re.compile(
     re.I,
 )
 
+# Company history, not a requirement — and the difference nearly cost a real graduate
+# programme. Point72's "Academy Investment Analyst Program for Upcoming Graduates (2027 –
+# SG)" was vetoed at thirty years because its boilerplate reads "building on more than 30
+# years of investing experience". Anything introduced by one of these is describing the firm.
+#
+# The asymmetry here is deliberate. Skipping the veto on a genuinely senior role that says
+# "candidates with over 5 years of experience" costs almost nothing, because with no
+# graduate signals it still falls through to `no-route`. Applying the veto to a graduate
+# programme loses the role outright.
+YEARS_AS_HISTORY = re.compile(
+    r"\b(?:over|more than|for|nearly|almost|past|last|about|around|"
+    r"founded|since|history of|track record of|experience of)\s+$",
+    re.I,
+)
+
 # ---------------------------------------------------------------------------
 # Route signals
 # ---------------------------------------------------------------------------
@@ -101,7 +131,10 @@ YEARS_DEMANDED = re.compile(
 # graduate engineering postings, all of which are tagged positionLevel "Professional" and
 # would be missed by any entry-level filter.
 PROGRAMME_TITLE = re.compile(
-    r"\b(graduate|new grad|newgrad|fresh grad(uate)?|campus (hire|recruit)|"
+    # Bare "campus", not "campus hire". Jump Trading titles its graduate roles "Campus AI/ML
+    # Researcher (Fall 2026)" and "Campus Quantitative Trader" — six roles that the narrower
+    # pattern missed entirely.
+    r"\b(graduate|new grad|newgrad|fresh grad(uate)?|campus|"
     r"analyst programme|analyst program|associate programme|associate program|"
     r"rotational programme|rotational program|leadership programme|leadership program|"
     r"development programme|development program|early career(s)?|apprentice(ship)?)\b"
@@ -245,7 +278,12 @@ def _years_demanded_in_text(text: str) -> int | None:
     Takes the maximum rather than the first because postings routinely say "0-2 years" in
     the summary and "3 years" in the requirements; the stricter number is the real one.
     """
-    found = [int(m.group(1)) for m in YEARS_DEMANDED.finditer(text)]
+    found = [
+        int(m.group(1))
+        for m in YEARS_DEMANDED.finditer(text)
+        # Look back far enough to catch "building on more than " before the number.
+        if not YEARS_AS_HISTORY.search(text[max(0, m.start() - 24) : m.start()])
+    ]
     return max(found) if found else None
 
 
@@ -285,6 +323,8 @@ def classify_grad(
     states_fresh = bool(STATED_FRESH_GRAD.search(title_l)) or bool(STATED_FRESH_GRAD.search(desc))
 
     # --- vetoes -----------------------------------------------------------
+    if NOT_A_ROLE.search(title_l):
+        return GradVerdict(False, is_internship, 0.0, "veto:not-a-role")
     if SUBJECT_MATTER_GRADUATE.search(title_l):
         return GradVerdict(False, is_internship, 0.0, "veto:graduate-as-subject-matter")
     if ACADEMIC_TRACK.search(title_l):

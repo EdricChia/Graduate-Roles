@@ -36,19 +36,31 @@ from rapidfuzz import fuzz
 from gradtrack.firms import Registry
 from gradtrack.schema import Platform, SourcePosting
 
-# Legal-entity boilerplate. MyCareersFuture reports registered names ("BYTEDANCE PTE. LTD.",
-# "ASML SINGAPORE PTE LTD"); the registry holds brands ("ByteDance / TikTok", "ASML").
-_ENTITY_NOISE = re.compile(
+# Denoising is deliberately asymmetric, and getting that wrong caused a real misattribution.
+#
+# Legal suffixes are noise on both sides: "BYTEDANCE PTE. LTD." and "ByteDance" are the same
+# firm. But geography and size words are noise only on the *employer* side. "ASML SINGAPORE
+# PTE LTD" is ASML — yet stripping "Singapore" from the registry side turns "Enterprise
+# Singapore" into the bare word "enterprise", which then matched HONG FOOD ENTERPRISE,
+# EMPOWER ENTERPRISE, SGI ENTERPRISE, ZENVORA NOVA ENTERPRISE and Hewlett Packard Enterprise
+# — filling the dashboard with MLM sales postings under a statutory board's name.
+_LEGAL_SUFFIX = re.compile(
     r"\b(pte|ltd|limited|llp|llc|inc|plc|private|pvt|co|corp|corporation|company|"
-    r"holdings?|group|international|global|asia|apac|pacific|singapore|sg|branch|"
-    r"regional|headquarters|hq|s\)|and|the|of)\b",
+    r"branch|headquarters|hq|and|the|of)\b",
+    re.I,
+)
+_GEO_NOISE = re.compile(
+    r"\b(holdings?|group|international|global|asia|apac|pacific|singapore|sg|regional)\b",
     re.I,
 )
 _NON_ALNUM = re.compile(r"[^a-z0-9]+")
 
-# Above this on a denoised token-set comparison *and* passing the containment check below.
+# Above this on a denoised token-set comparison *and* passing the prefix check below.
 # 92 rather than 85: at 85, "MICRON" matched "MICRO" competitors in trial runs.
 NAME_MATCH_THRESHOLD = 92
+# Brands shorter than this need an explicit alias. "GE" as a prefix would swallow half the
+# registry, and a two-letter token cannot carry enough evidence to be worth the risk.
+MIN_BRAND_CHARS = 4
 
 # Two postings of the same role can be entered on the ATS and on MyCareersFuture a fortnight
 # apart, because board posting follows compliance timing rather than the recruiter.
@@ -56,12 +68,28 @@ MERGE_WINDOW = timedelta(days=14)
 TITLE_MATCH_THRESHOLD = 88
 
 
-def denoise(name: str) -> str:
-    return _NON_ALNUM.sub(" ", _ENTITY_NOISE.sub(" ", name.lower())).strip()
+def denoise(name: str, *, strip_geography: bool = False) -> str:
+    """Normalise a company name. ``strip_geography`` only for registered employer names."""
+    cleaned = _LEGAL_SUFFIX.sub(" ", name.lower())
+    if strip_geography:
+        cleaned = _GEO_NOISE.sub(" ", cleaned)
+    return _NON_ALNUM.sub(" ", cleaned).strip()
 
 
-def compact(name: str) -> str:
-    return _NON_ALNUM.sub("", denoise(name))
+def compact(name: str, *, strip_geography: bool = False) -> str:
+    return _NON_ALNUM.sub("", denoise(name, strip_geography=strip_geography))
+
+
+def brand_variants(firm_name: str) -> list[str]:
+    """Every compacted brand a registry name might be registered under, longest first.
+
+    Some firms are carried under two names because that is how they are known: "ByteDance /
+    TikTok", "Sea Group / Shopee", "Strategy& (PwC)". Their Singapore entity registers under
+    one of them — "BYTEDANCE PTE. LTD." — and matching only the combined string fails.
+    """
+    parts = [firm_name, *re.split(r"[/(),]", firm_name)]
+    variants = {compact(part) for part in parts if compact(part)}
+    return sorted((v for v in variants if len(v) >= MIN_BRAND_CHARS), key=len, reverse=True)
 
 
 @dataclass(frozen=True)
@@ -120,24 +148,28 @@ def resolve_firm(posting: SourcePosting, registry: Registry, aliases: list[Alias
     if not employer.strip():
         return Resolution(None, "no-employer-name")
 
-    employer_compact = compact(employer)
+    employer_compact = compact(employer, strip_geography=True)
     for firm in registry:
-        if employer_compact and employer_compact == compact(firm.firm_name):
+        if employer_compact and employer_compact in brand_variants(firm.firm_name):
             return Resolution(firm.firm_id, "exact-name")
 
     best: tuple[int, str] = (0, "")
     for firm in registry:
-        firm_compact = compact(firm.firm_name)
-        if len(firm_compact) < 4:
-            # Short brand names generate spurious matches against long legal entity names.
+        variants = brand_variants(firm.firm_name)
+        if not variants:
             continue
         score = int(fuzz.token_set_ratio(denoise(firm.firm_name), denoise(employer)))
         if score > best[0]:
             best = (score, firm.firm_id)
-        # Containment is the second gate. A high token-set score alone matched unrelated
-        # companies that happen to share a common word; requiring the brand to literally
-        # appear inside the registered name removes almost all of it.
-        if score >= NAME_MATCH_THRESHOLD and firm_compact in employer_compact:
+        # The second gate is a *prefix*, not containment anywhere in the string. Registered
+        # names put the brand first — "ASML SINGAPORE PTE LTD", "MACQUARIE CAPITAL
+        # SECURITIES" — while the false matches all had the shared word last: HONG FOOD
+        # ENTERPRISE, EMPOWER ENTERPRISE, SGI ENTERPRISE. Anchoring to the start separates
+        # a subsidiary from a company that merely ends in the same generic noun, and it also
+        # rejects HEWLETT PACKARD ENTERPRISE SINGAPORE against Enterprise Singapore.
+        if score >= NAME_MATCH_THRESHOLD and any(
+            employer_compact.startswith(variant) for variant in variants
+        ):
             return Resolution(firm.firm_id, "fuzzy-name", score)
 
     return Resolution(None, "unmatched", best[0])

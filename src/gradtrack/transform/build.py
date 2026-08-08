@@ -36,6 +36,54 @@ from gradtrack.transform.lifecycle import compute_lifecycle, load_history
 POSTINGS_OUT = "postings.parquet"
 CANDIDATES_OUT = "discovery_candidates.parquet"
 
+# Declared, not inferred. Polars types a column from the first 100 rows, and `salary_min` is
+# null on every ATS row — only MyCareersFuture carries a salary. With 1,400 ATS postings
+# ahead of the first MyCareersFuture one, the column was inferred as Null and then the build
+# died on "could not append value: 12000.0 of type f64". Inference is also the wrong tool
+# here on principle: this table is the project's data contract and its types should be stated
+# once, not rediscovered from whatever happens to sort first.
+CURATED_SCHEMA: dict[str, pl.DataType] = {
+    "job_key": pl.Utf8,
+    "firm_id": pl.Utf8,
+    "firm_name": pl.Utf8,
+    "sector": pl.Utf8,
+    "tier": pl.Int64,
+    "title": pl.Utf8,
+    "apply_url": pl.Utf8,
+    "source_platform": pl.Utf8,
+    "external_id": pl.Utf8,
+    "location_raw": pl.Utf8,
+    "is_singapore": pl.Boolean,
+    "posted_date": pl.Date,
+    "posted_date_basis": pl.Utf8,
+    "first_seen": pl.Date,
+    "last_seen": pl.Date,
+    "status": pl.Utf8,
+    "job_family": pl.Utf8,
+    "family_group": pl.Utf8,
+    "family_confidence": pl.Float64,
+    "family_basis": pl.Utf8,
+    "is_grad": pl.Boolean,
+    "grad_confidence": pl.Float64,
+    "grad_basis": pl.Utf8,
+    "is_internship": pl.Boolean,
+    "department": pl.Utf8,
+    "employment_type": pl.Utf8,
+    "mcf_job_id": pl.Utf8,
+    "salary_min": pl.Float64,
+    "salary_max": pl.Float64,
+    "description_text": pl.Utf8,
+    "snapshot_date": pl.Date,
+}
+
+
+def _as_float(value: object) -> float | None:
+    """Salary arrives as int, float, str or None depending on the source."""
+    try:
+        return float(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+
 
 def _int_or_none(value: object) -> int | None:
     try:
@@ -147,15 +195,14 @@ def build(config: Config, registry: Registry, overrides: dict[str, str]) -> pl.D
                 "department": posting.department,
                 "employment_type": posting.employment_type,
                 "mcf_job_id": str(posting.extra.get("mcf_job_id") or ""),
-                "salary_min": posting.extra.get("salary_min"),
-                "salary_max": posting.extra.get("salary_max"),
+                "salary_min": _as_float(posting.extra.get("salary_min")),
+                "salary_max": _as_float(posting.extra.get("salary_max")),
                 "description_text": posting.description_text[:8000],
                 "snapshot_date": latest,
             }
         )
 
-    frame = pl.DataFrame(rows) if rows else pl.DataFrame({c: [] for c in CURATED_COLUMNS})
-    frame = frame.select([c for c in CURATED_COLUMNS if c in frame.columns])
+    frame = pl.DataFrame(rows, schema=CURATED_SCHEMA).select(CURATED_COLUMNS)
 
     config.curated_dir.mkdir(parents=True, exist_ok=True)
     frame.write_parquet(config.curated_dir / POSTINGS_OUT)

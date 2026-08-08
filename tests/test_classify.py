@@ -129,6 +129,43 @@ class TestGraduateTraps:
             v = classify_grad(title, min_years=1, position_levels=("Fresh/entry level",))
             assert not v.is_grad, f"{title} should not qualify on structured signals alone"
 
+    def test_company_history_is_not_an_experience_requirement(self) -> None:
+        """Point72's graduate programme was vetoed at thirty years.
+
+        Its boilerplate reads "building on more than 30 years of investing experience". The
+        veto has to read requirements, not the firm's own age.
+        """
+        verdict = classify_grad(
+            "Point72 Academy Investment Analyst Program for Upcoming Graduates (2027 - SG)",
+            "building on more than 30 years of investing experience, point72 seeks to deliver "
+            "superior returns",
+        )
+        assert verdict.is_grad
+        assert verdict.basis == "route:programme"
+
+    def test_a_real_experience_requirement_still_vetoes(self) -> None:
+        """The history exemption must not disarm the veto generally."""
+        assert not classify_grad(
+            "Software Engineer", "minimum of 3 years of experience in backend systems"
+        ).is_grad
+        assert not classify_grad("Analyst", "we require at least 5 years of experience").is_grad
+
+    def test_bare_campus_counts_as_a_programme(self) -> None:
+        """Jump Trading titles its graduate roles "Campus AI/ML Researcher (Fall 2026)".
+
+        A pattern requiring "campus hire" or "campus recruit" missed six of them.
+        """
+        assert classify_grad("Campus AI/ML Researcher (Fall 2026)").is_grad
+        assert classify_grad("Campus Quantitative Trader").is_grad
+
+    def test_a_recruitment_event_is_not_a_role(self) -> None:
+        """Temasek lists "Campus Recruitment Event ... Networking Event" among its postings."""
+        verdict = classify_grad(
+            "Campus Recruitment Event - Temasek Countrywide Networking Event (Singapore)"
+        )
+        assert not verdict.is_grad
+        assert verdict.basis == "veto:not-a-role"
+
     def test_an_ats_row_with_no_grad_wording_is_not_a_graduate_role(self) -> None:
         """Jane Street's Singapore postings carry no structured field and claim nothing."""
         assert not classify_grad("Software Engineer").is_grad
