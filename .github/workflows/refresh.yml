@@ -1,0 +1,160 @@
+name: refresh
+
+# Twice-daily refresh of the JSON sources: every wired ATS board, then MyCareersFuture.
+#
+# Twice rather than once because the entire premise of reading company career sites directly
+# is being early. A grad programme can open and fill inside a fortnight, and a role posted at
+# 10:00 that we first see 22 hours later has lost most of the advantage the ATS layer buys.
+#
+# The Playwright leg lives in its own workflow on purpose. It is the most fragile part of the
+# project and it must never be able to block the JSON path — a browser that fails to launch
+# should cost us a handful of firms, not the whole run.
+#
+# Ordering here is deliberate and matches the finance repo's refresh: ingest, transform,
+# write the health report, commit, and only THEN allow the run to go red. A broken day has to
+# leave its evidence committed before it fails, or the next session has nothing to diagnose.
+
+on:
+  schedule:
+    # 00:00 and 12:00 UTC = 08:00 and 20:00 Singapore.
+    - cron: "0 0,12 * * *"
+  workflow_dispatch:
+    inputs:
+      notify:
+        description: "Send the Telegram digest"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    # The ATS sweep is rate-limited per host and grows with the registry. 45 leaves room for
+    # a slow upstream without letting one hung request burn an hour of runner time.
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync
+
+      # config.toml is gitignored because it carries the contact email that goes out in every
+      # User-Agent. The runner rebuilds it from secrets. This must not be skipped: we read
+      # several hundred careers hosts on a schedule, and anonymous traffic at that shape is
+      # what gets an IP blocked.
+      - name: Write config.toml
+        env:
+          CONTACT_NAME: ${{ secrets.CONTACT_NAME }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+        run: |
+          set -euo pipefail
+          test -n "${CONTACT_EMAIL}" || { echo "CONTACT_EMAIL secret is unset"; exit 1; }
+          cat > config.toml <<EOF
+          [contact]
+          name = "${CONTACT_NAME}"
+          email = "${CONTACT_EMAIL}"
+
+          [http]
+          user_agent = "gradtrack job tracker (${CONTACT_NAME}, ${CONTACT_EMAIL})"
+
+          [rate_limits]
+          default = 1.0
+          greenhouse = 2.0
+          lever = 2.0
+          ashby = 2.0
+          smartrecruiters = 2.0
+          workable = 2.0
+          workday = 0.5
+          mcf = 2.0
+
+          [paths]
+          raw = "data/raw"
+          manual = "data/manual"
+          firms = "data/firms"
+          curated = "data/curated"
+          duckdb = "data/curated.duckdb"
+          EOF
+
+      # The classifier and lifecycle suites gate the run. If the graduate rules have
+      # regressed, writing a snapshot classified by them just buries the problem in data.
+      - name: Tests
+        run: uv run pytest -q
+
+      # --- ingest -------------------------------------------------------------
+      # Append-only into data/raw/source=<platform>/snapshot_date=<today>/. Neither step
+      # fails the workflow on an individual firm's outage: the failure is recorded as a
+      # FetchOutcome and transform/lifecycle.py refuses to mark that firm's roles closed.
+
+      - name: Ingest - ATS boards
+        run: uv run python -m gradtrack.ingest.ats
+
+      - name: Ingest - MyCareersFuture
+        run: uv run python -m gradtrack.ingest.mcf
+
+      # --- transform ----------------------------------------------------------
+
+      - name: Build curated tables
+        run: uv run python -m gradtrack.transform.build
+
+      # --- report -------------------------------------------------------------
+      # Written before anything is allowed to fail, and committed below.
+
+      - name: Refresh check
+        run: uv run python -m gradtrack.refresh_check
+
+      # --- notify -------------------------------------------------------------
+      # After the curated build, so the digest reflects what was actually written. Skipped
+      # rather than failed when the secrets are absent, so the pipeline is usable before the
+      # bot is set up.
+
+      - name: Telegram digest
+        if: ${{ github.event_name == 'schedule' || inputs.notify }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
+            echo "::warning::Telegram secrets unset - writing the digest to reports/ instead"
+            uv run python -m gradtrack.notify.telegram --dry-run
+          else
+            uv run python -m gradtrack.notify.telegram
+          fi
+
+      - name: Commit the new snapshot
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw data/curated data/manual reports
+          if git diff --cached --quiet; then
+            echo "::warning::no new data - the snapshot is identical to the last run"
+          else
+            git commit -m "refresh: snapshot $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash
+            git push
+          fi
+
+      # Now the run may go red. Re-reads what the check just wrote and exits non-zero if a
+      # source is broken - every firm on a platform failing, or zero rows returned. Silent
+      # staleness is the failure this whole file exists to make visible.
+      - name: Fail on broken sources
+        run: uv run python -m gradtrack.refresh_check --check-only
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports/
+          if-no-files-found: warn
