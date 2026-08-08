@@ -165,6 +165,25 @@ STATED_FRESH_GRAD = re.compile(
     re.I,
 )
 
+# A fresh-graduate phrase can appear in a description in order to send graduates *away*.
+# Jump Trading's "Quantitative Researcher | Trading Team" is an experienced-hire role whose
+# body reads "if you are currently a student or recent graduate, please see our campus
+# postings which offer both intern and full-time opportunities". Reading "recent graduate"
+# there and concluding the role is open to graduates inverts the sentence's meaning.
+#
+# Checked in a window around each occurrence, so one redirect clause does not disqualify a
+# description that genuinely invites graduates elsewhere in the text.
+FRESH_GRAD_REDIRECT = re.compile(
+    r"\b(?:see|refer to|visit|check|browse|explore|consider|apply (?:to|through|via))\b"
+    r"[^.]{0,40}?\b(?:campus|university|student|graduate|early[ -]?career|intern)\b"
+    r"[^.]{0,20}?\b(?:postings?|programmes?|programs?|opportunities|roles?|openings?|page|site)\b"
+    r"|\bnot (?:intended|suitable|designed|open|available) for\b"
+    r"|\bthis (?:role|position|opening|posting) is not\b",
+    re.I,
+)
+REDIRECT_WINDOW_BEFORE = 130
+REDIRECT_WINDOW_AFTER = 160
+
 # Title-level entry markers. Weaker than a programme name, so this route additionally
 # requires that nothing contradicts it on experience.
 ENTRY_TITLE = re.compile(r"\b(entry[ -]?level|junior|trainee|graduate)\b", re.I)
@@ -272,6 +291,24 @@ def _structured_contradiction(min_years: int | None, position_levels: tuple[str,
     )
 
 
+def _states_fresh_grad(title: str, description: str) -> bool:
+    """Whether the posting invites graduates, as opposed to merely mentioning them.
+
+    A phrase in the title is taken at face value: "Fresh Grads only" is not ambiguous. In the
+    body, each occurrence is checked against the text around it, and one sitting inside a
+    "please see our campus postings" clause is pointing elsewhere, not describing this role.
+    """
+    if STATED_FRESH_GRAD.search(title):
+        return True
+    for match in STATED_FRESH_GRAD.finditer(description):
+        window = description[
+            max(0, match.start() - REDIRECT_WINDOW_BEFORE) : match.end() + REDIRECT_WINDOW_AFTER
+        ]
+        if not FRESH_GRAD_REDIRECT.search(window):
+            return True
+    return False
+
+
 def _years_demanded_in_text(text: str) -> int | None:
     """Largest explicit years-of-experience demand in prose, if any.
 
@@ -320,7 +357,7 @@ def classify_grad(
     has_programme = bool(PROGRAMME_TITLE.search(title_l)) or bool(
         ANCHORED_PROGRAMME.search(title_l)
     )
-    states_fresh = bool(STATED_FRESH_GRAD.search(title_l)) or bool(STATED_FRESH_GRAD.search(desc))
+    states_fresh = _states_fresh_grad(title_l, desc)
 
     # --- vetoes -----------------------------------------------------------
     if NOT_A_ROLE.search(title_l):

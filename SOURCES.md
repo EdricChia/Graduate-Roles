@@ -90,12 +90,48 @@ measured against live tenants on 2026-08-08.
   last is unresolvable and becomes a null date rather than a fabricated one.
 - **The data-centre number (wd1/wd3/wd5/wd12) is not derivable from the tenant**, so the registry
   stores `ats_host` in full.
-- **HTTP 422 means the host is right and the site name is wrong**; 404 means the host is wrong.
-  Useful when hunting a tenant by hand — `gic.wd3.myworkdayjobs.com` answers 422, so GIC has a
-  Workday tenant under some site name we have not found yet.
+
+### Finding a Workday tenant
+
+**Correction.** An earlier version of this file said "HTTP 422 means the host is right and the
+site name is wrong", and used that to conclude GIC had a Workday tenant. That was wrong. A tenant
+that exists also serves `/robots.txt`, and `gic.wd3.myworkdayjobs.com/robots.txt` returns 422 too
+— so 422 just means the tenant is not on that host. GIC returns 422 on all six data centres and
+is not on Workday under that name.
+
+`robots.txt` is the right probe, and it answers both questions:
+
+- **Which host.** `https://{tenant}.wd{n}.myworkdayjobs.com/robots.txt` returns 200 where the
+  tenant exists. Six cheap GETs settle it.
+- **Which site.** The `Disallow` lines frequently name the career site outright — DBS returns
+  `Disallow: /DBS_Careers/`, and `DBS_Careers` is the site id the CXS endpoint needs. Not all
+  tenants list one (Salesforce and Micron disallow nothing), so `discover_workday.py` falls back
+  to a list of conventional names.
+
+Note what DBS's `robots.txt` does and does not forbid. `Disallow: /DBS_Careers/` covers the
+human-facing job pages; the CXS API lives under `/wday/cxs/` and is not matched by that prefix.
+The check is enforced in code by `sources/robots.py` using the standard library's path-prefix
+matcher rather than by reading the file by eye, and it runs on every ingest.
 
 Verified tenants: `nvidia.wd5/NVIDIAExternalCareerSite`, `salesforce.wd12/External_Career_Site`,
-`dbs.wd3/DBS_Careers`, `micron.wd1/External`.
+`dbs.wd3/DBS_Careers`, `micron.wd1/External`, `shell.wd3/ShellCareers`,
+`accenture.wd103/AccentureCareers`.
+
+### ByteDance / TikTok — the one firm that needs a browser
+
+`smartrecruiters/bytedance` is a real ByteDance board and effectively dead: two postings, in
+Malaysia and China, none in Singapore. No Greenhouse, Lever or Ashby board exists.
+
+ByteDance's Singapore hiring is on `careers.tiktok.com`, whose `robots.txt` permits `/position`
+and disallows only `/referral/`. The listings are rendered entirely client-side: the page embeds
+no JSON (`__NEXT_DATA__` is absent) and `POST /api/v1/search/job/posts` answers 200 with an empty
+`text/plain` body unless the request carries headers we are not reproducing.
+
+**Coverage is not lost.** ByteDance posts prolifically to MyCareersFuture — 40 of the tracker's
+graduate roles are theirs, all correctly classified. What differs is the apply link, which points
+at MyCareersFuture rather than `careers.tiktok.com`. That is the one concrete case for the Phase 5
+browser fallback, and it is recorded here so the decision is made against evidence rather than
+guessed at.
 
 ### SAP SuccessFactors (Recruiting Marketing)
 

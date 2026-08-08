@@ -79,33 +79,52 @@ def select_new(frame: pl.DataFrame, since: date | None) -> pl.DataFrame:
 def render(view: pl.DataFrame, snapshot: date) -> list[str]:
     """Render the digest, split into Telegram-sized chunks.
 
-    Grouped by family so the message is scannable on a phone. A group header is never left
-    stranded at the end of a chunk.
+    Grouped by family so the message is scannable on a phone, and split **line by line**
+    rather than group by group. The first version accumulated a whole family group before
+    checking the length, which meant a group larger than the limit could never be split: a
+    live digest with forty ByteDance roles under "SWE & Technical" produced a single 7,416
+    character block against Telegram's 4,096 ceiling, and the send failed outright.
+
+    A group header is repeated at the top of a continuation chunk so a run of roles is never
+    left without the family it belongs to.
     """
     if view.is_empty():
         return []
 
     header = f"<b>🎓 {view.height} new graduate role(s)</b> · {snapshot}"
     chunks: list[str] = []
-    current = [header]
+    current: list[str] = [header]
     length = len(header)
+    group_header = ""
+
+    def flush() -> None:
+        nonlocal current, length
+        chunks.append("\n".join(current))
+        current = [f"{header} (cont. {len(chunks) + 1})"]
+        length = len(current[0])
+        if group_header:
+            current.append(group_header)
+            length += len(group_header) + 1
 
     for group in view["family_group"].unique(maintain_order=True).to_list():
         rows = view.filter(pl.col("family_group") == group)
-        block = [f"\n<b>{_escape(group)}</b> ({rows.height})"]
+        group_header = f"\n<b>{_escape(group)}</b> ({rows.height})"
+        if length + len(group_header) > MAX_MESSAGE_CHARS:
+            flush()
+        current.append(group_header)
+        length += len(group_header) + 1
+
         for row in rows.iter_rows(named=True):
             posted = row["posted_date"] or row["first_seen"]
             when = posted.isoformat() if posted else "date unknown"
-            block.append(
-                f'• <a href="{row["apply_url"]}">{_escape(row["title"][:90])}</a>\n'
+            line = (
+                f'• <a href="{_escape(row["apply_url"])}">{_escape(row["title"][:90])}</a>\n'
                 f"  {_escape(row['firm_name'][:40])} · {when}"
             )
-        text = "\n".join(block)
-        if length + len(text) > MAX_MESSAGE_CHARS and len(current) > 1:
-            chunks.append("\n".join(current))
-            current, length = [header + " (cont.)"], len(header) + 8
-        current.append(text)
-        length += len(text)
+            if length + len(line) > MAX_MESSAGE_CHARS:
+                flush()
+            current.append(line)
+            length += len(line) + 1
 
     chunks.append("\n".join(current))
     return chunks
@@ -130,7 +149,23 @@ def send(config: Config, messages: list[str]) -> int:
                     "disable_web_page_preview": True,
                 },
             )
-            response.raise_for_status()
+            if response.status_code != 200:
+                # Telegram puts the real reason in the body and it is always specific —
+                # "chat not found", "message is too long", "can't parse entities". Letting
+                # httpx raise a bare 400 throws that away and turns a one-line fix into a
+                # debugging session.
+                detail = ""
+                try:
+                    detail = str(response.json().get("description", ""))
+                except ValueError:
+                    detail = response.text[:200]
+                hint = ""
+                if "chat not found" in detail.lower():
+                    hint = (
+                        " — open the bot in Telegram and send /start; a bot cannot message a "
+                        "user who has never contacted it."
+                    )
+                raise RuntimeError(f"Telegram rejected the message: {detail}{hint}")
             sent += 1
     return sent
 

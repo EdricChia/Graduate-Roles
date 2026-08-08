@@ -2,7 +2,7 @@ firm_id,firm_name,sector,tier,ats_platform,ats_token,ats_host,board_site,careers
 janestreet,Jane Street,quant,1,greenhouse,janestreet,,,https://www.janestreet.com/join-jane-street/open-roles/,allowed,wired,absolute_url resolves to janestreet.com
 coinbase,Coinbase,crypto,1,greenhouse,coinbase,,,https://www.coinbase.com/careers,allowed,wired,absolute_url resolves to coinbase.com
 temasek,Temasek,sovereign,1,successfactors,,jobs.temasek.com.sg,,https://jobs.temasek.com.sg/,allowed,wired,"SuccessFactors RMK, server-rendered; robots.txt permits /tile-search-results/"
-gic,GIC,sovereign,1,,,,,,unknown,todo,
+gic,GIC,sovereign,1,,,,,,unknown,todo,not on Workday: robots.txt returns 422 on all six data centres
 mas,Monetary Authority of Singapore,sovereign,1,,,,,,unknown,todo,
 edb,Singapore Economic Development Board,sovereign,1,,,,,,unknown,todo,
 cpfb,Central Provident Fund Board,sovereign,2,,,,,,unknown,todo,
@@ -74,7 +74,7 @@ microsoft,Microsoft,bigtech,1,,,,,,unknown,todo,
 apple,Apple,bigtech,1,,,,,,unknown,todo,
 nvidia,NVIDIA,bigtech,1,workday,nvidia,nvidia.wd5.myworkdayjobs.com,NVIDIAExternalCareerSite,,allowed,wired,workday tenant verified live
 netflix,Netflix,bigtech,1,,,,,,unknown,todo,
-bytedance,ByteDance / TikTok,bigtech,1,smartrecruiters,bytedance,,,,allowed,wired,posts to MCF as BYTEDANCE PTE. LTD.; discovered 2 jobs (0 SG); board name 'bytedance' matches (100.0)
+bytedance,ByteDance / TikTok,bigtech,1,smartrecruiters,bytedance,,,https://careers.tiktok.com/position,allowed,wired,"smartrecruiters/bytedance is real but dead (2 jobs, MY+CN, 0 SG); Singapore hiring is on careers.tiktok.com, which is client-rendered and needs Phase 5. 40 SG graduate roles currently arrive via MyCareersFuture instead."
 sea,Sea Group / Shopee,tech,1,,,,,,unknown,todo,
 grab,Grab,tech,1,,,,,,unknown,todo,
 stripe,Stripe,tech,1,greenhouse,stripe,,,,allowed,wired,discovered 550 jobs (37 SG); board name 'Stripe' matches (100.0)

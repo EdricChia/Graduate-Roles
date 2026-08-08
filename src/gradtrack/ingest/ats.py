@@ -36,6 +36,7 @@ from gradtrack.sources import (
     workday,
 )
 from gradtrack.sources.base import FetchOutcome, build_client
+from gradtrack.sources.robots import RobotsCache
 
 FetchFn = Callable[..., tuple[list[SourcePosting], FetchOutcome]]
 
@@ -53,6 +54,22 @@ CLIENTS: dict[Platform, FetchFn] = {
 }
 
 
+def _probe_url(platform: Platform, firm: Firm) -> str:
+    """A representative URL this firm's client will request, for the robots check.
+
+    Only the self-hosted platforms are checked. Greenhouse, Lever, Ashby, SmartRecruiters and
+    Workable serve every customer from one API host whose robots.txt governs that host, not
+    the employer's wishes — and those APIs are documented for exactly this use.
+    """
+    if platform is Platform.WORKDAY and firm.ats_host:
+        return f"https://{firm.ats_host}/wday/cxs/{firm.ats_token}/{firm.board_site}/jobs"
+    if platform is Platform.SUCCESSFACTORS and firm.ats_host:
+        return f"https://{firm.ats_host}/tile-search-results/"
+    if platform is Platform.BROWSER and firm.careers_url:
+        return firm.careers_url
+    return ""
+
+
 def fetch_platform(
     client: httpx.Client,
     config: Config,
@@ -63,9 +80,22 @@ def fetch_platform(
 ) -> tuple[list[SourcePosting], list[FetchOutcome]]:
     """Read every given firm on one platform. Never raises: failures become outcomes."""
     fetch = CLIENTS[platform]
+    robots = RobotsCache(client=client, user_agent=config.user_agent)
     postings: list[SourcePosting] = []
     outcomes: list[FetchOutcome] = []
     for firm in firms:
+        # `.claude/rules/ingest.md` says every host's robots.txt is honoured. That was true by
+        # hand-checking each firm as it was added, which does not survive a registry of
+        # several hundred — so it is checked here, on every run, against the URL we are about
+        # to request. A refusal is recorded as a failed fetch, which means the lifecycle guard
+        # treats the firm's postings as `unknown` rather than closing them.
+        probe = _probe_url(platform, firm)
+        if probe and not robots.can_fetch(probe):
+            outcomes.append(
+                FetchOutcome(firm.firm_id, platform.value, False, 0, "robots.txt disallows")
+            )
+            print(f"  [SKIP] {firm.firm_id:<22} robots.txt disallows {probe}")
+            continue
         try:
             firm_postings, outcome = fetch(client, config, firm, singapore_only=singapore_only)
         except Exception as exc:  # noqa: BLE001 - a client bug must not abort the whole run

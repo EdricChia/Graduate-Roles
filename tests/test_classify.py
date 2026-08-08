@@ -150,6 +150,44 @@ class TestGraduateTraps:
         ).is_grad
         assert not classify_grad("Analyst", "we require at least 5 years of experience").is_grad
 
+    def test_a_fresh_grad_phrase_that_points_elsewhere_does_not_count(self) -> None:
+        """Jump Trading's "Quantitative Researcher | Trading Team" is an experienced hire.
+
+        Its body says "if you are currently a student or recent graduate, please see our
+        campus postings which offer both intern and full-time opportunities" — the phrase is
+        there to send graduates away, and reading it as an invitation inverts the sentence.
+        """
+        verdict = classify_grad(
+            "Quantitative Researcher | Trading Team",
+            "reliable and predictable availability. if you are currently a student or recent "
+            "graduate, please see our campus postings which offer both intern and full-time "
+            "opportunities.",
+        )
+        assert not verdict.is_grad
+
+    @pytest.mark.parametrize(
+        "description",
+        [
+            "this role is not intended for recent graduates",
+            "for graduate opportunities please visit our university programmes page",
+        ],
+    )
+    def test_other_redirect_and_exclusion_phrasings(self, description: str) -> None:
+        assert not classify_grad("Trader", description).is_grad
+
+    @pytest.mark.parametrize(
+        "description",
+        [
+            "we welcome applications from fresh graduates and final year students",
+            "no prior experience required; recent graduates encouraged to apply",
+        ],
+    )
+    def test_a_genuine_invitation_still_counts(self, description: str) -> None:
+        """The redirect guard must not disarm the route it protects."""
+        verdict = classify_grad("Analyst", description)
+        assert verdict.is_grad
+        assert verdict.basis == "route:states-fresh-grad"
+
     def test_bare_campus_counts_as_a_programme(self) -> None:
         """Jump Trading titles its graduate roles "Campus AI/ML Researcher (Fall 2026)".
 
