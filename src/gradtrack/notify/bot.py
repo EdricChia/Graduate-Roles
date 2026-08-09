@@ -42,6 +42,9 @@ from gradtrack.schema import FAMILY_GROUPS, PRIORITY_GROUPS, SELECTABLE_ROLE_TYP
 API = "https://api.telegram.org/bot{token}/{method}"
 POLL_TIMEOUT = 50
 LATEST_DEFAULT = 15
+# Consecutive Conflict responses before giving up. Telegram allows one long poll per
+# token, and a conflict never resolves on its own.
+MAX_CONFLICTS = 3
 
 # Callback payloads are capped at 64 bytes, so buttons carry an index into these tuples.
 ROLE_TYPES: tuple[str, ...] = tuple(t.value for t in SELECTABLE_ROLE_TYPES)
@@ -377,10 +380,28 @@ def handle_callback(config: Config, store: SubscriptionStore, callback: dict) ->
 
 def poll(config: Config, store: SubscriptionStore, *, once: bool) -> int:
     offset: int | None = None
+    conflicts = 0
     while True:
         try:
             body = call(config, "getUpdates", offset=offset, timeout=0 if once else POLL_TIMEOUT)
+            conflicts = 0
         except (RuntimeError, httpx.HTTPError) as exc:
+            # Telegram allows exactly one long poll per token. A second instance makes both
+            # fail with Conflict, and neither can ever recover — so retrying forever just
+            # prints the same line every few seconds while every button in the chat stays
+            # dead. This happened for real: a bot left running by an earlier session fought
+            # a new one, and the symptom was indistinguishable from no bot at all.
+            if "conflict" in str(exc).lower():
+                conflicts += 1
+                if conflicts >= MAX_CONFLICTS:
+                    print(
+                        "\nAnother instance of this bot is already polling.\n"
+                        "Telegram permits one getUpdates connection per token, so both are\n"
+                        "now broken. Stop the other process and start this one again:\n"
+                        "  pgrep -af 'gradtrack.notify.bot'      # or Get-CimInstance "
+                        "Win32_Process on Windows\n"
+                    )
+                    return 1
             print(f"poll failed: {exc}")
             if once:
                 return 1
