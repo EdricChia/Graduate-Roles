@@ -19,7 +19,10 @@ import pytest
 from gradtrack.notify import bot as botmod
 from gradtrack.notify.subscriptions import SubscriptionStore
 
-CHAT = "613233024"
+# A made-up id. The real one was pasted in here while the bot was being debugged, and a
+# chat id identifies a person — it is why `data/subscriptions.json` is gitignored, and this
+# repo is public. Nothing in these tests depends on the value.
+CHAT = "100000001"
 
 
 @pytest.fixture
