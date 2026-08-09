@@ -275,11 +275,11 @@ pacificinternational,Pacific International Lines,logistics,2,,,,,,unknown,todo,
 dsta,Defence Science and Technology Agency,sovereign,1,,,,,,unknown,todo,
 dso,DSO National Laboratories,sovereign,1,,,,,,unknown,todo,
 csit,Centre for Strategic Infocomm Technologies,sovereign,1,,,,,,unknown,todo,
-govtech,GovTech Singapore,sovereign,1,greenhouse,govtech,,,,allowed,wired,discovered 296 jobs (296 SG); board name 'GovTech ' matches (100.0)
+govtech,GovTech Singapore,sovereign,1,greenhouse,govtech,,,,allowed,wired,"greenhouse/govtech is the whole-of-government careers portal (jobs.careers.gov.sg); 296 postings, all Singapore, spanning many agencies"
 imda,IMDA,sovereign,2,,,,,,unknown,todo,
 lta,Land Transport Authority,sovereign,2,,,,,,unknown,todo,
 pub,PUB Singapore,sovereign,2,,,,,,unknown,todo,
-nea,National Environment Agency,sovereign,2,greenhouse,national,,,,allowed,wired,discovered 7 jobs (0 SG); board name 'NATIONAL' matches (100.0)
+nea,National Environment Agency,sovereign,2,,,,,,unknown,todo,"greenhouse/national is a public-relations agency in Montreal, not NEA"
 mpa,Maritime and Port Authority,sovereign,2,,,,,,unknown,todo,
 caas,Civil Aviation Authority of Singapore,sovereign,2,,,,,,unknown,todo,
 iras,IRAS,sovereign,2,,,,,,unknown,todo,

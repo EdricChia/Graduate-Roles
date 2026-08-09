@@ -191,3 +191,40 @@ class TestCandidateTokens:
             firm_id="ge", firm_name="GE", sector="industrial", tier=2, status=FirmStatus.TODO
         )
         assert all(len(t) >= 3 for t in candidate_tokens(firm))
+
+
+class TestSingleWordBoardNames:
+    """A board named for one common word is not evidence, however well it scores."""
+
+    def test_national_is_not_the_national_environment_agency(self) -> None:
+        """greenhouse/national is a public-relations agency in Montreal.
+
+        It scores 100 against "National Environment Agency" because "national" is one of
+        that name's tokens, and it clears the five-character guard at eight.
+        """
+        h = hit(
+            "nea",
+            "National Environment Agency",
+            Platform.GREENHOUSE,
+            "national",
+            7,
+            board_name="NATIONAL",
+        )
+        ok, reason = h.verify()
+        assert not ok
+
+    @pytest.mark.parametrize(
+        ("firm_id", "firm_name", "board", "token"),
+        [
+            ("govtech", "GovTech Singapore", "GovTech ", "govtech"),
+            ("thunes", "Thunes", "Thunes", "thunes"),
+            ("adyen", "Adyen", "Adyen", "adyen"),
+            ("coupang", "Coupang", "Coupang", "coupang"),
+            ("teneo", "Teneo", "Teneo ", "teneo"),
+            ("davinci", "Da Vinci Derivatives", "Da Vinci", "davinciderivatives"),
+        ],
+    )
+    def test_genuine_one_word_and_multi_word_boards_still_pass(
+        self, firm_id: str, firm_name: str, board: str, token: str
+    ) -> None:
+        assert hit(firm_id, firm_name, Platform.GREENHOUSE, token, 50, board_name=board).verified

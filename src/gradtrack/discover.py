@@ -81,6 +81,8 @@ NAME_MATCH_THRESHOLD = 85
 TOKEN_MATCH_THRESHOLD = 90
 # A subset match is only believable when the shorter side is long enough to be distinctive.
 MIN_SUBSET_MATCH_CHARS = 5
+# A single-word board name must cover this much of the firm's name to count as evidence.
+MIN_ONE_WORD_COVERAGE = 0.6
 
 _NON_ALNUM = re.compile(r"[^a-z0-9]+")
 _NOISE = re.compile(
@@ -160,7 +162,14 @@ class Hit:
             # three-letter "EDB" under "Singapore Economic Development Board". Requiring the
             # shorter side to be a real word's length separates them.
             long_enough = min(len(_norm(board)), len(_norm(target))) >= MIN_SUBSET_MATCH_CHARS
-            if score >= NAME_MATCH_THRESHOLD and long_enough:
+            # And a board named for a single common word is not evidence either, even at
+            # eight characters. `greenhouse/national` calls itself "NATIONAL", scores 100
+            # against "National Environment Agency" because "national" is one of its tokens,
+            # and is a public-relations agency in Montreal. A one-word board name has to
+            # account for most of the firm's name to mean anything.
+            coverage = len(_norm(board)) / max(len(_norm(target)), 1)
+            distinctive = len(board.split()) > 1 or coverage >= MIN_ONE_WORD_COVERAGE
+            if score >= NAME_MATCH_THRESHOLD and long_enough and distinctive:
                 return True, f"board name {self.board_name!r} matches ({score})"
 
         domain = self.apply_domain
