@@ -534,7 +534,8 @@ FAMILY_RULES: tuple[tuple[JobFamily, re.Pattern[str]], ...] = (
         JobFamily.STRATEGY_CONSULTING,
         re.compile(
             r"\b(strategy consult|strategic consult|parthenon|strategy (and|&) execution|"
-            r"corporate strategy|commercial strategy|strategy (analyst|associate|consultant)|"
+            r"corporate strategy|commercial strategy|"
+            r"strategy (analyst|associate|consultant|intern(ship)?)|"
             r"transaction (advisory|services)|deal advisory|due diligence)\b",
             re.I,
         ),
@@ -543,7 +544,10 @@ FAMILY_RULES: tuple[tuple[JobFamily, re.Pattern[str]], ...] = (
         JobFamily.MANAGEMENT_CONSULTING,
         re.compile(
             r"\b(management consult|business consult|consulting (analyst|associate|graduate)|"
-            r"associate consultant|consultant|advisory (analyst|associate)|business advisory)\b",
+            r"associate consultant|consultant|advisory (analyst|associate)|business advisory|"
+            # Roland Berger's "Case Team Assistant". A case team is a consulting firm's unit
+            # of work and the phrase means nothing anywhere else.
+            r"case team)\b",
             re.I,
         ),
     ),
@@ -723,13 +727,40 @@ class FamilyVerdict:
     basis: str
 
 
-def classify_family(title: str, description: str = "", department: str = "") -> FamilyVerdict:
+# What a firm in this sector is doing when its posting matches no rule at all.
+#
+# BCG's core graduate job is titled "Associate, Singapore (2027)", which says nothing about
+# consulting and so landed in Other — out of Strategy & Consulting, the group most likely to
+# be subscribed to. At a consulting firm the generalist grade *is* the consulting job; at a
+# bank "Associate" is a rank and means nothing of the kind, which is why this is keyed on
+# sector rather than applied to the word.
+#
+# Deliberately consulting-only. The other sectors have no unambiguous residual: a quant
+# firm's unmatched posting is as likely to be recruiting or operations as trading. And
+# because this runs only after the title, department and description rules have all failed,
+# it cannot move a posting the rules did classify — PwC's tax and audit associates match
+# their own families first and stay there.
+SECTOR_RESIDUAL_FAMILY: dict[str, JobFamily] = {
+    "consulting": JobFamily.MANAGEMENT_CONSULTING,
+}
+
+
+def classify_family(
+    title: str, description: str = "", department: str = "", sector: str = ""
+) -> FamilyVerdict:
     """Assign a job family.
 
     Matching runs against the title first, then the department, then the description. A
     title match is worth far more than a description match: descriptions mention adjacent
     disciplines constantly ("you will work with our data science team"), and matching on
     that files half the board under Data Science.
+
+    Args:
+        title: the posting title, raw.
+        description: the posting body. HTML is fine; it is stripped here.
+        department: the platform's own department label, where it publishes one.
+        sector: the firm's registry sector. Read only as a last resort, when nothing
+            matched — see :data:`SECTOR_RESIDUAL_FAMILY`.
     """
     title_l = title.strip()
 
@@ -750,5 +781,9 @@ def classify_family(title: str, description: str = "", department: str = "") -> 
         for family, pattern in FAMILY_RULES:
             if pattern.search(desc):
                 return FamilyVerdict(family, FAMILY_GROUPS[family], 0.4, "description")
+
+    residual = SECTOR_RESIDUAL_FAMILY.get(sector.strip().lower())
+    if residual is not None:
+        return FamilyVerdict(residual, FAMILY_GROUPS[residual], 0.3, "sector-residual")
 
     return FamilyVerdict(JobFamily.OTHER, FAMILY_GROUPS[JobFamily.OTHER], 0.0, "unmatched")

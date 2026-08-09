@@ -369,6 +369,58 @@ def load_golden() -> list[Labelled]:
         ]
 
 
+class TestFamilySectorResidual:
+    def test_a_consulting_firms_unmatched_title_is_consulting(self) -> None:
+        """BCG's core graduate job is titled "Associate, Singapore (2027)".
+
+        Nothing in it says consulting, so it landed in Other — outside the one group most
+        worth subscribing to. At a consulting firm the generalist grade is the consulting job.
+        """
+        verdict = classify_family("Associate, Singapore (2027)", sector="consulting")
+        assert verdict.family is JobFamily.MANAGEMENT_CONSULTING
+        assert verdict.basis == "sector-residual"
+
+    def test_the_residual_never_overrides_a_rule_that_matched(self) -> None:
+        """PwC is a consulting firm whose graduate intake is mostly tax and audit.
+
+        The residual runs only after title, department and description have all failed, so
+        those rows keep the family their titles state.
+        """
+        for title, family in [
+            ("Tax - Corporate Tax Associate (July 2027 Intake)", JobFamily.FINANCE_ACCOUNTING),
+            ("General Assurance - Accountancy Associate", JobFamily.RISK_COMPLIANCE),
+            ("Consulting - SAP BTP Developer Associate", JobFamily.SOFTWARE_ENGINEERING),
+        ]:
+            verdict = classify_family(title, sector="consulting")
+            assert verdict.family is family, title
+            assert verdict.basis == "title"
+
+    def test_a_description_match_also_outranks_the_residual(self) -> None:
+        """PwC's "Risk Services - Cybersecurity Associate" carries no family word its title
+        rules recognise and is classified from its body, which the residual must not pre-empt.
+        """
+        verdict = classify_family(
+            "Risk Services - Cybersecurity Associate",
+            "you will join our technology risk and compliance practice",
+            sector="consulting",
+        )
+        assert verdict.family is JobFamily.RISK_COMPLIANCE
+        assert verdict.basis == "description"
+
+    def test_other_sectors_keep_falling_through_to_other(self) -> None:
+        """Only consulting has an unambiguous residual. A quant firm's unmatched posting is
+        as likely to be recruiting as trading."""
+        for sector in ("quant", "bank", "bigtech", ""):
+            assert classify_family("Associate", sector=sector).family is JobFamily.OTHER
+
+    def test_case_team_is_consulting_vocabulary(self) -> None:
+        """Roland Berger's "Case Team Assistant" was unmatched. A case team is a consulting
+        firm's unit of work and the phrase means nothing anywhere else."""
+        verdict = classify_family("Case Team Assistant")
+        assert verdict.family is JobFamily.MANAGEMENT_CONSULTING
+        assert verdict.basis == "title"
+
+
 class TestGoldenSet:
     def test_the_golden_set_is_big_enough_to_mean_something(self) -> None:
         golden = load_golden()

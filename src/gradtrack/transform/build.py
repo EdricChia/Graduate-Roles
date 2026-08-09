@@ -105,7 +105,7 @@ def _split(value: object) -> tuple[str, ...]:
     return tuple(p for p in text.split("|") if p.strip())
 
 
-def classify_posting(posting: SourcePosting) -> dict[str, object]:
+def classify_posting(posting: SourcePosting, sector: str = "") -> dict[str, object]:
     """Run both classifiers over one posting, passing through structured signals.
 
     MyCareersFuture is the only source with structured experience and seniority fields, and
@@ -125,7 +125,9 @@ def classify_posting(posting: SourcePosting) -> dict[str, object]:
             posting.extra.get("experience_level") or posting.extra.get("experience") or ""
         ),
     )
-    family = classify_family(posting.title, posting.description_text, posting.department)
+    family = classify_family(
+        posting.title, posting.description_text, posting.department, sector=sector
+    )
     return {
         "job_family": family.family.value,
         "family_group": family.group,
@@ -188,7 +190,8 @@ def build(config: Config, registry: Registry, overrides: dict[str, str]) -> pl.D
 
     rows: list[dict[str, object]] = []
     for posting in merged.postings:
-        classified = classify_posting(posting)
+        registry_firm = firm_index.get(posting.firm_id)
+        classified = classify_posting(posting, registry_firm.sector if registry_firm else "")
         # A hand-written override always wins over the rule table. That is the documented
         # escape hatch for a title the rules read wrongly, and it must not be re-derived.
         override = overrides.get(posting.job_key)
