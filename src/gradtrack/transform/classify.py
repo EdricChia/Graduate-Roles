@@ -188,6 +188,26 @@ REDIRECT_WINDOW_AFTER = 160
 # requires that nothing contradicts it on experience.
 ENTRY_TITLE = re.compile(r"\b(entry[ -]?level|junior|trainee|graduate)\b", re.I)
 
+# Structured seniority as the *platform* records it, distinct from MyCareersFuture's
+# positionLevels. SmartRecruiters reports `experienceLevel` ("Entry Level", "Associate",
+# "Mid-Senior Level", "Executive") and Workable reports `experience`. Both were captured into
+# `extra` from the start and neither was read, so a SmartRecruiters posting explicitly tagged
+# "Entry Level" was judged on its prose alone.
+#
+# This is the employer's own structured claim about seniority, which is the same class of
+# evidence as `minimumYearsExperience == 0` — so it gets a route of its own rather than a
+# weight.
+EXPERIENCE_LEVEL_ENTRY = re.compile(
+    r"^\s*(entry[ -]?level|graduate|student|intern(ship)?|apprentice|"
+    r"trainee|junior|new grad(uate)?|no experience)\b",
+    re.I,
+)
+EXPERIENCE_LEVEL_SENIOR = re.compile(
+    r"\b(mid[- ]?senior|senior|director|executive|principal|lead|manager|"
+    r"vice president|head)\b",
+    re.I,
+)
+
 # ---------------------------------------------------------------------------
 # Confidence scoring — ranking only, never the decision
 # ---------------------------------------------------------------------------
@@ -331,6 +351,7 @@ def classify_grad(
     min_years: int | None = None,
     position_levels: tuple[str, ...] = (),
     employment_types: tuple[str, ...] = (),
+    experience_level: str = "",
 ) -> GradVerdict:
     """Decide whether a posting is a graduate-level opening.
 
@@ -342,6 +363,9 @@ def classify_grad(
         position_levels: MyCareersFuture's ``positionLevels`` values.
         employment_types: MyCareersFuture's ``employmentTypes`` values. Read only to catch
             internships the title does not disclose.
+        experience_level: the platform's own seniority label — SmartRecruiters'
+            ``experienceLevel``, Workable's ``experience``. Empty for platforms that publish
+            none.
 
     Returns:
         A :class:`GradVerdict`. ``is_internship`` is set independently of ``is_grad`` — an
@@ -366,6 +390,14 @@ def classify_grad(
         return GradVerdict(False, is_internship, 0.0, "veto:graduate-as-subject-matter")
     if ACADEMIC_TRACK.search(title_l):
         return GradVerdict(False, is_internship, 0.0, "veto:academic-track")
+
+    level = (experience_level or "").strip()
+    level_is_entry = bool(level) and bool(EXPERIENCE_LEVEL_ENTRY.match(level))
+    # A platform saying "Mid-Senior Level" outright is at least as good as a title keyword,
+    # and unlike a title it cannot be marketing. It does not override a named programme,
+    # though: a firm can tag its graduate scheme carelessly.
+    if level and not level_is_entry and EXPERIENCE_LEVEL_SENIOR.search(level) and not has_programme:
+        return GradVerdict(False, is_internship, 0.0, f"veto:experience-level-{level.lower()}")
 
     effective_years = min_years if min_years is not None else _years_demanded_in_text(desc)
     if effective_years is not None and effective_years >= YEARS_VETO:
@@ -417,6 +449,13 @@ def classify_grad(
     # a structured claim by the employer, not an inference, so it stands on its own.
     if min_years == 0:
         return GradVerdict(True, is_internship, round(score, 2), "route:zero-years", tuple(signals))
+
+    # Same class of evidence, different platform. SmartRecruiters tagging a posting
+    # "Entry Level" is the employer stating the seniority in a structured field.
+    if level_is_entry:
+        return GradVerdict(
+            True, is_internship, round(score, 2), "route:experience-level", tuple(signals)
+        )
 
     # A weak title marker ("Junior Quant Researcher" at Squarepoint) counts only when
     # experience does not contradict it.

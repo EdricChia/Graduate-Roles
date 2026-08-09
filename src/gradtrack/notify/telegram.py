@@ -30,6 +30,7 @@ import httpx
 import polars as pl
 
 from gradtrack.config import Config, load_config
+from gradtrack.notify.subscriptions import STORE_FILE, Subscription, SubscriptionStore
 from gradtrack.schema import PRIORITY_GROUPS
 
 API_URL = "https://api.telegram.org/bot{token}/sendMessage"
@@ -62,14 +63,38 @@ def _escape(text: str) -> str:
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def select_new(frame: pl.DataFrame, since: date | None) -> pl.DataFrame:
-    """Graduate, non-internship, Singapore, open roles in a priority group, newly seen."""
-    view = frame.filter(
+def _base(frame: pl.DataFrame) -> pl.DataFrame:
+    """Everything the tracker would ever notify anyone about."""
+    return frame.filter(
         pl.col("is_grad")
         & ~pl.col("is_internship")
         & pl.col("is_singapore")
         & (pl.col("status") == "open")
-        & pl.col("family_group").is_in(list(PRIORITY_GROUPS))
+    )
+
+
+def select_new(frame: pl.DataFrame, since: date | None) -> pl.DataFrame:
+    """The default digest: priority family groups, newly seen.
+
+    Used when there are no subscribers — the scheduled workflow's fallback to the single chat
+    configured in secrets.
+    """
+    view = _base(frame).filter(pl.col("family_group").is_in(list(PRIORITY_GROUPS)))
+    if since is not None:
+        view = view.filter(pl.col("first_seen").is_not_null() & (pl.col("first_seen") > since))
+    return view.sort(["family_group", "posted_date"], descending=[False, True], nulls_last=True)
+
+
+def select_for(frame: pl.DataFrame, sub: Subscription, since: date | None) -> pl.DataFrame:
+    """One subscriber's roles: their role types, their family groups, new since `since`.
+
+    ``since=None`` means everything currently open, which is both what `/roles` asks for and
+    what a brand-new subscriber gets on their first delivery — the same code path, because a
+    new subscriber's ``last_notified`` is null.
+    """
+    view = _base(frame).filter(
+        pl.col("role_type").is_in(sorted(sub.role_types))
+        & pl.col("family_group").is_in(sorted(sub.groups))
     )
     if since is not None:
         view = view.filter(pl.col("first_seen").is_not_null() & (pl.col("first_seen") > since))
@@ -130,9 +155,10 @@ def render(view: pl.DataFrame, snapshot: date) -> list[str]:
     return chunks
 
 
-def send(config: Config, messages: list[str]) -> int:
+def send(config: Config, messages: list[str], *, chat_id: str = "") -> int:
     """Post each chunk. Returns how many were delivered."""
-    if not config.telegram_bot_token or not config.telegram_chat_id:
+    chat_id = chat_id or config.telegram_chat_id
+    if not config.telegram_bot_token or not chat_id:
         raise RuntimeError(
             "TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are unset. Create a bot with @BotFather "
             "and add them as repository secrets, or run with --dry-run."
@@ -143,7 +169,7 @@ def send(config: Config, messages: list[str]) -> int:
             response = client.post(
                 API_URL.format(token=config.telegram_bot_token),
                 json={
-                    "chat_id": config.telegram_chat_id,
+                    "chat_id": chat_id,
                     "text": message,
                     "parse_mode": "HTML",
                     "disable_web_page_preview": True,
@@ -191,6 +217,25 @@ def main(argv: list[str] | None = None) -> int:
 
     frame = pl.read_parquet(postings)
     snapshot = frame["snapshot_date"].max() if frame.height else date.today()
+
+    # Subscribers first. Each has their own role types, family groups and last_notified, so a
+    # new subscriber gets everything currently open and everyone else gets only the change.
+    store = SubscriptionStore.load(config.manual_dir.parent / STORE_FILE)
+    subscribers = store.active()
+    if subscribers and not args.dry_run:
+        total = 0
+        for sub in subscribers:
+            since = None if args.all else sub.last_notified
+            view = select_for(frame, sub, since)
+            messages = render(view, snapshot)
+            if not messages:
+                continue
+            send(config, messages, chat_id=sub.chat_id)
+            sub.last_notified = snapshot
+            total += view.height
+        store.save()
+        print(f"sent {total} role(s) across {len(subscribers)} subscriber(s)")
+        return 0
 
     state_path = config.manual_dir / STATE_FILE
     state = NotifyState.load(state_path)

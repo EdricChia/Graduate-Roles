@@ -131,6 +131,48 @@ PRIORITY_GROUPS: frozenset[str] = frozenset(
 )
 
 
+class RoleType(StrEnum):
+    """The three legs of scope, as a value a user can filter on.
+
+    Derived from the classifier's ``grad_basis`` rather than recomputed: the route that
+    admitted a posting already says which leg it came in on, and deriving it twice would let
+    the two drift.
+    """
+
+    PROGRAMME = "Graduate programme"
+    GRADUATE_ROLE = "Graduate role"
+    ENTRY_LEVEL = "Entry level"
+    INTERNSHIP = "Internship"
+    NOT_GRADUATE = "Not graduate"
+
+
+# grad_basis -> role type. Kept beside the enum so a new route cannot be added without
+# deciding which leg it belongs to.
+ROLE_TYPE_BY_BASIS: dict[str, RoleType] = {
+    "route:programme": RoleType.PROGRAMME,
+    "route:states-fresh-grad": RoleType.GRADUATE_ROLE,
+    "route:entry-level-title": RoleType.GRADUATE_ROLE,
+    "route:zero-years": RoleType.ENTRY_LEVEL,
+    "route:experience-level": RoleType.ENTRY_LEVEL,
+}
+
+# The three a subscriber can choose between. Internships are excluded from the default view
+# and are not offered as a subscription option.
+SELECTABLE_ROLE_TYPES: tuple[RoleType, ...] = (
+    RoleType.PROGRAMME,
+    RoleType.GRADUATE_ROLE,
+    RoleType.ENTRY_LEVEL,
+)
+
+
+def role_type_for(grad_basis: str, *, is_grad: bool, is_internship: bool) -> RoleType:
+    if not is_grad:
+        return RoleType.NOT_GRADUATE
+    if is_internship:
+        return RoleType.INTERNSHIP
+    return ROLE_TYPE_BY_BASIS.get(grad_basis, RoleType.GRADUATE_ROLE)
+
+
 class PostedDateBasis(StrEnum):
     """Where ``posted_date`` came from. Surfaced in the UI next to the date.
 
@@ -246,6 +288,7 @@ CURATED_COLUMNS: tuple[str, ...] = (
     "is_grad",
     "grad_confidence",
     "grad_basis",
+    "role_type",
     "is_internship",
     "department",
     "employment_type",

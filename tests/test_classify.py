@@ -204,6 +204,29 @@ class TestGraduateTraps:
         assert not verdict.is_grad
         assert verdict.basis == "veto:not-a-role"
 
+    def test_a_platforms_entry_level_tag_qualifies_on_its_own(self) -> None:
+        """SmartRecruiters' experienceLevel and Workable's experience were captured into
+        `extra` from the first commit and never read, so a posting the employer had tagged
+        "Entry Level" was judged on its prose alone."""
+        verdict = classify_grad("Business Analyst", experience_level="Entry Level")
+        assert verdict.is_grad
+        assert verdict.basis == "route:experience-level"
+
+    @pytest.mark.parametrize("level", ["Mid-Senior Level", "Executive", "Director"])
+    def test_a_senior_experience_level_vetoes(self, level: str) -> None:
+        assert not classify_grad("Business Analyst", experience_level=level).is_grad
+
+    def test_a_named_programme_outranks_a_careless_level_tag(self) -> None:
+        """A firm can tag its graduate scheme wrongly; the programme name is the better
+        evidence, so the level veto does not apply to it."""
+        assert classify_grad(
+            "Graduate Analyst Programme", experience_level="Mid-Senior Level"
+        ).is_grad
+
+    def test_an_ambiguous_level_decides_nothing(self) -> None:
+        """ "Associate" is a title in banking and a seniority band elsewhere."""
+        assert not classify_grad("Business Analyst", experience_level="Associate").is_grad
+
     def test_an_ats_row_with_no_grad_wording_is_not_a_graduate_role(self) -> None:
         """Jane Street's Singapore postings carry no structured field and claim nothing."""
         assert not classify_grad("Software Engineer").is_grad

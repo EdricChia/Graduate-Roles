@@ -27,7 +27,14 @@ from gradtrack.ingest.snapshot import (
     platforms_on_disk,
     read_snapshot_as_postings,
 )
-from gradtrack.schema import CURATED_COLUMNS, FAMILY_GROUPS, JobFamily, SourcePosting, Status
+from gradtrack.schema import (
+    CURATED_COLUMNS,
+    FAMILY_GROUPS,
+    JobFamily,
+    SourcePosting,
+    Status,
+    role_type_for,
+)
 from gradtrack.sources.base import contains_singapore
 from gradtrack.transform import dedupe
 from gradtrack.transform.classify import classify_family, classify_grad
@@ -66,6 +73,7 @@ CURATED_SCHEMA: dict[str, pl.DataType] = {
     "is_grad": pl.Boolean,
     "grad_confidence": pl.Float64,
     "grad_basis": pl.Utf8,
+    "role_type": pl.Utf8,
     "is_internship": pl.Boolean,
     "department": pl.Utf8,
     "employment_type": pl.Utf8,
@@ -111,6 +119,11 @@ def classify_posting(posting: SourcePosting) -> dict[str, object]:
         position_levels=_split(posting.extra.get("position_levels")),
         employment_types=_split(posting.extra.get("employment_types"))
         or ((posting.employment_type,) if posting.employment_type else ()),
+        # SmartRecruiters calls it experienceLevel, Workable calls it experience. Both were
+        # captured into `extra` from the start and neither was being read.
+        experience_level=str(
+            posting.extra.get("experience_level") or posting.extra.get("experience") or ""
+        ),
     )
     family = classify_family(posting.title, posting.description_text, posting.department)
     return {
@@ -121,6 +134,10 @@ def classify_posting(posting: SourcePosting) -> dict[str, object]:
         "is_grad": grad.is_grad,
         "grad_confidence": grad.confidence,
         "grad_basis": grad.basis,
+        # Derived from the route that admitted it, not recomputed — see schema.RoleType.
+        "role_type": role_type_for(
+            grad.basis, is_grad=grad.is_grad, is_internship=grad.is_internship
+        ).value,
         "is_internship": grad.is_internship,
     }
 
