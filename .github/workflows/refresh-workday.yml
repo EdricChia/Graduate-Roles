@@ -17,8 +17,10 @@ name: refresh-workday
 
 on:
   schedule:
-    # 02:00 UTC = 10:00 Singapore, after the morning fast refresh has already committed.
-    - cron: "0 2 * * *"
+    # 06:00 UTC = 14:00 Singapore. Chosen backwards from the 17:07 digest: this leg takes
+    # about 110 minutes, so starting at 14:00 leaves it finished by roughly 15:50 and its
+    # postings are in the curated table well before the digest goes out.
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -86,17 +88,9 @@ jobs:
       - name: Refresh check
         run: uv run python -m gradtrack.refresh_check
 
-      - name: Telegram digest
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
-            echo "::warning::Telegram secrets unset - writing the digest to reports/ instead"
-            uv run python -m gradtrack.notify.telegram --dry-run
-          else
-            uv run python -m gradtrack.notify.telegram
-          fi
+      # No digest here on purpose. This leg finishes around 15:50 Singapore and the
+      # 17:07 refresh sends one message covering everything, Workday included. Sending
+      # from both would mean two digests a day and roles announced twice.
 
       - name: Commit the new snapshot
         run: |

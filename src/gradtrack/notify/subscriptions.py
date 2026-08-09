@@ -41,6 +41,15 @@ class Subscription:
     groups: set[str] = field(default_factory=lambda: set(PRIORITY_GROUPS))
     last_notified: date | None = None
     active: bool = True
+    # Which postings this subscriber has already been told about.
+    #
+    # Selection used to be "first_seen after last_notified", which is wrong whenever a
+    # snapshot is rebuilt or the pipeline runs twice in a day: the new roles carry the same
+    # first_seen as the date already stamped, so a strict comparison skips them and the run
+    # reports nothing new while genuinely new roles sit unsent. Tracking keys says exactly
+    # what it means — send what has not been sent — and makes the first send (empty set)
+    # and every later send the same code path.
+    notified_keys: set[str] = field(default_factory=set)
 
     @property
     def configured(self) -> bool:
@@ -54,6 +63,7 @@ class Subscription:
             "groups": sorted(self.groups),
             "last_notified": self.last_notified.isoformat() if self.last_notified else None,
             "active": self.active,
+            "notified_keys": sorted(self.notified_keys),
         }
 
     @classmethod
@@ -65,7 +75,18 @@ class Subscription:
             groups=set(raw.get("groups") or []),
             last_notified=date.fromisoformat(stamp) if stamp else None,
             active=bool(raw.get("active", True)),
+            notified_keys=set(raw.get("notified_keys") or []),
         )
+
+    def record_sent(self, keys: list[str], live_keys: set[str], snapshot: date) -> None:
+        """Mark these as delivered, and forget postings that no longer exist.
+
+        Pruning to what is still in the dataset keeps the file from growing without bound as
+        roles close. A key that comes back after being pruned is a repost, and being told
+        about it again is the right outcome.
+        """
+        self.notified_keys = (self.notified_keys | set(keys)) & (live_keys | set(keys))
+        self.last_notified = snapshot
 
 
 @dataclass

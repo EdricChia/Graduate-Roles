@@ -41,21 +41,36 @@ STATE_FILE = "notify_state.json"
 
 @dataclass(frozen=True)
 class NotifyState:
+    """What the single-chat CI path has already sent.
+
+    Keyed the same way as a subscription, and for the same reason: "newer than the last
+    notified date" skips roles discovered by a second run on a date already stamped, which is
+    exactly what the Workday leg landing after the fast one produces.
+    """
+
     last_notified: date | None
+    notified_keys: frozenset[str] = frozenset()
 
     @classmethod
     def load(cls, path: Path) -> NotifyState:
         if not path.exists():
             return cls(None)
         try:
-            raw = json.loads(path.read_text(encoding="utf-8")).get("last_notified")
-            return cls(date.fromisoformat(raw) if raw else None)
+            body = json.loads(path.read_text(encoding="utf-8"))
+            raw = body.get("last_notified")
+            return cls(
+                date.fromisoformat(raw) if raw else None,
+                frozenset(body.get("notified_keys") or []),
+            )
         except (ValueError, OSError):
             return cls(None)
 
-    def save(self, path: Path, value: date) -> None:
+    def save(self, path: Path, value: date, keys: set[str]) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps({"last_notified": value.isoformat()}), encoding="utf-8")
+        path.write_text(
+            json.dumps({"last_notified": value.isoformat(), "notified_keys": sorted(keys)}),
+            encoding="utf-8",
+        )
 
 
 def _escape(text: str) -> str:
@@ -73,16 +88,43 @@ def _base(frame: pl.DataFrame) -> pl.DataFrame:
     )
 
 
-def select_new(frame: pl.DataFrame, since: date | None) -> pl.DataFrame:
-    """The default digest: priority family groups, newly seen.
+def select_new(
+    frame: pl.DataFrame,
+    since: date | None,
+    *,
+    role_types: tuple[str, ...] = (),
+    groups: tuple[str, ...] = (),
+) -> pl.DataFrame:
+    """The scheduled digest when there is no subscription file — the CI path.
 
-    Used when there are no subscribers — the scheduled workflow's fallback to the single chat
-    configured in secrets.
+    ``data/subscriptions.json`` is gitignored because a chat id identifies a person and the
+    repo is public, so a workflow run never sees what was chosen in the bot. ``role_types``
+    and ``groups`` come from NOTIFY_ROLE_TYPES / NOTIFY_GROUPS for exactly that reason:
+    without them the daily digest silently sends the built-in defaults rather than what the
+    user asked for. Empty means "no filter on that axis" for role type, and the six priority
+    groups for families.
     """
-    view = _base(frame).filter(pl.col("family_group").is_in(list(PRIORITY_GROUPS)))
+    view = _base(frame).filter(
+        pl.col("family_group").is_in(list(groups) if groups else list(PRIORITY_GROUPS))
+    )
+    if role_types:
+        view = view.filter(pl.col("role_type").is_in(list(role_types)))
     if since is not None:
         view = view.filter(pl.col("first_seen").is_not_null() & (pl.col("first_seen") > since))
     return view.sort(["family_group", "posted_date"], descending=[False, True], nulls_last=True)
+
+
+def select_unsent(frame: pl.DataFrame, sub: Subscription) -> pl.DataFrame:
+    """Everything matching this subscriber that they have not already been sent.
+
+    This replaces a date comparison that quietly lost roles. "Newer than the last notified
+    date" skips anything discovered in a second run on the same date, which is precisely what
+    happens when the pipeline is re-run or a slow platform lands after the fast one.
+    """
+    view = select_for(frame, sub, None)
+    if not sub.notified_keys:
+        return view
+    return view.filter(~pl.col("job_key").is_in(sorted(sub.notified_keys)))
 
 
 def select_for(frame: pl.DataFrame, sub: Subscription, since: date | None) -> pl.DataFrame:
@@ -224,14 +266,14 @@ def main(argv: list[str] | None = None) -> int:
     subscribers = store.active()
     if subscribers and not args.dry_run:
         total = 0
+        live_keys = set(frame["job_key"].to_list())
         for sub in subscribers:
-            since = None if args.all else sub.last_notified
-            view = select_for(frame, sub, since)
+            view = select_for(frame, sub, None) if args.all else select_unsent(frame, sub)
             messages = render(view, snapshot)
             if not messages:
                 continue
             send(config, messages, chat_id=sub.chat_id)
-            sub.last_notified = snapshot
+            sub.record_sent(view["job_key"].to_list(), live_keys, snapshot)
             total += view.height
         store.save()
         print(f"sent {total} role(s) across {len(subscribers)} subscriber(s)")
@@ -245,7 +287,14 @@ def main(argv: list[str] | None = None) -> int:
         else (date.fromisoformat(args.since) if args.since else state.last_notified)
     )
 
-    view = select_new(frame, since)
+    view = select_new(frame, None, role_types=config.notify_role_types, groups=config.notify_groups)
+    if not args.all:
+        # Same key-based rule as the subscriber path; `since` remains only for --since.
+        already = state.notified_keys if not args.since else frozenset()
+        if since is not None and args.since:
+            view = view.filter(pl.col("first_seen").is_not_null() & (pl.col("first_seen") > since))
+        elif already:
+            view = view.filter(~pl.col("job_key").is_in(sorted(already)))
     messages = render(view, snapshot)
 
     if not messages:
@@ -260,7 +309,10 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     sent = send(config, messages)
-    state.save(state_path, snapshot)
+    live = set(frame["job_key"].to_list())
+    state.save(
+        state_path, snapshot, (set(state.notified_keys) | set(view["job_key"].to_list())) & live
+    )
     print(f"sent {sent} message(s) covering {view.height} new role(s)")
     return 0
 

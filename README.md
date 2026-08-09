@@ -31,6 +31,57 @@ uv run pytest
 uv run streamlit run app.py
 ```
 
+## Scheduling — the daily 5pm check
+
+Two ways. They are not exclusive; running both just means the data is fresher.
+
+### GitHub Actions (no machine of your own needed)
+
+Already configured, and free on a public repo:
+
+| Workflow | Runs | What it does |
+|---|---|---|
+| `refresh-workday.yml` | 06:00 UTC = **14:00 SGT** | The 64 Workday tenants. ~110 minutes, so it starts early enough to be finished before the digest. No notification of its own. |
+| `refresh.yml` | 09:07 UTC = **17:07 SGT** | Everything else, then the curated rebuild, health report and **one Telegram digest**. |
+
+Four repository **secrets** are required or the run fails at the config step, by design — an
+anonymous crawler hitting several hundred careers hosts is what earns an IP block:
+
+`CONTACT_NAME` · `CONTACT_EMAIL` · `TELEGRAM_BOT_TOKEN` · `TELEGRAM_CHAT_ID`
+
+Two optional repository **variables** control what the scheduled digest sends:
+
+`NOTIFY_ROLE_TYPES` — e.g. `Graduate programme, Graduate role`
+`NOTIFY_GROUPS` — e.g. `Quant & Trading, SWE & Technical, Data & Analytics`
+
+These exist because `data/subscriptions.json` is gitignored — a chat id identifies a person
+and this repo is public — so a workflow run cannot see what you chose in the bot. Without
+them the digest sends the six priority groups.
+
+**GitHub's scheduler is not punctual.** Scheduled runs queue with everyone else's and are
+routinely late by tens of minutes, worst of all on the hour; `:07` is deliberate. If 17:00
+has to mean 17:00, use the local option.
+
+### Windows Task Scheduler (punctual)
+
+```powershell
+$action  = New-ScheduledTaskAction -Execute "powershell.exe" `
+    -Argument '-NoProfile -ExecutionPolicy Bypass -File "C:\Users\edric\Desktop\Project\Graduate Position Project\scripts\daily-refresh.ps1"'
+$trigger = New-ScheduledTaskTrigger -Daily -At 5pm
+Register-ScheduledTask -TaskName "gradtrack-daily" -Action $action -Trigger $trigger
+```
+
+`scripts/daily-refresh.ps1` runs the whole pipeline and logs to `reports/runs/`. The Workday
+leg makes it about two hours end to end, so for a digest that actually lands at 5pm, schedule
+`-WorkdayOnly` a couple of hours earlier and `-SkipWorkday` at 17:00.
+
+### What "new" means
+
+The digest sends postings it has not sent before, tracked by `job_key` rather than by date.
+That matters more than it sounds: a date comparison silently skips anything discovered by a
+second run on a date already stamped, which is exactly what the Workday leg landing after the
+fast one produces.
+
 ## How it works
 
 ```

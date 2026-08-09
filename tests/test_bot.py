@@ -193,33 +193,80 @@ class TestKeyboard:
         assert len(buttons) == len(botmod.GROUPS) + 3
 
 
+def postings_frame(keys: list[str], seen: date = date(2026, 8, 9)) -> pl.DataFrame:
+    n = len(keys)
+    return pl.DataFrame(
+        {
+            "job_key": keys,
+            "title": [f"Graduate Analyst {k}" for k in keys],
+            "firm_name": ["RWE"] * n,
+            "apply_url": [f"https://jobs.rwe.com/RWE/job/Singapore-{k}/" for k in keys],
+            "family_group": [botmod.GROUPS[0]] * n,
+            "role_type": [botmod.ROLE_TYPES[0]] * n,
+            "posted_date": [seen] * n,
+            "first_seen": [seen] * n,
+            "snapshot_date": [seen] * n,
+            "is_grad": [True] * n,
+            "is_internship": [False] * n,
+            "is_singapore": [True] * n,
+            "status": ["open"] * n,
+        }
+    )
+
+
 class TestDelivery:
-    def test_the_first_delivery_sends_everything_then_stamps(self, harness, monkeypatch) -> None:
-        """First-time-everything and thereafter-only-new are one mechanism."""
-        store, sent = harness
-        frame = pl.DataFrame(
-            {
-                "title": ["Graduate Analyst"],
-                "firm_name": ["RWE"],
-                "apply_url": ["https://jobs.rwe.com/RWE/job/Singapore-x/1/"],
-                "family_group": [botmod.GROUPS[0]],
-                "role_type": [botmod.ROLE_TYPES[0]],
-                "posted_date": [date(2026, 8, 9)],
-                "first_seen": [date(2026, 8, 9)],
-                "snapshot_date": [date(2026, 8, 9)],
-                "is_grad": [True],
-                "is_internship": [False],
-                "is_singapore": [True],
-                "status": ["open"],
-            }
-        )
-        monkeypatch.setattr(botmod, "load_postings", lambda config: frame)
+    def _subscribe(self, store):
         sub = store.get_or_create(CHAT)
         sub.role_types = {botmod.ROLE_TYPES[0]}
         sub.groups = {botmod.GROUPS[0]}
+        return sub
+
+    def test_the_first_delivery_sends_everything_then_nothing(self, harness, monkeypatch) -> None:
+        """First-time-everything and thereafter-only-new are one mechanism."""
+        store, _ = harness
+        monkeypatch.setattr(botmod, "load_postings", lambda config: postings_frame(["a", "b"]))
+        sub = self._subscribe(store)
         assert sub.last_notified is None
 
-        assert botmod.deliver(None, store, sub, since_last=True) == 1
+        assert botmod.deliver(None, store, sub, since_last=True) == 2
         assert sub.last_notified == date(2026, 8, 9)
-        # Second call: nothing is newer than the stamp, so nothing is resent.
         assert botmod.deliver(None, store, sub, since_last=True) == 0
+
+    def test_a_role_added_on_a_date_already_notified_is_still_sent(
+        self, harness, monkeypatch
+    ) -> None:
+        """The bug this replaced a date comparison to fix.
+
+        A second run on the same day — a rebuild, or the slow Workday leg landing after the
+        fast one — produces roles whose first_seen equals the date already stamped. "Newer
+        than last_notified" skips every one of them and reports nothing new.
+        """
+        store, _ = harness
+        monkeypatch.setattr(botmod, "load_postings", lambda config: postings_frame(["a"]))
+        sub = self._subscribe(store)
+        assert botmod.deliver(None, store, sub, since_last=True) == 1
+
+        # Same snapshot date, one more role.
+        monkeypatch.setattr(botmod, "load_postings", lambda config: postings_frame(["a", "b"]))
+        assert botmod.deliver(None, store, sub, since_last=True) == 1
+
+    def test_roles_command_does_not_consume_the_unsent_set(self, harness, monkeypatch) -> None:
+        """/roles is a query, not a delivery; it must not silence tomorrow's digest."""
+        store, _ = harness
+        monkeypatch.setattr(botmod, "load_postings", lambda config: postings_frame(["a", "b"]))
+        sub = self._subscribe(store)
+        assert botmod.deliver(None, store, sub, since_last=False) == 2
+        assert sub.notified_keys == set()
+        assert botmod.deliver(None, store, sub, since_last=True) == 2
+
+    def test_closed_roles_are_pruned_from_the_sent_set(self, harness, monkeypatch) -> None:
+        """Otherwise the file grows for every role ever seen."""
+        store, _ = harness
+        monkeypatch.setattr(botmod, "load_postings", lambda config: postings_frame(["a", "b"]))
+        sub = self._subscribe(store)
+        botmod.deliver(None, store, sub, since_last=True)
+        assert sub.notified_keys == {"a", "b"}
+
+        monkeypatch.setattr(botmod, "load_postings", lambda config: postings_frame(["b"]))
+        botmod.deliver(None, store, sub, since_last=True)
+        assert sub.notified_keys == {"b"}

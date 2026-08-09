@@ -36,7 +36,7 @@ import polars as pl
 
 from gradtrack.config import Config, load_config
 from gradtrack.notify.subscriptions import STORE_FILE, Subscription, SubscriptionStore
-from gradtrack.notify.telegram import render, select_for
+from gradtrack.notify.telegram import render, select_for, select_unsent
 from gradtrack.schema import FAMILY_GROUPS, PRIORITY_GROUPS, SELECTABLE_ROLE_TYPES
 
 API = "https://api.telegram.org/bot{token}/{method}"
@@ -200,10 +200,19 @@ def deliver(
         _say(config, sub.chat_id, "No data yet — the tracker has not run.")
         return 0
 
-    view = select_for(frame, sub, since=sub.last_notified if since_last else None)
+    # since_last is the scheduled path: send what has not been sent. Otherwise (/roles)
+    # send everything currently matching, without touching what is recorded as sent.
+    view = select_unsent(frame, sub) if since_last else select_for(frame, sub, None)
     snapshot = frame["snapshot_date"].max()
+
     if view.is_empty():
-        if not since_last:
+        if since_last:
+            # Prune even with nothing to send. Recording only happens on a delivery, so a
+            # run with no new roles would never drop keys for roles that have since closed,
+            # and the set would only ever grow.
+            sub.record_sent([], set(frame["job_key"].to_list()), snapshot)
+            store.save()
+        else:
             _say(
                 config,
                 sub.chat_id,
@@ -213,7 +222,8 @@ def deliver(
 
     for message in render(view, snapshot):
         _say(config, sub.chat_id, message)
-    sub.last_notified = snapshot
+    if since_last:
+        sub.record_sent(view["job_key"].to_list(), set(frame["job_key"].to_list()), snapshot)
     store.save()
     return view.height
 

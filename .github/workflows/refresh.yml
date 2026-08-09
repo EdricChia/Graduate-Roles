@@ -1,14 +1,11 @@
 name: refresh
 
-# Twice-daily refresh of the JSON sources: every wired ATS board, then MyCareersFuture.
+# The daily 5pm check: every wired ATS board except Workday, then MyCareersFuture, then the
+# curated rebuild, the health report and one Telegram digest.
 #
-# Twice rather than once because the entire premise of reading company career sites directly
-# is being early. A grad programme can open and fill inside a fortnight, and a role posted at
-# 10:00 that we first see 22 hours later has lost most of the advantage the ATS layer buys.
-#
-# The Playwright leg lives in its own workflow on purpose. It is the most fragile part of the
-# project and it must never be able to block the JSON path — a browser that fails to launch
-# should cost us a handful of firms, not the whole run.
+# Workday is excluded and runs earlier in refresh-workday.yml, because at 0.5 req/s across 69
+# career sites it needs about 110 minutes and would time this workflow out. It starts at
+# 06:00 UTC so its postings are already in the curated table when the digest goes out here.
 #
 # Ordering here is deliberate and matches the finance repo's refresh: ingest, transform,
 # write the health report, commit, and only THEN allow the run to go red. A broken day has to
@@ -16,8 +13,18 @@ name: refresh
 
 on:
   schedule:
-    # 00:00 and 12:00 UTC = 08:00 and 20:00 Singapore.
-    - cron: "0 0,12 * * *"
+    # 09:07 UTC = 17:07 Singapore — the daily 5pm check.
+    #
+    # Two deliberate choices in that number. It runs after refresh-workday.yml, which starts
+    # at 06:00 UTC and needs roughly 110 minutes, so the digest sent here covers the Workday
+    # tenants as well; this is also why the Workday workflow no longer sends its own.
+    #
+    # And :07 rather than :00, because GitHub's scheduler queues heavily on the hour and
+    # routinely delays those runs by tens of minutes. An odd minute is measurably closer to
+    # on time. GitHub does not guarantee punctuality at all, so expect 17:07 to mean
+    # somewhere in the following half hour; if that matters, run it locally instead — see
+    # the scheduling section of README.md.
+    - cron: "7 9 * * *"
   workflow_dispatch:
     inputs:
       notify:
@@ -126,6 +133,12 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # The bot writes preferences to data/subscriptions.json, which is gitignored
+          # because a chat id identifies a person and this repo is public — so a workflow run
+          # cannot see what was chosen in Telegram. Set these as repository *variables* to
+          # make the scheduled digest match. Left unset, it sends the six priority groups.
+          NOTIFY_ROLE_TYPES: ${{ vars.NOTIFY_ROLE_TYPES }}
+          NOTIFY_GROUPS: ${{ vars.NOTIFY_GROUPS }}
         run: |
           if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
             echo "::warning::Telegram secrets unset - writing the digest to reports/ instead"

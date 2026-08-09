@@ -56,6 +56,15 @@ class Config:
     rate_limits: dict[str, float] = field(default_factory=dict)
     telegram_bot_token: str = ""
     telegram_chat_id: str = ""
+    # What the *scheduled* digest sends, when there is no subscription file to read.
+    #
+    # The bot writes preferences to data/subscriptions.json, which is gitignored because a
+    # chat id identifies a person and this repo is public. CI therefore never sees those
+    # choices, and without these two settings the 5pm digest would quietly ignore them and
+    # send the built-in defaults instead. Set NOTIFY_ROLE_TYPES / NOTIFY_GROUPS as repository
+    # variables to make the scheduled digest match what you picked in the bot.
+    notify_role_types: tuple[str, ...] = ()
+    notify_groups: tuple[str, ...] = ()
 
     def rate_limit_for(self, platform: str) -> float:
         """Requests per second allowed against ``platform``.
@@ -121,4 +130,13 @@ def load_config(path: Path | str | None = None) -> Config:
         duckdb_path=_path("duckdb", "data/curated.duckdb"),
         telegram_bot_token=os.environ.get("TELEGRAM_BOT_TOKEN", str(telegram.get("bot_token", ""))),
         telegram_chat_id=os.environ.get("TELEGRAM_CHAT_ID", str(telegram.get("chat_id", ""))),
+        notify_role_types=_csv(
+            os.environ.get("NOTIFY_ROLE_TYPES") or str(telegram.get("role_types", ""))
+        ),
+        notify_groups=_csv(os.environ.get("NOTIFY_GROUPS") or str(telegram.get("groups", ""))),
     )
+
+
+def _csv(value: str) -> tuple[str, ...]:
+    """Split a comma-separated setting, tolerating spaces and a trailing comma."""
+    return tuple(part.strip() for part in value.split(",") if part.strip())
