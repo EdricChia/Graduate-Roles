@@ -99,6 +99,13 @@ def _denoise(value: str) -> str:
     return _NOISE.sub(" ", value.lower()).strip()
 
 
+# Firms routinely run a separate early-careers board, and for this project that is the one
+# that matters. Altman Solon's graduate roles are on `altmansoloncampus`; plain `altmansolon`
+# is a 404, so the whole firm was invisible while advertising a "2027 Graduate Analyst" in
+# Singapore. Tried after the plain forms, since most firms use a single board.
+CAMPUS_SUFFIXES = ("campus", "students", "university", "grads", "graduates", "earlycareers")
+
+
 def candidate_tokens(firm: Firm) -> list[str]:
     """Plausible ATS tokens for a firm, most likely first.
 
@@ -108,13 +115,18 @@ def candidate_tokens(firm: Firm) -> list[str]:
     """
     name = firm.firm_name.lower()
     stripped = _denoise(name)
+    compact = _NON_ALNUM.sub("", stripped)
     ordered = [
         firm.firm_id,
-        _NON_ALNUM.sub("", stripped),
+        compact,
         _NON_ALNUM.sub("-", stripped).strip("-"),
         _NON_ALNUM.sub("", name),
         stripped.split()[0] if stripped.split() else "",
     ]
+    for base in (firm.firm_id, compact):
+        if base:
+            ordered += [f"{base}{suffix}" for suffix in CAMPUS_SUFFIXES]
+
     out: list[str] = []
     for token in ordered:
         if token and len(token) >= 3 and token not in out:

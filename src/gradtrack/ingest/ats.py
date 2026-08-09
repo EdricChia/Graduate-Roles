@@ -30,6 +30,7 @@ from gradtrack.sources import (
     ashby,
     greenhouse,
     lever,
+    phenom,
     smartrecruiters,
     successfactors,
     workable,
@@ -51,6 +52,7 @@ CLIENTS: dict[Platform, FetchFn] = {
     Platform.WORKABLE: workable.fetch_firm,
     Platform.WORKDAY: workday.fetch_firm,
     Platform.SUCCESSFACTORS: successfactors.fetch_firm,
+    Platform.PHENOM: phenom.fetch_firm,
 }
 
 
@@ -65,6 +67,8 @@ def _probe_url(platform: Platform, firm: Firm) -> str:
         return f"https://{firm.ats_host}/wday/cxs/{firm.ats_token}/{firm.board_site}/jobs"
     if platform is Platform.SUCCESSFACTORS and firm.ats_host:
         return f"https://{firm.ats_host}/tile-search-results/"
+    if platform is Platform.PHENOM and firm.ats_host:
+        return f"https://{firm.ats_host}/{firm.board_site or 'global/en'}/sitemap_index.xml"
     if platform is Platform.BROWSER and firm.careers_url:
         return firm.careers_url
     return ""

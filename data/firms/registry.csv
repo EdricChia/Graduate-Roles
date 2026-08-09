@@ -102,8 +102,8 @@ chainalysis,Chainalysis,crypto,2,,,,,,unknown,todo,
 ambergroup,Amber Group,crypto,2,,,,,,unknown,todo,"ashby/amber is a German company in Koln/Aachen, not Amber Group"
 qcpgroup,QCP Group,crypto,2,,,,,,unknown,todo,
 mckinsey,McKinsey & Company,consulting,1,,,,,,unknown,todo,
-bcg,Boston Consulting Group,consulting,1,,,,,,unknown,todo,
-bain,Bain & Company,consulting,1,,,,,,unknown,todo,
+bcg,Boston Consulting Group,consulting,1,phenom,,careers.bcg.com,global/en,https://careers.bcg.com/global/en,allowed,wired,Phenom; read via sitemap + JSON-LD JobPosting. robots.txt names the sitemap
+bain,Bain & Company,consulting,1,,,,,https://www.bain.com/careers/find-a-role/,allowed,todo,"Avature (bain.avature.net; careers.bain.com/recruits + /jobs + /bainonyourcampus). Needs Phase 5. robots.txt allows all three portals and publishes their sitemaps, but the sitemaps list page templates only, and both the bain.com listing and Avature's SearchJobs render jobs client-side. www.bain.com/en/api/jobsearch/keyword/get answers 403 'Direct API access is not allowed' - not worked around. Detail pages ARE server-rendered: ?jobid=10397 is Associate Consultant."
 eyparthenon,EY-Parthenon,consulting,1,,,,,,unknown,todo,Graduate Strategy and Execution is the named grad track
 strategyand,Strategy& (PwC),consulting,1,,,,,,unknown,todo,
 deloitte,Deloitte,consulting,1,,,,,,unknown,todo,
@@ -116,7 +116,7 @@ oliverwyman,Oliver Wyman,consulting,1,,,,,,unknown,todo,"lever/oliverwyman had 2
 lek,L.E.K. Consulting,consulting,1,,,,,,unknown,todo,
 rolandberger,Roland Berger,consulting,2,smartrecruiters,rolandberger,,,,allowed,wired,discovered 193 jobs (0 SG); board name 'Roland Berger' matches (100.0)
 arthurdlittle,Arthur D. Little,consulting,1,,,,,,unknown,todo,
-altmansolon,Altman Solon,consulting,1,,,,,,unknown,todo,
+altmansolon,Altman Solon,consulting,1,greenhouse,altmansoloncampus,,,https://www.altmansolon.com/careers/student-opportunities,allowed,wired,separate campus board; plain 'altmansolon' 404s. 2027 Graduate Analyst + Strategy Intern in SG
 analysisgroup,Analysis Group,consulting,2,,,,,,unknown,todo,
 charlesriver,Charles River Associates,consulting,2,greenhouse,charlesriverassociates,,,,allowed,wired,discovered 76 jobs (0 SG); board name 'Charles River Associates' matches (100.0)
 simonkucher,Simon-Kucher,consulting,2,,,,,,unknown,todo,

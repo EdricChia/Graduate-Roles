@@ -140,6 +140,45 @@ The odd names are real. Citi's `2` serves Singapore "Salesperson - C12" postings
 internship; both apply URLs resolve. The site id is opaque and the *tenant subdomain* is what
 carries the evidence — `citi.wd5.myworkdayjobs.com` is provisioned to Citi.
 
+### Phenom People
+
+No public search API — every documented shape 404s — but the sites publish a sitemap, and
+`robots.txt` names it. That is the better source anyway: it is the list the operator intends
+crawlers to read, and each job page carries a `schema.org/JobPosting` block, which is a published
+standard rather than a reverse-engineered endpoint.
+
+    GET https://{host}/{locale}/sitemap_index.xml   →  sub-sitemaps  →  one page per job
+
+The job URL slug carries the location — `/global/en/job/58603/Associate-Singapore-2027` — so the
+Singapore filter runs on the sitemap before a single job page is fetched. BCG lists 887 jobs and
+five are in Singapore. The slug is used only to narrow; the title comes from the JSON-LD, because
+"Associate-Singapore-2027" is a URL and the posting is called "Associate, Singapore (2027)".
+
+Bounded at 12 sub-sitemaps and 120 job pages so a mis-signposted sitemap cannot become an
+unbounded crawl.
+
+### Bain — Avature, and an API that says no
+
+Bain's graduate roles are live and real: `www.bain.com/careers/find-a-role/position/?jobid=10397`
+is **Associate Consultant**, and that detail page is server-rendered. There is still no way to
+enumerate the postings without a browser.
+
+* `www.bain.com/en/api/jobsearch/keyword/get` answers **403 `{"error": "Forbidden: Direct API
+  access is not allowed."}`**. That is the operator stating the position in words. Forging a
+  `Referer` to get around it would be evasion, not ingestion, so it was not attempted and must
+  not be later.
+* The `find-a-role` listing contains zero job links — results are injected by the JS that calls
+  that API. The 3 MB `www.bain.com/en/sitemap.xml` contains no job URLs either.
+* Applying hands off to Avature: `careers.bain.com/recruits/signin?folderId=10397`, with
+  `bain.avature.net` behind it. `robots.txt` there **allows** `/recruits`, `/jobs` and
+  `/bainonyourcampus`, and publishes a sitemap for each — but those sitemaps list page
+  *templates* (`ApplicationForm`, `SearchJobs`), not postings. `AllPositions` 404s, and
+  `SearchJobs` is a JS shell whose 85 KB is i18n strings.
+
+So Bain is a Phase 5 case, and specifically a *rendering* one rather than a permission one: the
+paths are allowed, the content is client-side. Registry row stays `todo` with the findings in its
+notes, so the next session does not re-probe and reach a different answer.
+
 ### ByteDance / TikTok — the one firm that needs a browser
 
 `smartrecruiters/bytedance` is a real ByteDance board and effectively dead: two postings, in

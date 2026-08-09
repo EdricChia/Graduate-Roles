@@ -161,7 +161,19 @@ STATED_FRESH_GRAD = re.compile(
     # actually write it, and a pattern expecting "fresh graduate" misses every one of them.
     r"\b(fresh grad(uate)?s?|recent grad(uate)?s?|new grad(uate)?s?|final[- ]year|"
     r"penultimate|graduating in 20\d\d|no (prior|previous|relevant) (work )?experience|"
-    r"no experience (required|needed)|0\s*[-–to]{1,3}\s*[12]\s*years?|entry[ -]?level)\b",
+    r"no experience (required|needed)|"
+    # A range whose floor is zero is the employer saying a graduate qualifies. The ceiling
+    # says how far they will stretch for a lateral hire, not what they require, so it is the
+    # 0 that carries the meaning. This was capped at "0-2" and so missed BCG's Associate —
+    # "work experience of 0-3 years in top tier firms" — which is MBB's undergraduate entry
+    # role and about as graduate as a posting gets.
+    r"0\s*[-–to]{1,3}\s*[1-5]\s*years?|"
+    # "if you are joining us directly from school or with a few years of experience" — BCG
+    # again, on Consultant, where it is the only fresh-graduate signal in 3,900 characters.
+    # Naming the school-leaver route as an accepted entry path is a statement about who may
+    # apply, and the redirect guard below still catches the inverted "we do not take" form.
+    r"(?:directly|straight|right)\s+(?:from|out of)\s+(?:school|university|college|campus)|"
+    r"entry[ -]?level)\b",
     re.I,
 )
 

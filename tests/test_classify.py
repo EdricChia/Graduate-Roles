@@ -227,6 +227,40 @@ class TestGraduateTraps:
         """ "Associate" is a title in banking and a seniority band elsewhere."""
         assert not classify_grad("Business Analyst", experience_level="Associate").is_grad
 
+    def test_a_zero_floor_range_qualifies_regardless_of_its_ceiling(self) -> None:
+        """BCG's "Associate, Singapore (2027)" asks for "work experience of 0-3 years".
+
+        That is MBB's undergraduate entry role. The range was capped at 0-2, so a floor of
+        zero and a ceiling of three read as no signal at all and the role was dropped. The
+        ceiling says how far the firm will stretch for a lateral hire; the floor is the part
+        that says a graduate may apply.
+        """
+        for ceiling in (1, 2, 3, 5):
+            verdict = classify_grad(
+                "Associate, Singapore (2027)",
+                f"what you'll bring: work experience of 0-{ceiling} years in top tier firms",
+            )
+            assert verdict.is_grad, ceiling
+            assert verdict.basis == "route:states-fresh-grad"
+
+    def test_a_stated_experience_floor_above_zero_still_vetoes(self) -> None:
+        """Widening the ceiling must not turn "3-5 years" into a graduate role."""
+        assert not classify_grad("Associate", "we want 3-5 years of experience").is_grad
+
+    def test_naming_the_school_leaver_route_counts_as_an_invitation(self) -> None:
+        """BCG's Consultant postings carry no other graduate signal in 3,900 characters.
+
+        "if you are joining us directly from school or with a few years of experience" is
+        the whole of it — one of the two named entry paths is leaving university.
+        """
+        verdict = classify_grad(
+            "Consultant, Singapore",
+            "if you are joining us directly from school or with a few years of experience, "
+            "expect to spend time working across a wide range of clients.",
+        )
+        assert verdict.is_grad
+        assert verdict.basis == "route:states-fresh-grad"
+
     def test_an_ats_row_with_no_grad_wording_is_not_a_graduate_role(self) -> None:
         """Jane Street's Singapore postings carry no structured field and claim nothing."""
         assert not classify_grad("Software Engineer").is_grad
