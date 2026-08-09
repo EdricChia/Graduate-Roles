@@ -13,7 +13,7 @@ import pytest
 
 from gradtrack.firms import Firm, FirmStatus, RobotsStatus
 from gradtrack.schema import Platform
-from gradtrack.sources.successfactors import is_singapore, parse_tiles
+from gradtrack.sources.successfactors import _location_from_url, is_singapore, parse_tiles
 
 FIXTURE = Path(__file__).parent / "fixtures" / "successfactors_temasek.html"
 
@@ -71,6 +71,44 @@ class TestParsing:
             assert posting.posted_date is None
             assert posting.posted_date_basis is not None
             assert posting.posted_date_basis.value == "observed"
+
+
+class TestLocationFromUrl:
+    """RWE's tiles carry no section-field blocks at all, so the slug is the only location.
+
+    All three of its Singapore graduate programmes — IT Developer, Commercial, and Business
+    Transformation & Strategy — were fetched correctly and then discarded, because the
+    client re-checked a location field the tenant does not publish.
+    """
+
+    def test_a_singapore_slug_is_read(self) -> None:
+        url = "https://jobs.rwe.com/RWE/job/Singapore-Business-Transformation-Strategy/12345/"
+        assert _location_from_url(url) == "Singapore"
+
+    @pytest.mark.parametrize(
+        "url",
+        [
+            "https://jobs.rwe.com/RWE/job/Essen-IT-Developer/1/",
+            "https://jobs.rwe.com/RWE/job/London-Commercial-Graduate/2/",
+            "https://jobs.rwe.com/RWE/nothing-here/",
+            "",
+        ],
+    )
+    def test_other_locations_are_not_guessed(self, url: str) -> None:
+        """Confirming Singapore from a slug is safe; inferring any location from one is not."""
+        assert _location_from_url(url) == ""
+
+    def test_a_tile_without_a_location_field_still_gets_one(self) -> None:
+        chunk = (
+            '<li class="job-tile job-id-92915" data-url="/RWE/job/Singapore-Business-'
+            'Transformation-Strategy-Graduate-Programme/92915/">'
+            '<a class="jobTitle-link" href="#">Business Transformation &amp; Strategy '
+            "Graduate Programme</a></li>"
+        )
+        postings = parse_tiles(chunk, "https://jobs.rwe.com", TEMASEK)
+        assert len(postings) == 1
+        assert postings[0].location_raw == "Singapore"
+        assert is_singapore(postings[0].location_raw)
 
 
 class TestSingaporeDetection:

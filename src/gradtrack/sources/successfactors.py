@@ -17,9 +17,24 @@ are individually tagged (`job-id-{id}`, `jobTitle-link`, `section-field location
 alternative is adding a parser dependency for one source. If a second HTML source appears,
 revisit it.
 
-One trap: **location is a country code, not a country.** Temasek returns "SG, 238891" — the
-ISO code and a postal code. The shared `contains_singapore` helper matches the word
-"Singapore" and would drop every row here, so this module does its own check.
+Two traps.
+
+**Location is a country code, not a country.** Temasek returns "SG, 238891" — the ISO code
+and a postal code. The shared `contains_singapore` helper matches the word "Singapore" and
+would drop every row here, so this module does its own check.
+
+**Paging the whole board misses things, so the search is filtered server-side.** RWE's board
+was read unfiltered, returned 204 postings and reported zero in Singapore — while RWE was in
+fact advertising a "Business Transformation & Strategy Graduate Programme" there. Paging
+stopped long before reaching it. `?locationsearch=Singapore` returns those three roles
+directly, and is the same lesson as Workday's `searchText`: narrow at the source rather than
+walk a global board.
+
+The parameter matters. `?location=Singapore` also works on RWE and returns **zero** on
+Temasek, so choosing it would have silently emptied a firm that was working. `locationsearch`
+returns the right answer on both. Where a tenant does not support it at all, the first page
+comes back empty and the client falls back to the unfiltered sweep rather than reporting a
+board with no Singapore roles.
 """
 
 from __future__ import annotations
@@ -36,8 +51,10 @@ from gradtrack.schema import Platform, PostedDateBasis, SourcePosting
 from gradtrack.sources.base import FetchOutcome, RateLimiter
 
 SEARCH_PATH = "/tile-search-results/?q={query}&startrow={start}"
+LOCATION_SEARCH_PATH = "/tile-search-results/?q=&locationsearch={location}&startrow={start}"
 PAGE_SIZE = 25
 MAX_PAGES = 40
+LOCATION_FILTER = "Singapore"
 
 _TILE_SPLIT = re.compile(r'<li class="job-tile job-id-')
 _TILE_ID = re.compile(r"^(\d+)")
@@ -82,6 +99,20 @@ def is_singapore(location: str) -> bool:
     return bool(_SINGAPORE.search(location or ""))
 
 
+def _location_from_url(apply_url: str) -> str:
+    """Best-effort location out of a Recruiting Marketing job slug.
+
+    `/RWE/job/Singapore-Business-Transformation-.../` puts the location first in the slug.
+    Only the leading segment is taken, and only when it names Singapore — guessing a general
+    location out of a URL is not reliable, but confirming this one is.
+    """
+    match = re.search(r"/job/([^/]+)", apply_url or "")
+    if not match:
+        return ""
+    head = match.group(1).split("-")[0]
+    return "Singapore" if _SINGAPORE.fullmatch(head) else ""
+
+
 def parse_tiles(page_html: str, base_url: str, firm: Firm) -> list[SourcePosting]:
     """Extract every job tile from one search-results page."""
     postings: list[SourcePosting] = []
@@ -95,14 +126,19 @@ def parse_tiles(page_html: str, base_url: str, firm: Firm) -> list[SourcePosting
         if not title:
             continue
         fields = _sections(chunk)
+        apply_url = urljoin(base_url, html.unescape(url_match.group(1)))
         postings.append(
             SourcePosting(
                 firm_id=firm.firm_id,
                 source_platform=Platform.SUCCESSFACTORS,
                 external_id=id_match.group(1),
                 title=title,
-                apply_url=urljoin(base_url, html.unescape(url_match.group(1))),
-                location_raw=fields.get("location", ""),
+                apply_url=apply_url,
+                # Not every tenant publishes a location field — RWE's tiles carry no
+                # `section-field` blocks at all. The job URL still encodes it, because
+                # Recruiting Marketing builds the slug from the posting:
+                # /RWE/job/Singapore-Business-Transformation-...
+                location_raw=fields.get("location", "") or _location_from_url(apply_url),
                 # The tile carries no description; the classifier works from the title and
                 # the department. Fetching each detail page would double the request count
                 # for a source that is already a secondary priority.
@@ -123,39 +159,75 @@ def fetch_firm(
     """Page through one firm's SuccessFactors career site."""
     limiter = RateLimiter(config.rate_limit_for(Platform.SUCCESSFACTORS.value))
     base_url = f"https://{firm.ats_host}"
-    postings: list[SourcePosting] = []
-    seen: set[str] = set()
 
-    for page in range(MAX_PAGES):
-        url = base_url + SEARCH_PATH.format(query="", start=page * PAGE_SIZE)
-        limiter.wait()
-        try:
-            response = client.get(url)
-            response.raise_for_status()
-        except Exception as exc:  # noqa: BLE001
-            return [], FetchOutcome(
-                firm.firm_id,
-                Platform.SUCCESSFACTORS.value,
-                False,
-                0,
-                f"{type(exc).__name__}: {exc}"[:200],
+    def sweep(location: str) -> tuple[list[SourcePosting], str] | None:
+        """Page one search. Returns (postings, note), or None if the fetch failed."""
+        found: list[SourcePosting] = []
+        seen: set[str] = set()
+        for page in range(MAX_PAGES):
+            start = page * PAGE_SIZE
+            path = (
+                LOCATION_SEARCH_PATH.format(location=location, start=start)
+                if location
+                else SEARCH_PATH.format(query="", start=start)
             )
+            limiter.wait()
+            try:
+                response = client.get(base_url + path)
+                response.raise_for_status()
+            except Exception as exc:  # noqa: BLE001
+                return (
+                    None if page == 0 else (found, f"stopped at page {page}: {type(exc).__name__}")
+                )
 
-        page_postings = parse_tiles(response.text, base_url, firm)
-        if not page_postings:
-            break
-        fresh = 0
-        for posting in page_postings:
-            if posting.job_key in seen:
-                continue
-            seen.add(posting.job_key)
-            fresh += 1
-            if singapore_only and not is_singapore(posting.location_raw):
-                continue
-            postings.append(posting)
-        # A site that ignores startrow would serve page one forever. Stopping when a page
-        # adds nothing new is the guard against that turning into forty identical requests.
-        if fresh == 0 or len(page_postings) < PAGE_SIZE:
-            break
+            page_postings = parse_tiles(response.text, base_url, firm)
+            if not page_postings:
+                break
+            fresh = 0
+            for posting in page_postings:
+                if posting.job_key in seen:
+                    continue
+                seen.add(posting.job_key)
+                fresh += 1
+                # When the search was filtered server-side, the server already answered the
+                # location question. Re-checking a field the tenant may not publish is how
+                # all three of RWE's Singapore graduate programmes were discarded after
+                # being fetched correctly.
+                if singapore_only and not location and not is_singapore(posting.location_raw):
+                    continue
+                found.append(posting)
+            # A site that ignores startrow would serve page one forever. Stopping when a page
+            # adds nothing new guards against that becoming forty identical requests.
+            if fresh == 0 or len(page_postings) < PAGE_SIZE:
+                break
+        return found, ""
 
-    return postings, FetchOutcome(firm.firm_id, Platform.SUCCESSFACTORS.value, True, len(postings))
+    note = ""
+    if singapore_only:
+        result = sweep(LOCATION_FILTER)
+        if result is None:
+            return [], FetchOutcome(
+                firm.firm_id, Platform.SUCCESSFACTORS.value, False, 0, "location search failed"
+            )
+        postings, note = result
+        if postings:
+            return postings, FetchOutcome(
+                firm.firm_id, Platform.SUCCESSFACTORS.value, True, len(postings), note
+            )
+        # Zero from a filtered search is ambiguous: the tenant may not support the parameter.
+        # Falling back is what stops an unsupported filter from looking like an empty board.
+        note = "locationsearch returned nothing; fell back to the unfiltered sweep"
+
+    result = sweep("")
+    if result is None:
+        return [], FetchOutcome(
+            firm.firm_id, Platform.SUCCESSFACTORS.value, False, 0, "search failed"
+        )
+    postings, sweep_note = result
+    return postings, FetchOutcome(
+        firm.firm_id,
+        Platform.SUCCESSFACTORS.value,
+        True,
+        len(postings),
+        "; ".join(x for x in (note, sweep_note) if x),
+    )
