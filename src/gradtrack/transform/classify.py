@@ -587,6 +587,26 @@ FAMILY_RULES: tuple[tuple[JobFamily, re.Pattern[str]], ...] = (
         ),
     ),
     (
+        JobFamily.SCIENCE_LAB,
+        # Placed after Software Engineering so a "QA Engineer" stays in software, and before
+        # Risk & Compliance so pharma "Quality Assurance" is not read as audit work.
+        re.compile(
+            r"\b(biotechnolog|laborator|lab technician|microbiolog|chemist|"
+            r"analytical (chemist|scientist|develop)|formulation|bioinformatic|"
+            r"clinical (research|trial|operation)|quality (control|assurance)|"
+            # Narrow, not bare "chemical": a Chemical Engineer belongs in Engineering.
+            r"chemical (technician|analyst|specialist|operator)|"
+            r"qc (specialist|technician|analyst|scientist)|"
+            r"qa (specialist|technician|analyst|scientist)|"
+            r"molecular|genomic|assay|pharmacovigilance|regulatory affairs|"
+            # No trailing \b: several alternatives are deliberately stems. "biotechnolog"
+            # has to match "Biotechnologist" and "laborator" has to match "Laboratory", and
+            # a closing word boundary rejects exactly those because a word character follows.
+            r"process (chemist|scientist)|upstream|downstream)",
+            re.I,
+        ),
+    ),
+    (
         JobFamily.INVESTMENT,
         re.compile(
             r"\b(investment (analyst|associate|banking|management|professional)|"

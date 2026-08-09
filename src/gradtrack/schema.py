@@ -79,6 +79,11 @@ class JobFamily(StrEnum):
     RISK_COMPLIANCE = "risk_compliance"
     FINANCE_ACCOUNTING = "finance_accounting"
     ENGINEERING = "engineering"
+    # Singapore has a large biopharma and semiconductor manufacturing sector, and its
+    # graduate intake there is titled "Biotechnologist Trainee", "QC Technician",
+    # "Laboratory Technician". Twelve such roles at Roche, Sanofi, Micron and Evonik
+    # were landing in OTHER.
+    SCIENCE_LAB = "science_lab"
     SALES_MARKETING = "sales_marketing"
     HUMAN_RESOURCES = "human_resources"
     LEGAL = "legal"
@@ -110,6 +115,7 @@ FAMILY_GROUPS: dict[JobFamily, str] = {
     JobFamily.RISK_COMPLIANCE: "Risk & Compliance",
     JobFamily.FINANCE_ACCOUNTING: "Finance",
     JobFamily.ENGINEERING: "Engineering",
+    JobFamily.SCIENCE_LAB: "Science & Lab",
     JobFamily.SALES_MARKETING: "Sales & Marketing",
     JobFamily.HUMAN_RESOURCES: "People",
     JobFamily.LEGAL: "Legal",
