@@ -143,11 +143,29 @@ def classify_posting(posting: SourcePosting) -> dict[str, object]:
 
 
 def load_all_postings(config: Config, snapshot_date: date) -> list[SourcePosting]:
-    """Every platform's postings for one date, concatenated."""
+    """Every platform's postings, each from the newest partition that platform actually has.
+
+    **Not "every platform's postings for one date".** That was the original behaviour and it
+    silently emptied the table: running only Greenhouse and Phenom on a given day left every
+    other platform without a partition for it, and the curated table fell from 4,424 postings
+    to 567 — the dashboard and the digest would have shown two firms' worth of the tracker
+    and looked like a quiet week.
+
+    This is the exact failure the finance repo hit, recorded in `.claude/rules/ingest.md`: a
+    transform that resolves inputs to *the* newest partition rather than to the newest
+    partition that *has* each input. The legs now run on different schedules — Workday at
+    14:00 and everything else at 17:07 — so platforms routinely differ by date, and one leg
+    failing must cost its own freshness rather than everyone's presence.
+
+    The lifecycle guard is a separate mechanism and does not cover this. It stops a posting
+    being marked *closed* without evidence; it cannot put back a row the transform never read.
+    """
     postings: list[SourcePosting] = []
     for platform in platforms_on_disk(config):
-        if snapshot_date in available_snapshots(config, platform):
-            postings.extend(read_snapshot_as_postings(config, platform, snapshot_date))
+        available = [d for d in available_snapshots(config, platform) if d <= snapshot_date]
+        if not available:
+            continue
+        postings.extend(read_snapshot_as_postings(config, platform, max(available)))
     return postings
 
 
