@@ -119,6 +119,11 @@ def fetch_platform(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Ingest ATS job boards for wired firms")
     parser.add_argument("--platform", default="", help="restrict to one ATS platform")
+    parser.add_argument(
+        "--exclude",
+        default="",
+        help="comma-separated platforms to skip; lets the slow Workday leg run on its own schedule",
+    )
     parser.add_argument("--firm", default="", help="restrict to one firm_id")
     parser.add_argument(
         "--all-locations",
@@ -137,6 +142,9 @@ def main(argv: list[str] | None = None) -> int:
         selected = [f for f in selected if f.ats_platform == Platform(args.platform)]
     if args.firm:
         selected = [f for f in selected if f.firm_id == args.firm]
+    if args.exclude:
+        skip = {p.strip() for p in args.exclude.split(",") if p.strip()}
+        selected = [f for f in selected if f.ats_platform and f.ats_platform.value not in skip]
 
     unsupported = {f.ats_platform for f in selected if f.ats_platform not in CLIENTS}
     if unsupported:

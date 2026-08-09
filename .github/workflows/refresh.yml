@@ -96,8 +96,11 @@ jobs:
       # fails the workflow on an individual firm's outage: the failure is recorded as a
       # FetchOutcome and transform/lifecycle.py refuses to mark that firm's roles closed.
 
-      - name: Ingest - ATS boards
-        run: uv run python -m gradtrack.ingest.ats
+      # Workday is excluded and runs in refresh-workday.yml. At 0.5 req/s across 64
+      # tenants and 69 sites it needs roughly 110 minutes on its own, which does not
+      # fit here and must not be allowed to time out the fast path with it.
+      - name: Ingest - ATS boards (excluding Workday)
+        run: uv run python -m gradtrack.ingest.ats --exclude workday
 
       - name: Ingest - MyCareersFuture
         run: uv run python -m gradtrack.ingest.mcf

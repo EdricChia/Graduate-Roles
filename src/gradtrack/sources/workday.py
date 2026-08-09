@@ -146,6 +146,7 @@ def to_source_posting(
     req_id: str,
     *,
     resolved_location: str = "",
+    site: str = "",
 ) -> SourcePosting:
     posted, basis = parse_posted_on(posting.postedOn, today)
     return SourcePosting(
@@ -156,7 +157,7 @@ def to_source_posting(
         external_id=req_id or posting.externalPath.strip("/").split("/")[-1],
         title=posting.title,
         apply_url=PUBLIC_URL.format(
-            host=firm.ats_host, site=firm.board_site, path=posting.externalPath
+            host=firm.ats_host, site=site or firm.board_site, path=posting.externalPath
         ),
         # The resolved location wins where we have it: "Singapore - Central" is usable and
         # "2 Locations" is not.
@@ -179,10 +180,40 @@ def fetch_firm(
     singapore_only: bool = True,
     today: date | None = None,
 ) -> tuple[list[SourcePosting], FetchOutcome]:
-    """Read one firm's Workday tenant."""
+    """Read one firm's Workday tenant, across every site listed in ``board_site``.
+
+    A tenant frequently runs several career sites and a graduate tracker wants more than one
+    of them. PwC has `Global_Campus_Careers` beside `Global_Experienced_Careers`; Unilever
+    has `Unilever_Early_Careers` and `Unilever_UFLP_ULIP_Fast_Track_Career_Site` beside a
+    general board and `TMICC`, which is its ice cream business. Forcing one site per firm
+    meant choosing between a firm's graduate scheme and everything else it advertises.
+
+    ``board_site`` may therefore be pipe-separated. Postings are deduplicated on ``job_key``,
+    so a role listed on two sites is read once.
+    """
+    sites = [s.strip() for s in firm.board_site.split("|") if s.strip()]
+    if len(sites) > 1:
+        collected: dict[str, SourcePosting] = {}
+        notes: list[str] = []
+        ok = False
+        for site in sites:
+            single = firm.model_copy(update={"board_site": site})
+            postings, outcome = fetch_firm(
+                client, config, single, singapore_only=singapore_only, today=today
+            )
+            ok = ok or outcome.ok
+            if outcome.error:
+                notes.append(f"{site}: {outcome.error}")
+            for posting in postings:
+                collected.setdefault(posting.job_key, posting)
+        return list(collected.values()), FetchOutcome(
+            firm.firm_id, Platform.WORKDAY.value, ok, len(collected), "; ".join(notes)[:200]
+        )
+
+    site = sites[0] if sites else firm.board_site
     limiter = RateLimiter(config.rate_limit_for(Platform.WORKDAY.value))
     today = today or date.today()
-    list_url = LIST_URL.format(host=firm.ats_host, tenant=firm.ats_token, site=firm.board_site)
+    list_url = LIST_URL.format(host=firm.ats_host, tenant=firm.ats_token, site=site)
 
     candidates: list[WorkdayPosting] = []
     invalid = 0
@@ -237,7 +268,7 @@ def fetch_firm(
                 DETAIL_URL.format(
                     host=firm.ats_host,
                     tenant=firm.ats_token,
-                    site=firm.board_site,
+                    site=site,
                     path=posting.externalPath,
                 ),
                 limiter,
@@ -260,7 +291,13 @@ def fetch_firm(
             continue
         results.append(
             to_source_posting(
-                posting, firm, today, description, req_id, resolved_location=resolved_location
+                posting,
+                firm,
+                today,
+                description,
+                req_id,
+                resolved_location=resolved_location,
+                site=site,
             )
         )
 
@@ -269,7 +306,7 @@ def fetch_firm(
     for posting in skipped:
         if singapore_only and _MULTI_LOCATION.match(posting.locationsText):
             continue
-        results.append(to_source_posting(posting, firm, today, "", ""))
+        results.append(to_source_posting(posting, firm, today, "", "", site=site))
 
     notes = []
     if invalid:

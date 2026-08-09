@@ -61,6 +61,8 @@ DATA_CENTRES = ("wd1", "wd3", "wd5", "wd2", "wd12", "wd103")
 DISCOVERY_RATE = 3.0
 # Two candidates per firm, not five. Same multiplicative reasoning as the data centres.
 MAX_TENANT_CANDIDATES = 3
+# Every candidate site on a host is probed so the best can be chosen; this bounds it.
+MAX_SITES_PER_HOST = 8
 
 ROBOTS_URL = "https://{host}/robots.txt"
 JOBS_URL = "https://{host}/wday/cxs/{tenant}/{site}/jobs"
@@ -149,6 +151,22 @@ class WorkdayHit:
         return self.verify()[0]
 
 
+def _site_rank(hit: WorkdayHit) -> tuple[int, int, int]:
+    """How good a site is for this firm, best last.
+
+    Singapore roles first, because that is what the tracker is for and it is the signal that
+    separated TrafiguraCareerSite (4) from Puma_Energy_Careers (1). Then whether the site
+    name looks like the firm, which breaks ties on tenants where every site is currently
+    empty — Unilever's are, and the name is the only thing distinguishing its graduate board
+    from an internal one. Total postings last.
+    """
+    resembles = fuzz.partial_ratio(
+        _NON_ALNUM.sub("", hit.site.lower()),
+        _NON_ALNUM.sub("", _NOISE.sub(" ", hit.firm_name.lower())),
+    )
+    return hit.singapore, int(resembles), hit.total
+
+
 def find_hosts(
     client: httpx.Client, limiter: RateLimiter, tenant: str
 ) -> list[tuple[str, list[str]]]:
@@ -218,12 +236,20 @@ def discover_firm(
                 site = template.format(t=tenant, T=capitalised)
                 if site not in candidates:
                     candidates.append(site)
-            for site in candidates:
+            # Probe every candidate and pick the best, rather than stopping at the first that
+            # answers. A tenant routinely hosts several sites and the first is often the
+            # wrong one: Trafigura lists Puma_Energy_Careers ahead of TrafiguraCareerSite,
+            # so first-wins attributed an affiliate's postings to Trafigura and found one
+            # Singapore role where the right site has four. Golden Agri listed SMART_Careers
+            # ahead of GAR_InternationalCareers, one Singapore role against five. Unilever
+            # offers TMICC ahead of Unilever_Early_Careers, which is its graduate board.
+            found: list[WorkdayHit] = []
+            for site in candidates[:MAX_SITES_PER_HOST]:
                 result = probe_site(client, limiter, host, tenant, site)
                 if result is None:
                     continue
                 total, singapore = result
-                hits.append(
+                found.append(
                     WorkdayHit(
                         firm.firm_id,
                         firm.firm_name,
@@ -235,15 +261,15 @@ def discover_firm(
                         site in robots_sites,
                     )
                 )
-                break
-            if hits:
+            if found:
+                hits.append(max(found, key=_site_rank))
                 break
         if hits:
             break
     return hits
 
 
-def apply_hits(config: Config, hits: list[WorkdayHit]) -> list[str]:
+def apply_hits(config: Config, hits: list[WorkdayHit], *, force: bool = False) -> list[str]:
     path = config.registry_path
     with path.open(newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle)
@@ -254,7 +280,13 @@ def apply_hits(config: Config, hits: list[WorkdayHit]) -> list[str]:
     applied: list[str] = []
     for row in rows:
         hit = best.get((row.get("firm_id") or "").strip())
-        if hit is None or (row.get("status") or "").strip() != FirmStatus.TODO.value:
+        if hit is None:
+            continue
+        status = (row.get("status") or "").strip()
+        # An already-wired row is only corrected under --force, and only when the site
+        # actually changed. Re-running discovery must not churn rows it agrees with.
+        already_wired = status != FirmStatus.TODO.value
+        if already_wired and (not force or row.get("board_site") == hit.site):
             continue
         row.update(
             ats_platform=Platform.WORKDAY.value,
@@ -278,16 +310,27 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Find Workday tenants for todo firms")
     parser.add_argument("--firm", default="")
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="also re-probe firms already wired, and correct the site if a better one exists",
+    )
     parser.add_argument("--limit", type=int, default=0)
     args = parser.parse_args(argv)
 
     config = load_config()
     registry = load_registry(config.registry_path)
-    targets = (
-        [registry.by_id(args.firm)]
-        if args.firm
-        else [f for f in registry if f.status is FirmStatus.TODO]
-    )
+    if args.firm:
+        targets = [registry.by_id(args.firm)]
+    elif args.force:
+        targets = [
+            f
+            for f in registry
+            if f.status is FirmStatus.TODO
+            or (f.ats_platform is not None and f.ats_platform.value == Platform.WORKDAY.value)
+        ]
+    else:
+        targets = [f for f in registry if f.status is FirmStatus.TODO]
     if args.limit:
         targets = targets[: args.limit]
 
@@ -314,7 +357,7 @@ def main(argv: list[str] | None = None) -> int:
     verified = [h for h in all_hits if h.verified]
     print(f"\n{len(all_hits)} tenant(s) found, {len(verified)} verified")
     if args.apply:
-        for line in apply_hits(config, all_hits):
+        for line in apply_hits(config, all_hits, force=args.force):
             print(f"  wired {line}")
     elif verified:
         print("re-run with --apply to write these into data/firms/registry.csv")

@@ -17,7 +17,7 @@ morganstanley,Morgan Stanley,bank,1,workday,ms,ms.wd5.myworkdayjobs.com,External
 citi,Citi,bank,1,workday,citi,citi.wd5.myworkdayjobs.com,2,,allowed,wired,"workday tenant verified live; 291 postings, 20 SG; site id is literally '2', confirmed serving Singapore Salesperson C12/C13 roles"
 bofa,Bank of America,bank,1,,,,,,unknown,todo,
 ubs,UBS,bank,1,,,,,,unknown,todo,
-barclays,Barclays,bank,1,,,,,,unknown,todo,
+barclays,Barclays,bank,1,workday,barclays,barclays.wd3.myworkdayjobs.com,External_Career_Site_Barclays,,allowed,wired,"workday tenant discovered; 19 postings (16 SG), site from robots.txt"
 deutschebank,Deutsche Bank,bank,1,,,,,,unknown,todo,
 hsbc,HSBC,bank,1,,,,,,unknown,todo,
 standardchartered,Standard Chartered,bank,1,,,,,,unknown,todo,
@@ -35,10 +35,10 @@ lazard,Lazard,bank,2,,,,,,unknown,todo,
 rothschild,Rothschild & Co,bank,2,,,,,,unknown,todo,
 evercore,Evercore,bank,2,,,,,,unknown,todo,
 houlihanlokey,Houlihan Lokey,bank,2,,,,,,unknown,todo,
-blackrock,BlackRock,asset_management,1,,,,,,unknown,todo,
+blackrock,BlackRock,asset_management,1,workday,blackrock,blackrock.wd1.myworkdayjobs.com,BlackRock_Professional,,allowed,wired,"workday tenant discovered; 21 postings (12 SG), site from robots.txt"
 blackstone,Blackstone,asset_management,1,workday,blackstone,blackstone.wd1.myworkdayjobs.com,Blackstone_Careers,,allowed,wired,"workday tenant verified live; 11 postings, 6 SG"
 kkr,KKR,asset_management,1,,,,,,unknown,todo,
-carlyle,The Carlyle Group,asset_management,2,,,,,,unknown,todo,
+carlyle,The Carlyle Group,asset_management,2,workday,carlyle,carlyle.wd1.myworkdayjobs.com,Carlyle,,allowed,wired,"workday tenant discovered; 4 postings (0 SG), site from robots.txt"
 apollo,Apollo Global Management,asset_management,2,,,,,,unknown,todo,
 warburgpincus,Warburg Pincus,asset_management,2,,,,,,unknown,todo,
 bridgewater,Bridgewater Associates,asset_management,2,,,,,,unknown,todo,
@@ -80,7 +80,7 @@ grab,Grab,tech,1,,,,,,unknown,todo,
 stripe,Stripe,tech,1,greenhouse,stripe,,,,allowed,wired,discovered 550 jobs (37 SG); board name 'Stripe' matches (100.0)
 databricks,Databricks,tech,1,greenhouse,databricks,,,,allowed,wired,discovered 820 jobs (33 SG); board name 'Databricks' matches (100.0)
 salesforce,Salesforce,tech,1,workday,salesforce,salesforce.wd12.myworkdayjobs.com,External_Career_Site,,allowed,wired,workday tenant verified live
-adobe,Adobe,tech,2,,,,,,unknown,todo,
+adobe,Adobe,tech,2,workday,adobe,adobe.wd5.myworkdayjobs.com,external_experienced,,allowed,wired,"workday tenant discovered; 7 postings (6 SG), site from robots.txt"
 uber,Uber,tech,2,,,,,,unknown,todo,
 airbnb,Airbnb,tech,2,greenhouse,airbnb,,,,allowed,wired,discovered 189 jobs (1 SG); board name 'Airbnb' matches (100.0)
 atlassian,Atlassian,tech,2,,,,,,unknown,todo,
@@ -90,14 +90,14 @@ anthropic,Anthropic,tech,1,greenhouse,anthropic,,,,allowed,wired,discovered 393 
 snowflake,Snowflake,tech,2,ashby,snowflake,,,,allowed,wired,discovered 395 jobs (8 SG); token matches firm name (100)
 linkedin,LinkedIn,tech,2,,,,,,unknown,todo,"lever/linkedin is a sandbox account - postings titled 'BO Prim', 'Anirban jobReq 3'"
 visa,Visa,tech,2,workday,visa,visa.wd5.myworkdayjobs.com,Visa_Talent_Portal,,allowed,wired,"workday tenant discovered; 3 postings (3 SG), site from robots.txt"
-mastercard,Mastercard,tech,2,,,,,,unknown,todo,
-paypal,PayPal,tech,2,,,,,,unknown,todo,
+mastercard,Mastercard,tech,2,workday,mastercard,mastercard.wd1.myworkdayjobs.com,CorporateCareers,,allowed,wired,"workday tenant discovered; 58 postings (18 SG), site from robots.txt"
+paypal,PayPal,tech,2,workday,paypal,paypal.wd1.myworkdayjobs.com,jobs,,allowed,wired,"workday tenant discovered; 1 postings (1 SG), site from robots.txt"
 kraken,Kraken,crypto,1,,,,,,unknown,todo,
 binance,Binance,crypto,1,greenhouse,binance,,,,allowed,wired,discovered 1 jobs (1 SG); board name 'Binance' matches (100.0)
 okx,OKX,crypto,2,,,,,,unknown,todo,
 cryptocom,Crypto.com,crypto,2,,,,,,unknown,todo,
 ripple,Ripple,crypto,2,greenhouse,ripple,,,,allowed,wired,discovered 132 jobs (1 SG); board name 'Ripple ' matches (100.0)
-circle,Circle,crypto,2,,,,,,unknown,todo,
+circle,Circle,crypto,2,workday,circle,circle.wd1.myworkdayjobs.com,Circle,,allowed,wired,"workday tenant discovered; 9 postings (7 SG), site from robots.txt"
 chainalysis,Chainalysis,crypto,2,,,,,,unknown,todo,
 ambergroup,Amber Group,crypto,2,,,,,,unknown,todo,"ashby/amber is a German company in Koln/Aachen, not Amber Group"
 qcpgroup,QCP Group,crypto,2,,,,,,unknown,todo,
@@ -108,7 +108,7 @@ eyparthenon,EY-Parthenon,consulting,1,,,,,,unknown,todo,Graduate Strategy and Ex
 strategyand,Strategy& (PwC),consulting,1,,,,,,unknown,todo,
 deloitte,Deloitte,consulting,1,,,,,,unknown,todo,
 kpmg,KPMG,consulting,1,,,,,,unknown,todo,
-pwc,PwC,consulting,1,workday,pwc,pwc.wd3.myworkdayjobs.com,Global_Campus_Careers,,allowed,wired,"site corrected from NonPublic_Postings: robots.txt sitemaps name the public boards, and Global_Campus_Careers (139 postings) is PwC's campus board"
+pwc,PwC,consulting,1,workday,pwc,pwc.wd3.myworkdayjobs.com,Global_Campus_Careers|Global_Experienced_Careers,,allowed,wired,campus board plus experienced; robots.txt sitemaps name both
 ey,EY,consulting,1,,,,,,unknown,todo,
 accenture,Accenture,consulting,1,workday,accenture,accenture.wd103.myworkdayjobs.com,AccentureCareers,,allowed,wired,"workday tenant verified live; 204 postings, none in Singapore in the sample; wired anyway - the host is Accenture's own tenant so attribution is certain"
 kearney,Kearney,consulting,1,,,,,,unknown,todo,
@@ -123,10 +123,10 @@ simonkucher,Simon-Kucher,consulting,2,,,,,,unknown,todo,
 zsassociates,ZS Associates,consulting,2,,,,,,unknown,todo,
 alvarezmarsal,Alvarez & Marsal,consulting,2,,,,,,unknown,todo,
 fticonsulting,FTI Consulting,consulting,2,,,,,,unknown,todo,
-gartner,Gartner,consulting,2,,,,,,unknown,todo,
+gartner,Gartner,consulting,2,workday,gartner,gartner.wd5.myworkdayjobs.com,EXT,,allowed,wired,"workday tenant discovered; 16 postings (11 SG), site from robots.txt"
 nielseniq,NielsenIQ,consulting,2,smartrecruiters,nielseniq,,,,allowed,wired,discovered 444 jobs (0 SG); board name 'NielsenIQ' matches (100.0)
 procterandgamble,Procter & Gamble,consumer,1,,,,,,unknown,todo,
-unilever,Unilever,consumer,1,,,,,,unknown,todo,
+unilever,Unilever,consumer,1,workday,unilever,unilever.wd3.myworkdayjobs.com,Unilever_Early_Careers|Unilever_UFLP_ULIP_Fast_Track_Career_Site|Unilever_Experienced_Professionals,,allowed,wired,"graduate boards first; TMICC is The Magnum Ice Cream Company, not a Singapore graduate board"
 nestle,Nestle,consumer,1,,,,,,unknown,todo,
 loreal,L'Oreal,consumer,1,,,,,,unknown,todo,
 mondelez,Mondelez International,consumer,2,,,,,,unknown,todo,
@@ -139,7 +139,7 @@ johnsonandjohnson,Johnson & Johnson,pharma,1,,,,,,unknown,todo,
 pfizer,Pfizer,pharma,1,workday,pfizer,pfizer.wd1.myworkdayjobs.com,PfizerCareers,,allowed,wired,"workday tenant discovered; 12 postings (12 SG), site from conventional name"
 merck,Merck,pharma,1,,,,,,unknown,todo,GOglobal Graduate Program appears on MCF
 novartis,Novartis,pharma,1,workday,novartis,novartis.wd3.myworkdayjobs.com,Novartis_Careers,,allowed,wired,"workday tenant discovered; 6 postings (0 SG), site from conventional name"
-roche,Roche,pharma,1,,,,,,unknown,todo,
+roche,Roche,pharma,1,workday,roche,roche.wd3.myworkdayjobs.com,roche-ext,,allowed,wired,"workday tenant discovered; 28 postings (19 SG), site from robots.txt"
 gsk,GSK,pharma,1,workday,gsk,gsk.wd5.myworkdayjobs.com,GskCareers,,allowed,wired,"workday tenant discovered; 67 postings (19 SG), site from conventional name"
 astrazeneca,AstraZeneca,pharma,1,workday,astrazeneca,astrazeneca.wd3.myworkdayjobs.com,Careers,,allowed,wired,"workday tenant discovered; 12 postings (9 SG), site from conventional name"
 sanofi,Sanofi,pharma,2,workday,sanofi,sanofi.wd3.myworkdayjobs.com,SanofiCareers,,allowed,wired,"workday tenant discovered; 36 postings (17 SG), site from conventional name"
@@ -158,7 +158,7 @@ schneiderelectric,Schneider Electric,industrial,1,,,,,,unknown,todo,
 abb,ABB,industrial,2,workday,abb,abb.wd3.myworkdayjobs.com,broadbean_external,,allowed,wired,"workday tenant discovered; 5 postings (2 SG), site from robots.txt"
 bosch,Bosch,industrial,2,,,,,,unknown,todo,
 dyson,Dyson,industrial,1,workday,dyson,dyson.wd3.myworkdayjobs.com,Dyson_Careers,,allowed,wired,"workday tenant discovered; 92 postings (20 SG), site from conventional name"
-rollsroyce,Rolls-Royce,industrial,2,,,,,,unknown,todo,
+rollsroyce,Rolls-Royce,industrial,2,workday,rollsroyce,rollsroyce.wd3.myworkdayjobs.com,Intern_Graduate,,allowed,wired,"workday tenant discovered; 1 postings (1 SG), site from robots.txt"
 airbus,Airbus,industrial,2,,,,,,unknown,todo,
 boeing,Boeing,industrial,2,workday,boeing,boeing.wd1.myworkdayjobs.com,External_Careers,,allowed,wired,"workday tenant discovered; 2 postings (0 SG), site from conventional name"
 honeywell,Honeywell,industrial,2,,,,,,unknown,todo,
@@ -167,7 +167,7 @@ shell,Shell,energy,1,workday,shell,shell.wd3.myworkdayjobs.com,ShellCareers,,all
 exxonmobil,ExxonMobil,energy,1,,,,,,unknown,todo,
 bp,BP,energy,2,,,,,,unknown,todo,
 totalenergies,TotalEnergies,energy,2,,,,,,unknown,todo,
-trafigura,Trafigura,energy,1,,,,,,unknown,todo,
+trafigura,Trafigura,energy,1,workday,trafigura,trafigura.wd3.myworkdayjobs.com,TrafiguraCareerSite|Puma_Energy_Careers,,allowed,wired,TrafiguraCareerSite is the firm's own (5 SG); Puma Energy is an affiliate and was picked first by the old first-wins rule
 vitol,Vitol,energy,1,smartrecruiters,vitol,,,,allowed,wired,discovered 34 jobs (0 SG); board name 'Vitol' matches (100.0)
 glencore,Glencore,energy,2,,,,,,unknown,todo,
 sembcorp,Sembcorp Industries,energy,2,,,,,,unknown,todo,
@@ -178,10 +178,10 @@ dhl,DHL,logistics,2,,,,,,unknown,todo,
 kuehnenagel,Kuehne+Nagel,logistics,2,,,,,,unknown,todo,
 singtel,Singtel,telecom,2,,,,,,unknown,todo,
 aia,AIA Group,insurance,2,workday,aia,aia.wd3.myworkdayjobs.com,External,,allowed,wired,"workday tenant discovered; 72 postings (20 SG), site from conventional name"
-prudential,Prudential,insurance,2,,,,,,unknown,todo,
+prudential,Prudential,insurance,2,workday,prudential,prudential.wd3.myworkdayjobs.com,prudential,,allowed,wired,"workday tenant discovered; 99 postings (20 SG), site from robots.txt"
 greateastern,Great Eastern,insurance,2,,,,,,unknown,todo,
 manulife,Manulife,insurance,2,workday,manulife,manulife.wd3.myworkdayjobs.com,MFCJH_Jobs,,allowed,wired,"site corrected from MFCJH_AdminJobs, which robots.txt explicitly disallows; MFCJH_Jobs is the Allow-listed board (33 postings)"
-capitaland,CapitaLand,realestate,2,,,,,,unknown,todo,
+capitaland,CapitaLand,realestate,2,workday,capitaland,capitaland.wd3.myworkdayjobs.com,CapitaLandGroup,,allowed,wired,"workday tenant discovered; 142 postings (16 SG), site from robots.txt"
 rwe,RWE,energy,2,successfactors,,jobs.rwe.com,,https://jobs.rwe.com/,allowed,wired,"SuccessFactors, robots permits /tile-search-results/; 204 postings, 0 SG today"
 eon,E.ON,energy,2,,,,,,unknown,todo,
 orsted,Orsted,energy,2,,,,,,unknown,todo,
@@ -189,7 +189,7 @@ vestas,Vestas,energy,2,,,,,,unknown,todo,
 siemensenergy,Siemens Energy,energy,2,,,,,,unknown,todo,
 linde,Linde,energy,2,,,,,,unknown,todo,
 airliquide,Air Liquide,energy,2,,,,,,unknown,todo,
-gunvor,Gunvor Group,energy,2,,,,,,unknown,todo,
+gunvor,Gunvor Group,energy,2,workday,gunvor,gunvor.wd3.myworkdayjobs.com,Gunvor_Careers,,allowed,wired,"workday tenant discovered; 12 postings (7 SG), site from robots.txt"
 mercuria,Mercuria,energy,2,,,,,,unknown,todo,
 hartree,Hartree Partners,energy,2,,,,,,unknown,todo,
 freepoint,Freepoint Commodities,energy,2,,,,,,unknown,todo,
@@ -199,7 +199,7 @@ cargill,Cargill,consumer,2,,,,,,unknown,todo,
 adm,Archer Daniels Midland,consumer,2,,,,,,unknown,todo,
 olam,Olam Group,consumer,2,,,,,,unknown,todo,
 wilmar,Wilmar International,consumer,2,,,,,,unknown,todo,
-goldenagri,Golden Agri-Resources,consumer,2,,,,,,unknown,todo,
+goldenagri,Golden Agri-Resources,consumer,2,workday,goldenagri,goldenagri.wd3.myworkdayjobs.com,GAR_InternationalCareers|SMART_Careers,,allowed,wired,GAR is Golden Agri-Resources (5 SG); SMART is the subsidiary the old rule picked
 swissre,Swiss Re,insurance,2,,,,,,unknown,todo,
 munichre,Munich Re,insurance,2,,,,,,unknown,todo,
 allianz,Allianz,insurance,2,,,,,,unknown,todo,
@@ -217,22 +217,22 @@ itochu,Itochu,industrial,2,,,,,,unknown,todo,
 toyotatsusho,Toyota Tsusho,industrial,2,,,,,,unknown,todo,
 smbc,SMBC,bank,2,,,,,,unknown,todo,
 daiwa,Daiwa Capital Markets,bank,2,,,,,,unknown,todo,
-medtronic,Medtronic,pharma,2,,,,,,unknown,todo,
+medtronic,Medtronic,pharma,2,workday,medtronic,medtronic.wd1.myworkdayjobs.com,MedtronicCareers,,allowed,wired,"workday tenant discovered; 14 postings (8 SG), site from robots.txt"
 becton,Becton Dickinson,pharma,2,,,,,,unknown,todo,
-thermofisher,Thermo Fisher Scientific,pharma,2,,,,,,unknown,todo,
-danaher,Danaher,pharma,2,,,,,,unknown,todo,
-agilent,Agilent Technologies,pharma,2,,,,,,unknown,todo,
-illumina,Illumina,pharma,2,,,,,,unknown,todo,
-philips,Philips,pharma,2,,,,,,unknown,todo,
+thermofisher,Thermo Fisher Scientific,pharma,2,workday,thermofisher,thermofisher.wd5.myworkdayjobs.com,ThermoFisherCareers,,allowed,wired,"workday tenant discovered; 123 postings (18 SG), site from robots.txt"
+danaher,Danaher,pharma,2,workday,danaher,danaher.wd1.myworkdayjobs.com,DanaherJobs,,allowed,wired,"workday tenant discovered; 45 postings (16 SG), site from robots.txt"
+agilent,Agilent Technologies,pharma,2,workday,agilent,agilent.wd5.myworkdayjobs.com,Agilent_Careers,,allowed,wired,"workday tenant discovered; 16 postings (12 SG), site from robots.txt"
+illumina,Illumina,pharma,2,workday,illumina,illumina.wd1.myworkdayjobs.com,illumina-careers,,allowed,wired,"workday tenant discovered; 42 postings (17 SG), site from robots.txt"
+philips,Philips,pharma,2,workday,philips,philips.wd3.myworkdayjobs.com,jobs-and-careers,,allowed,wired,"workday tenant discovered; 15 postings (2 SG), site from robots.txt"
 siemenshealthineers,Siemens Healthineers,pharma,2,,,,,,unknown,todo,
-baxter,Baxter International,pharma,2,,,,,,unknown,todo,
+baxter,Baxter International,pharma,2,workday,baxter,baxter.wd1.myworkdayjobs.com,baxter,,allowed,wired,"workday tenant discovered; 6 postings (2 SG), site from robots.txt"
 zimmerbiomet,Zimmer Biomet,pharma,2,,,,,,unknown,todo,
-edwards,Edwards Lifesciences,pharma,2,,,,,,unknown,todo,
-stryker,Stryker,pharma,2,,,,,,unknown,todo,
-analogdevices,Analog Devices,semiconductor,2,,,,,,unknown,todo,
+edwards,Edwards Lifesciences,pharma,2,workday,edwards,edwards.wd5.myworkdayjobs.com,EdwardsCareers,,allowed,wired,"workday tenant discovered; 36 postings (19 SG), site from robots.txt"
+stryker,Stryker,pharma,2,workday,stryker,stryker.wd1.myworkdayjobs.com,StrykerCareers,,allowed,wired,"workday tenant discovered; 7 postings (6 SG), site from robots.txt"
+analogdevices,Analog Devices,semiconductor,2,workday,analogdevices,analogdevices.wd1.myworkdayjobs.com,External,,allowed,wired,"workday tenant discovered; 8 postings (7 SG), site from robots.txt"
 ti,Texas Instruments,semiconductor,2,,,,,,unknown,todo,
-marvell,Marvell Technology,semiconductor,2,,,,,,unknown,todo,
-broadcom,Broadcom,semiconductor,2,,,,,,unknown,todo,
+marvell,Marvell Technology,semiconductor,2,workday,marvell,marvell.wd1.myworkdayjobs.com,MarvellCareers,,allowed,wired,"workday tenant discovered; 23 postings (16 SG), site from robots.txt"
+broadcom,Broadcom,semiconductor,2,workday,broadcom,broadcom.wd1.myworkdayjobs.com,External_Career,,allowed,wired,"workday tenant discovered; 44 postings (16 SG), site from robots.txt"
 qualcomm,Qualcomm,semiconductor,2,,,,,,unknown,todo,
 renesas,Renesas Electronics,semiconductor,2,smartrecruiters,renesaselectronics,,,,allowed,wired,discovered 900 jobs (0 SG); board name 'Renesas Electronics' matches (100.0)
 murata,Murata Manufacturing,semiconductor,2,,,,,,unknown,todo,
@@ -244,13 +244,13 @@ soitec,Soitec,semiconductor,2,,,,,,unknown,todo,
 siltronic,Siltronic,semiconductor,2,,,,,,unknown,todo,
 onsemi,onsemi,semiconductor,2,,,,,,unknown,todo,
 teradyne,Teradyne,semiconductor,2,,,,,,unknown,todo,
-kla,KLA Corporation,semiconductor,2,,,,,,unknown,todo,
+kla,KLA Corporation,semiconductor,2,workday,kla,kla.wd1.myworkdayjobs.com,Search,,allowed,wired,"workday tenant discovered; 170 postings (20 SG), site from robots.txt"
 basf,BASF,industrial,2,,,,,,unknown,todo,
 bayer,Bayer,pharma,2,,,,,,unknown,todo,
 dow,Dow,industrial,2,,,,,,unknown,todo,
-dupont,DuPont,industrial,2,,,,,,unknown,todo,
+dupont,DuPont,industrial,2,workday,dupont,dupont.wd5.myworkdayjobs.com,Jobs,,allowed,wired,"workday tenant discovered; 1 postings (0 SG), site from robots.txt"
 solvay,Solvay,industrial,2,,,,,,unknown,todo,
-evonik,Evonik,industrial,2,,,,,,unknown,todo,
+evonik,Evonik,industrial,2,workday,evonik,evonik.wd3.myworkdayjobs.com,External_Careers,,allowed,wired,"workday tenant discovered; 16 postings (15 SG), site from robots.txt"
 clariant,Clariant,industrial,2,,,,,,unknown,todo,
 shinetsu,Shin-Etsu Chemical,industrial,2,,,,,,unknown,todo,
 henkel,Henkel,consumer,2,,,,,,unknown,todo,
@@ -286,7 +286,7 @@ iras,IRAS,sovereign,2,,,,,,unknown,todo,
 sla,Singapore Land Authority,sovereign,2,,,,,,unknown,todo,
 nparks,NParks,sovereign,2,,,,,,unknown,todo,
 scienceparks,Ascendas,realestate,2,,,,,,unknown,todo,
-keppel,Keppel,industrial,2,,,,,,unknown,todo,
+keppel,Keppel,industrial,2,workday,keppel,keppel.wd3.myworkdayjobs.com,KeppelCareers,,allowed,wired,"workday tenant discovered; 167 postings (18 SG), site from robots.txt"
 siaengineering,SIA Engineering,aviation,2,,,,,,unknown,todo,
 sats,SATS,aviation,2,,,,,,unknown,todo,
 comfortdelgro,ComfortDelGro,logistics,2,,,,,,unknown,todo,
@@ -294,7 +294,7 @@ mapletree,Mapletree,realestate,2,,,,,,unknown,todo,
 citydev,City Developments,realestate,2,,,,,,unknown,todo,
 jardine,Jardine Matheson,industrial,2,,,,,,unknown,todo,
 hongkongland,Hongkong Land,realestate,2,,,,,,unknown,todo,
-singpost,Singapore Post,logistics,2,,,,,,unknown,todo,
+singpost,Singapore Post,logistics,2,workday,singpost,singpost.wd3.myworkdayjobs.com,externalCareersSite,,allowed,wired,"workday tenant discovered; 22 postings (20 SG), site from robots.txt"
 sph,SPH Media,telecom,2,,,,,,unknown,todo,
 nium,Nium,tech,2,lever,nium,,,,allowed,wired,"discovered 39 jobs (5 SG); token matches firm name (100), 5 SG roles"
 thunes,Thunes,tech,2,greenhouse,thunes,,,,allowed,wired,discovered 48 jobs (9 SG); board name 'Thunes' matches (100.0)
@@ -305,7 +305,7 @@ revolut,Revolut,tech,2,,,,,,unknown,todo,
 ninjavan,Ninja Van,tech,2,lever,ninjavan,,,,allowed,wired,"discovered 177 jobs (15 SG); token matches firm name (100), 15 SG roles"
 carousell,Carousell,tech,2,,,,,,unknown,todo,
 propertyguru,PropertyGuru,tech,2,,,,,,unknown,todo,
-klook,Klook,tech,2,,,,,,unknown,todo,
+klook,Klook,tech,2,workday,klook,klook.wd3.myworkdayjobs.com,KlookCareers,,allowed,wired,"workday tenant discovered; 3 postings (1 SG), site from robots.txt"
 coupang,Coupang,tech,2,greenhouse,coupang,,,,allowed,wired,discovered 664 jobs (11 SG); board name 'Coupang' matches (100.0)
 rippling,Rippling,tech,2,,,,,,unknown,todo,
 canva,Canva,tech,2,smartrecruiters,canva,,,,allowed,wired,discovered 244 jobs (0 SG); board name 'Canva' matches (100.0)

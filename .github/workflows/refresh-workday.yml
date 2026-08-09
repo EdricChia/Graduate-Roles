@@ -1,0 +1,121 @@
+name: refresh-workday
+
+# The Workday leg, on its own schedule and its own clock.
+#
+# It was part of `refresh.yml` until the registry reached 64 Workday tenants across 69 career
+# sites. At the deliberately slow 0.5 requests/second that platform needs — it throttles fast
+# paging and sits behind Akamai bot management — that leg alone runs for roughly 110 minutes,
+# against a 45-minute timeout on the fast workflow. Left together, the twice-daily refresh
+# would have started timing out, and a timeout kills the steps after it: no curated rebuild,
+# no health report, no digest. One slow platform would have taken the whole pipeline down.
+#
+# Same reasoning as keeping the browser leg separate. A source whose cost or fragility is
+# unlike the others gets its own workflow, so its bad day costs only itself.
+#
+# Once daily rather than twice: Workday tenants are large corporates whose postings do not
+# turn over hour to hour, and doubling a two-hour job to catch that is a poor trade.
+
+on:
+  schedule:
+    # 02:00 UTC = 10:00 Singapore, after the morning fast refresh has already committed.
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  # Deliberately a different group from `refresh`. The two write different raw partitions
+  # (source=workday versus everything else) and the commit step rebases, so they can overlap.
+  group: refresh-workday
+  cancel-in-progress: false
+
+jobs:
+  workday:
+    runs-on: ubuntu-latest
+    # Measured: ~110 minutes for 69 sites at 0.5 req/s. 180 leaves room for the registry to
+    # grow without a silent truncation, and still bounds a hung request.
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Write config.toml
+        env:
+          CONTACT_NAME: ${{ secrets.CONTACT_NAME }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+        run: |
+          set -euo pipefail
+          test -n "${CONTACT_EMAIL}" || { echo "CONTACT_EMAIL secret is unset"; exit 1; }
+          cat > config.toml <<EOF
+          [contact]
+          name = "${CONTACT_NAME}"
+          email = "${CONTACT_EMAIL}"
+
+          [http]
+          user_agent = "gradtrack job tracker (${CONTACT_NAME}, ${CONTACT_EMAIL})"
+
+          [rate_limits]
+          default = 1.0
+          workday = 0.5
+
+          [paths]
+          raw = "data/raw"
+          manual = "data/manual"
+          firms = "data/firms"
+          curated = "data/curated"
+          duckdb = "data/curated.duckdb"
+          EOF
+
+      - name: Ingest - Workday tenants
+        run: uv run python -m gradtrack.ingest.ats --platform workday
+
+      # Rebuilt here so the dashboard reflects the Workday leg without waiting for the next
+      # fast run. The transform reads every platform's latest partition, so this picks up
+      # whatever the morning refresh already wrote.
+      - name: Build curated tables
+        run: uv run python -m gradtrack.transform.build
+
+      - name: Refresh check
+        run: uv run python -m gradtrack.refresh_check
+
+      - name: Telegram digest
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
+            echo "::warning::Telegram secrets unset - writing the digest to reports/ instead"
+            uv run python -m gradtrack.notify.telegram --dry-run
+          else
+            uv run python -m gradtrack.notify.telegram
+          fi
+
+      - name: Commit the new snapshot
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw data/curated data/manual reports
+          if git diff --cached --quiet; then
+            echo "::warning::no new Workday data"
+          else
+            git commit -m "refresh: workday snapshot $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash
+            git push
+          fi
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workday-reports
+          path: reports/
+          if-no-files-found: warn
