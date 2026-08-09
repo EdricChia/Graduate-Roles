@@ -193,7 +193,7 @@ gunvor,Gunvor Group,energy,2,,,,,,unknown,todo,
 mercuria,Mercuria,energy,2,,,,,,unknown,todo,
 hartree,Hartree Partners,energy,2,,,,,,unknown,todo,
 freepoint,Freepoint Commodities,energy,2,,,,,,unknown,todo,
-louisdreyfus,Louis Dreyfus Company,energy,2,,,,,,unknown,todo,
+louisdreyfus,Louis Dreyfus Company,energy,2,smartrecruiters,louisdreyfuscompany,,,,allowed,wired,discovered 437 jobs (0 SG); board name 'Louis Dreyfus Company' matches (100.0)
 bunge,Bunge,consumer,2,,,,,,unknown,todo,
 cargill,Cargill,consumer,2,,,,,,unknown,todo,
 adm,Archer Daniels Midland,consumer,2,,,,,,unknown,todo,
@@ -234,7 +234,7 @@ ti,Texas Instruments,semiconductor,2,,,,,,unknown,todo,
 marvell,Marvell Technology,semiconductor,2,,,,,,unknown,todo,
 broadcom,Broadcom,semiconductor,2,,,,,,unknown,todo,
 qualcomm,Qualcomm,semiconductor,2,,,,,,unknown,todo,
-renesas,Renesas Electronics,semiconductor,2,,,,,,unknown,todo,
+renesas,Renesas Electronics,semiconductor,2,smartrecruiters,renesaselectronics,,,,allowed,wired,discovered 900 jobs (0 SG); board name 'Renesas Electronics' matches (100.0)
 murata,Murata Manufacturing,semiconductor,2,,,,,,unknown,todo,
 kns,Kulicke and Soffa,semiconductor,2,,,,,,unknown,todo,
 umc,United Microelectronics,semiconductor,2,,,,,,unknown,todo,
@@ -254,17 +254,17 @@ evonik,Evonik,industrial,2,,,,,,unknown,todo,
 clariant,Clariant,industrial,2,,,,,,unknown,todo,
 shinetsu,Shin-Etsu Chemical,industrial,2,,,,,,unknown,todo,
 henkel,Henkel,consumer,2,,,,,,unknown,todo,
-thales,Thales,industrial,2,,,,,,unknown,todo,
+thales,Thales,industrial,2,smartrecruiters,thales,,,,allowed,wired,discovered 2 jobs (0 SG); board name 'Thales' matches (100.0)
 safran,Safran,industrial,2,,,,,,unknown,todo,
 alstom,Alstom,industrial,2,,,,,,unknown,todo,
-continental,Continental,industrial,2,,,,,,unknown,todo,
+continental,Continental,industrial,2,smartrecruiters,continental,,,,allowed,wired,discovered 959 jobs (0 SG); board name 'Continental' matches (100.0)
 zf,ZF Group,industrial,2,,,,,,unknown,todo,
 sap,SAP,tech,2,,,,,,unknown,todo,
 emerson,Emerson,industrial,2,,,,,,unknown,todo,
 parker,Parker Hannifin,industrial,2,,,,,,unknown,todo,
 eaton,Eaton,industrial,2,,,,,,unknown,todo,
 dsv,DSV,logistics,2,,,,,,unknown,todo,
-expeditors,Expeditors,logistics,2,,,,,,unknown,todo,
+expeditors,Expeditors,logistics,2,smartrecruiters,expeditors,,,,allowed,wired,discovered 479 jobs (0 SG); board name 'Expeditors' matches (100.0)
 cmacgm,CMA CGM,logistics,2,,,,,,unknown,todo,
 hapaglloyd,Hapag-Lloyd,logistics,2,,,,,,unknown,todo,
 one,Ocean Network Express,logistics,2,,,,,,unknown,todo,
@@ -275,11 +275,11 @@ pacificinternational,Pacific International Lines,logistics,2,,,,,,unknown,todo,
 dsta,Defence Science and Technology Agency,sovereign,1,,,,,,unknown,todo,
 dso,DSO National Laboratories,sovereign,1,,,,,,unknown,todo,
 csit,Centre for Strategic Infocomm Technologies,sovereign,1,,,,,,unknown,todo,
-govtech,GovTech Singapore,sovereign,1,,,,,,unknown,todo,
+govtech,GovTech Singapore,sovereign,1,greenhouse,govtech,,,,allowed,wired,discovered 296 jobs (296 SG); board name 'GovTech ' matches (100.0)
 imda,IMDA,sovereign,2,,,,,,unknown,todo,
 lta,Land Transport Authority,sovereign,2,,,,,,unknown,todo,
 pub,PUB Singapore,sovereign,2,,,,,,unknown,todo,
-nea,National Environment Agency,sovereign,2,,,,,,unknown,todo,
+nea,National Environment Agency,sovereign,2,greenhouse,national,,,,allowed,wired,discovered 7 jobs (0 SG); board name 'NATIONAL' matches (100.0)
 mpa,Maritime and Port Authority,sovereign,2,,,,,,unknown,todo,
 caas,Civil Aviation Authority of Singapore,sovereign,2,,,,,,unknown,todo,
 iras,IRAS,sovereign,2,,,,,,unknown,todo,
@@ -296,20 +296,20 @@ jardine,Jardine Matheson,industrial,2,,,,,,unknown,todo,
 hongkongland,Hongkong Land,realestate,2,,,,,,unknown,todo,
 singpost,Singapore Post,logistics,2,,,,,,unknown,todo,
 sph,SPH Media,telecom,2,,,,,,unknown,todo,
-nium,Nium,tech,2,,,,,,unknown,todo,
-thunes,Thunes,tech,2,,,,,,unknown,todo,
-airwallex,Airwallex,tech,2,,,,,,unknown,todo,
+nium,Nium,tech,2,lever,nium,,,,allowed,wired,"discovered 39 jobs (5 SG); token matches firm name (100), 5 SG roles"
+thunes,Thunes,tech,2,greenhouse,thunes,,,,allowed,wired,discovered 48 jobs (9 SG); board name 'Thunes' matches (100.0)
+airwallex,Airwallex,tech,2,ashby,airwallex,,,,allowed,wired,"discovered 631 jobs (190 SG); token matches firm name (100), 190 SG roles"
 wise,Wise,tech,2,,,,,,unknown,todo,
-adyen,Adyen,tech,2,,,,,,unknown,todo,
+adyen,Adyen,tech,2,greenhouse,adyen,,,,allowed,wired,discovered 217 jobs (12 SG); board name 'Adyen' matches (100.0)
 revolut,Revolut,tech,2,,,,,,unknown,todo,
-ninjavan,Ninja Van,tech,2,,,,,,unknown,todo,
+ninjavan,Ninja Van,tech,2,lever,ninjavan,,,,allowed,wired,"discovered 177 jobs (15 SG); token matches firm name (100), 15 SG roles"
 carousell,Carousell,tech,2,,,,,,unknown,todo,
 propertyguru,PropertyGuru,tech,2,,,,,,unknown,todo,
 klook,Klook,tech,2,,,,,,unknown,todo,
-coupang,Coupang,tech,2,,,,,,unknown,todo,
+coupang,Coupang,tech,2,greenhouse,coupang,,,,allowed,wired,discovered 664 jobs (11 SG); board name 'Coupang' matches (100.0)
 rippling,Rippling,tech,2,,,,,,unknown,todo,
-canva,Canva,tech,2,,,,,,unknown,todo,
+canva,Canva,tech,2,smartrecruiters,canva,,,,allowed,wired,discovered 244 jobs (0 SG); board name 'Canva' matches (100.0)
 occ,OC&C Strategy Consultants,consulting,2,,,,,,unknown,todo,
-alixpartners,AlixPartners,consulting,2,,,,,,unknown,todo,
-teneo,Teneo,consulting,2,,,,,,unknown,todo,
+alixpartners,AlixPartners,consulting,2,greenhouse,alixpartners,,,,allowed,wired,discovered 109 jobs (4 SG); board name 'AlixPartners' matches (100.0)
+teneo,Teneo,consulting,2,greenhouse,teneo,,,,allowed,wired,discovered 60 jobs (1 SG); board name 'Teneo ' matches (100.0)
 controlrisks,Control Risks,consulting,2,,,,,,unknown,todo,

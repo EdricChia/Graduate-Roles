@@ -3,23 +3,25 @@
     uv run python -m gradtrack.notify.bot          # long-poll until interrupted
     uv run python -m gradtrack.notify.bot --once   # drain pending updates and exit
 
+**The bot has to be running for its buttons to do anything.** Telegram queues callbacks and
+delivers them to whoever next calls `getUpdates`; with no process polling, a tapped button
+looks broken — the tick does not move, Done does nothing — while the taps pile up server
+side. That is not a hypothesis: the first live attempt left eight queued updates, four of
+them repeated presses of Done. `--once` drains the queue and exits, which is right for cron
+and wrong for someone tapping buttons.
+
 Long polling rather than a webhook, because a webhook needs a public HTTPS endpoint and this
-is a personal tracker that runs from a laptop and a scheduled job. `--once` exists so the
-same code can be driven from cron: it drains whatever arrived since last time and exits.
+is a personal tracker.
 
-The flow the user asked for:
+The flow:
 
-1. `/start` offers the three scope legs — graduate programme, graduate role, entry level —
-   as a multi-select keyboard.
-2. Then the family groups, also multi-select.
-3. On **Done**, the subscriber immediately receives everything currently open that matches.
+1. `/start` offers the three scope legs as a multi-select keyboard.
+2. Then the family groups, also multi-select, two per row.
+3. On **Done**, the subscriber receives everything currently open that matches.
 4. From then on the scheduled digest sends only what is new to them.
 
-Steps 3 and 4 are one mechanism, not two: a subscriber's `last_notified` starts null, "send
-everything since last_notified" with a null means "send everything", and the send stamps it.
-
-Selections are toggles rather than a wizard, because the answer to "which families?" is
-usually several and a one-question-at-a-time flow makes that tedious.
+Steps 3 and 4 are one mechanism: `last_notified` starts null, "everything since null" means
+everything, and the send stamps it.
 """
 
 from __future__ import annotations
@@ -39,24 +41,35 @@ from gradtrack.schema import FAMILY_GROUPS, PRIORITY_GROUPS, SELECTABLE_ROLE_TYP
 
 API = "https://api.telegram.org/bot{token}/{method}"
 POLL_TIMEOUT = 50
+LATEST_DEFAULT = 15
 
-# Callback payloads are capped at 64 bytes, so the buttons carry an index into these tuples
-# rather than the label itself.
+# Callback payloads are capped at 64 bytes, so buttons carry an index into these tuples.
 ROLE_TYPES: tuple[str, ...] = tuple(t.value for t in SELECTABLE_ROLE_TYPES)
 GROUPS: tuple[str, ...] = tuple(dict.fromkeys(FAMILY_GROUPS.values()))
 
+COMMANDS: list[tuple[str, str]] = [
+    ("start", "Set up what you want to hear about"),
+    ("types", "Change role types (programme / graduate / entry level)"),
+    ("fields", "Change which job families you follow"),
+    ("roles", "Everything currently open that matches you"),
+    ("latest", "The newest roles, e.g. /latest 20"),
+    ("search", "Find roles by keyword, e.g. /search quant"),
+    ("firms", "Which firms have open roles for you"),
+    ("status", "Your current settings"),
+    ("stop", "Pause notifications"),
+    ("resume", "Resume notifications"),
+    ("help", "Show this list"),
+]
+
 HELP = (
     "<b>Singapore Graduate Roles</b>\n\n"
-    "/start — choose what you want to hear about\n"
-    "/prefs — change your choices\n"
-    "/roles — resend everything currently open that matches\n"
-    "/status — what you are subscribed to\n"
-    "/stop — pause notifications (your choices are kept)\n\n"
-    "Every link goes to the firm's own careers page."
+    + "\n".join(f"/{name} — {desc}" for name, desc in COMMANDS)
+    + "\n\nEvery link goes to the firm's own careers page."
 )
 
 
 def call(config: Config, method: str, **payload: Any) -> dict:
+    """Call the Bot API. Raises on a genuine failure, tolerates the harmless ones."""
     with httpx.Client(timeout=POLL_TIMEOUT + 15) as client:
         response = client.post(
             API.format(token=config.telegram_bot_token, method=method), json=payload
@@ -66,89 +79,97 @@ def call(config: Config, method: str, **payload: Any) -> dict:
     except ValueError:
         body = {"ok": False, "description": response.text[:200]}
     if not body.get("ok"):
-        raise RuntimeError(f"Telegram {method} failed: {body.get('description')}")
+        description = str(body.get("description", ""))
+        # Editing a message to exactly what it already says is an error to Telegram and a
+        # no-op to us. It happens whenever a toggle lands on the state already displayed —
+        # tapping Clear on an empty selection, or a duplicate tap — and it must not look
+        # like a failure.
+        if "message is not modified" in description.lower():
+            return {"ok": True, "result": None}
+        raise RuntimeError(f"Telegram {method} failed: {description}")
     return body
 
 
-def _keyboard(chosen: set[str], options: tuple[str, ...], prefix: str) -> dict:
+def register_commands(config: Config) -> None:
+    """Publish the command list so Telegram shows a menu button.
+
+    Without this the commands work but are invisible, and the only way to learn them is to
+    read the help text — which you have to know to ask for.
+    """
+    call(
+        config,
+        "setMyCommands",
+        commands=[{"command": name, "description": desc} for name, desc in COMMANDS],
+    )
+
+
+def _keyboard(chosen: set[str], options: tuple[str, ...], prefix: str, per_row: int = 1) -> dict:
     """A multi-select keyboard: a tick marks what is already chosen."""
-    rows = [
-        [
-            {
-                "text": f"{'✅' if option in chosen else '▫️'} {option}",
-                "callback_data": f"{prefix}:{index}",
-            }
-        ]
+    buttons = [
+        {
+            "text": f"{'✅' if option in chosen else '▫️'} {option}",
+            "callback_data": f"{prefix}:{index}",
+        }
         for index, option in enumerate(options)
     ]
+    rows = [buttons[i : i + per_row] for i in range(0, len(buttons), per_row)]
     rows.append(
         [
             {"text": "Select all", "callback_data": f"{prefix}:all"},
             {"text": "Clear", "callback_data": f"{prefix}:none"},
         ]
     )
-    rows.append([{"text": "➡️  Done", "callback_data": f"{prefix}:done"}])
+    rows.append([{"text": "✔️  Done", "callback_data": f"{prefix}:done"}])
     return {"inline_keyboard": rows}
 
 
-def send_role_type_prompt(config: Config, chat_id: str, sub: Subscription, edit: int | None = None):
+def _prompt(config: Config, chat_id: str, text: str, markup: dict, edit: int | None) -> None:
+    if edit:
+        call(
+            config,
+            "editMessageText",
+            chat_id=chat_id,
+            message_id=edit,
+            text=text,
+            parse_mode="HTML",
+            reply_markup=markup,
+        )
+    else:
+        call(
+            config,
+            "sendMessage",
+            chat_id=chat_id,
+            text=text,
+            parse_mode="HTML",
+            reply_markup=markup,
+        )
+
+
+def send_role_type_prompt(
+    config: Config, chat_id: str, sub: Subscription, edit: int | None = None
+) -> None:
+    chosen = len(sub.role_types)
     text = (
-        "<b>Step 1 of 2 — what kind of role?</b>\n"
-        "Tap to toggle. You can pick more than one.\n\n"
+        f"<b>Step 1 of 2 — what kind of role?</b>  ({chosen} selected)\n"
+        "Tap to toggle as many as you like, then Done.\n\n"
         "<b>Graduate programme</b> — named schemes "
-        "(Point72 Academy, GOglobal, Management Associate)\n"
-        "<b>Graduate role</b> — says fresh grad / final year / campus, but is not a named scheme\n"
-        "<b>Entry level</b> — the employer's structured field says zero years or entry level"
+        "(Point72 Academy, RWE Graduate Programme, GOglobal)\n"
+        "<b>Graduate role</b> — says fresh grad / final year / campus, not a named scheme\n"
+        "<b>Entry level</b> — the employer's own field says zero years or entry level"
     )
-    markup = _keyboard(sub.role_types, ROLE_TYPES, "rt")
-    if edit:
-        call(
-            config,
-            "editMessageText",
-            chat_id=chat_id,
-            message_id=edit,
-            text=text,
-            parse_mode="HTML",
-            reply_markup=markup,
-        )
-    else:
-        call(
-            config,
-            "sendMessage",
-            chat_id=chat_id,
-            text=text,
-            parse_mode="HTML",
-            reply_markup=markup,
-        )
+    _prompt(config, chat_id, text, _keyboard(sub.role_types, ROLE_TYPES, "rt"), edit)
 
 
-def send_group_prompt(config: Config, chat_id: str, sub: Subscription, edit: int | None = None):
-    starred = ", ".join(sorted(PRIORITY_GROUPS))
+def send_group_prompt(
+    config: Config, chat_id: str, sub: Subscription, edit: int | None = None
+) -> None:
+    chosen = len(sub.groups)
     text = (
-        "<b>Step 2 of 2 — which fields?</b>\n"
+        f"<b>Step 2 of 2 — which fields?</b>  ({chosen} selected)\n"
         "Tap to toggle, then Done.\n\n"
-        f"<i>Suggested: {starred}</i>"
+        f"<i>Suggested: {', '.join(sorted(PRIORITY_GROUPS))}</i>"
     )
-    markup = _keyboard(sub.groups, GROUPS, "fg")
-    if edit:
-        call(
-            config,
-            "editMessageText",
-            chat_id=chat_id,
-            message_id=edit,
-            text=text,
-            parse_mode="HTML",
-            reply_markup=markup,
-        )
-    else:
-        call(
-            config,
-            "sendMessage",
-            chat_id=chat_id,
-            text=text,
-            parse_mode="HTML",
-            reply_markup=markup,
-        )
+    _prompt(config, chat_id, text, _keyboard(sub.groups, GROUPS, "fg", per_row=2), edit)
 
 
 def load_postings(config: Config) -> pl.DataFrame:
@@ -156,95 +177,150 @@ def load_postings(config: Config) -> pl.DataFrame:
     return pl.read_parquet(path) if path.exists() else pl.DataFrame()
 
 
+def _say(config: Config, chat_id: str, text: str) -> None:
+    call(
+        config,
+        "sendMessage",
+        chat_id=chat_id,
+        text=text,
+        parse_mode="HTML",
+        disable_web_page_preview=True,
+    )
+
+
 def deliver(
     config: Config, store: SubscriptionStore, sub: Subscription, *, since_last: bool
 ) -> int:
-    """Send this subscriber their matching roles. Returns how many were sent.
-
-    ``since_last=False`` is /roles — everything currently open. ``True`` is the scheduled
-    path, and on a subscriber whose ``last_notified`` is still null it sends everything too,
-    which is exactly the first-time behaviour.
-    """
+    """Send this subscriber their matching roles. Returns how many were sent."""
     frame = load_postings(config)
     if frame.is_empty():
-        call(
-            config,
-            "sendMessage",
-            chat_id=sub.chat_id,
-            text="No data yet — the tracker has not run.",
-        )
+        _say(config, sub.chat_id, "No data yet — the tracker has not run.")
         return 0
 
     view = select_for(frame, sub, since=sub.last_notified if since_last else None)
     snapshot = frame["snapshot_date"].max()
     if view.is_empty():
         if not since_last:
-            call(
+            _say(
                 config,
-                "sendMessage",
-                chat_id=sub.chat_id,
-                text="Nothing open matches those choices right now. /prefs to widen them.",
+                sub.chat_id,
+                "Nothing open matches those choices right now. /types or /fields to widen.",
             )
         return 0
 
     for message in render(view, snapshot):
-        call(
-            config,
-            "sendMessage",
-            chat_id=sub.chat_id,
-            text=message,
-            parse_mode="HTML",
-            disable_web_page_preview=True,
-        )
+        _say(config, sub.chat_id, message)
     sub.last_notified = snapshot
     store.save()
     return view.height
 
 
-def _describe(sub: Subscription) -> str:
+def _describe(sub: Subscription, config: Config) -> str:
+    frame = load_postings(config)
+    matching = 0 if frame.is_empty() else select_for(frame, sub, None).height
     return (
-        f"<b>Role types:</b> {', '.join(sorted(sub.role_types)) or 'none'}\n"
-        f"<b>Fields:</b> {', '.join(sorted(sub.groups)) or 'none'}\n"
-        f"<b>Active:</b> {'yes' if sub.active else 'no (paused)'}"
+        f"<b>Role types:</b> {', '.join(sorted(sub.role_types)) or '<i>none</i>'}\n"
+        f"<b>Fields:</b> {', '.join(sorted(sub.groups)) or '<i>none</i>'}\n"
+        f"<b>Notifications:</b> {'on' if sub.active else 'paused'}\n"
+        f"<b>Open roles matching you:</b> {matching}"
     )
+
+
+def _rows_message(view: pl.DataFrame, heading: str) -> list[str]:
+    if view.is_empty():
+        return [f"{heading}\n\nNothing matches."]
+    lines = [heading]
+    for row in view.iter_rows(named=True):
+        when = row["posted_date"] or row["first_seen"]
+        lines.append(
+            f'• <a href="{row["apply_url"]}">{row["title"][:80]}</a>\n'
+            f"  {row['firm_name'][:38]} · {when.isoformat() if when else 'date unknown'}"
+        )
+    # Reuse the digest's chunking rules by keeping messages short here.
+    out, current = [], []
+    size = 0
+    for line in lines:
+        if size + len(line) > 3500 and current:
+            out.append("\n".join(current))
+            current, size = [], 0
+        current.append(line)
+        size += len(line) + 1
+    out.append("\n".join(current))
+    return out
 
 
 def handle_message(config: Config, store: SubscriptionStore, message: dict) -> None:
     chat_id = str(message.get("chat", {}).get("id", ""))
-    text = (message.get("text") or "").strip().lower()
+    raw = (message.get("text") or "").strip()
     if not chat_id:
         return
+    command, _, argument = raw.partition(" ")
+    command = command.lower().split("@")[0]
     sub = store.get_or_create(chat_id)
+    frame = load_postings(config)
 
-    if text.startswith("/start"):
+    if command == "/start":
         sub.active = True
-        call(
+        _say(
             config,
-            "sendMessage",
-            chat_id=chat_id,
-            parse_mode="HTML",
-            text="👋 I track graduate openings in Singapore at large, well-paying firms.\n"
-            "Two quick questions, then you will get everything currently open.",
+            chat_id,
+            "👋 I track graduate openings in Singapore at large, well-paying firms.\n"
+            "Two quick questions, then you get everything currently open.",
         )
         send_role_type_prompt(config, chat_id, sub)
-    elif text.startswith("/prefs"):
+    elif command in {"/types", "/prefs"}:
         send_role_type_prompt(config, chat_id, sub)
-    elif text.startswith("/roles"):
+    elif command == "/fields":
+        send_group_prompt(config, chat_id, sub)
+    elif command == "/roles":
         sent = deliver(config, store, sub, since_last=False)
         if sent:
-            call(config, "sendMessage", chat_id=chat_id, text=f"Sent {sent} matching role(s).")
-    elif text.startswith("/status"):
-        call(config, "sendMessage", chat_id=chat_id, text=_describe(sub), parse_mode="HTML")
-    elif text.startswith("/stop"):
+            _say(config, chat_id, f"That is {sent} open role(s) matching your settings.")
+    elif command == "/latest":
+        try:
+            limit = max(1, min(50, int(argument)))
+        except ValueError:
+            limit = LATEST_DEFAULT
+        view = select_for(frame, sub, None).head(limit) if not frame.is_empty() else pl.DataFrame()
+        for chunk in _rows_message(view, f"<b>Newest {limit} matching role(s)</b>"):
+            _say(config, chat_id, chunk)
+    elif command == "/search":
+        if not argument.strip():
+            _say(config, chat_id, "Give me something to look for, e.g. <code>/search quant</code>")
+        else:
+            needle = argument.strip()
+            view = (
+                select_for(frame, sub, None).filter(
+                    pl.col("title").str.contains(f"(?i){needle}")
+                    | pl.col("firm_name").str.contains(f"(?i){needle}")
+                )
+                if not frame.is_empty()
+                else pl.DataFrame()
+            )
+            for chunk in _rows_message(view.head(40), f"<b>Matches for “{needle}”</b>"):
+                _say(config, chat_id, chunk)
+    elif command == "/firms":
+        if frame.is_empty():
+            _say(config, chat_id, "No data yet.")
+        else:
+            counts = (
+                select_for(frame, sub, None)
+                .group_by("firm_name")
+                .len()
+                .sort("len", descending=True)
+            )
+            body = "\n".join(f"{n:>3}  {name}" for name, n in counts.iter_rows()) or "None."
+            _say(config, chat_id, f"<b>Firms with open roles for you</b>\n<pre>{body}</pre>")
+    elif command == "/status":
+        _say(config, chat_id, _describe(sub, config))
+    elif command == "/stop":
         sub.active = False
-        call(
-            config,
-            "sendMessage",
-            chat_id=chat_id,
-            text="Paused. Your choices are kept — /start to resume.",
-        )
+        _say(config, chat_id, "Paused. Your settings are kept — /resume when you want them back.")
+    elif command == "/resume":
+        sub.active = True
+        _say(config, chat_id, "Resumed.")
     else:
-        call(config, "sendMessage", chat_id=chat_id, text=HELP, parse_mode="HTML")
+        _say(config, chat_id, HELP)
     store.save()
 
 
@@ -253,13 +329,17 @@ def handle_callback(config: Config, store: SubscriptionStore, callback: dict) ->
     message = callback.get("message") or {}
     chat_id = str(message.get("chat", {}).get("id", ""))
     message_id = message.get("message_id")
+    # Always answer, even on a payload we cannot act on. An unanswered callback leaves the
+    # button spinning in the client, which is what "the button does nothing" looks like.
+    with contextlib.suppress(RuntimeError, httpx.HTTPError):
+        call(config, "answerCallbackQuery", callback_query_id=callback["id"])
     if not chat_id or ":" not in data:
         return
 
     prefix, action = data.split(":", 1)
-    bucket, options = ("role_types", ROLE_TYPES) if prefix == "rt" else ("groups", GROUPS)
+    options = ROLE_TYPES if prefix == "rt" else GROUPS
     sub = store.get_or_create(chat_id)
-    target = sub.role_types if bucket == "role_types" else sub.groups
+    target = sub.role_types if prefix == "rt" else sub.groups
 
     if action == "all":
         target.clear()
@@ -268,40 +348,20 @@ def handle_callback(config: Config, store: SubscriptionStore, callback: dict) ->
         target.clear()
     elif action == "done":
         store.save()
-        call(config, "answerCallbackQuery", callback_query_id=callback["id"])
         if prefix == "rt":
             if not sub.role_types:
-                call(
-                    config,
-                    "sendMessage",
-                    chat_id=chat_id,
-                    text="Pick at least one role type first.",
-                )
+                _say(config, chat_id, "Pick at least one role type first.")
                 send_role_type_prompt(config, chat_id, sub)
                 return
             send_group_prompt(config, chat_id, sub)
             return
         if not sub.groups:
-            call(config, "sendMessage", chat_id=chat_id, text="Pick at least one field first.")
+            _say(config, chat_id, "Pick at least one field first.")
             send_group_prompt(config, chat_id, sub)
             return
-        call(
-            config,
-            "sendMessage",
-            chat_id=chat_id,
-            parse_mode="HTML",
-            text=f"Saved.\n\n{_describe(sub)}\n\nHere is everything open that matches:",
-        )
-        # First delivery: last_notified is still null, so this sends the full current set and
-        # stamps the date. Every later send is the difference.
-        sent = deliver(config, store, sub, since_last=True)
-        if not sent:
-            call(
-                config,
-                "sendMessage",
-                chat_id=chat_id,
-                text="Nothing matches yet — you will hear from me when something does.",
-            )
+        _say(config, chat_id, f"Saved.\n\n{_describe(sub, config)}\n\nHere is everything open:")
+        if not deliver(config, store, sub, since_last=True):
+            _say(config, chat_id, "Nothing matches yet — I will tell you when something does.")
         return
     else:
         # A stale keyboard from an older deploy can send an index that no longer exists.
@@ -309,7 +369,6 @@ def handle_callback(config: Config, store: SubscriptionStore, callback: dict) ->
             target.symmetric_difference_update({options[int(action)]})
 
     store.save()
-    call(config, "answerCallbackQuery", callback_query_id=callback["id"])
     if prefix == "rt":
         send_role_type_prompt(config, chat_id, sub, edit=message_id)
     else:
@@ -338,8 +397,9 @@ def poll(config: Config, store: SubscriptionStore, *, once: bool) -> int:
                     handle_callback(config, store, update["callback_query"])
             except Exception as exc:  # noqa: BLE001 - one bad update must not stop the bot
                 print(f"update {update.get('update_id')} failed: {type(exc).__name__}: {exc}")
+        if updates:
+            print(f"handled {len(updates)} update(s)")
         if once:
-            print(f"processed {len(updates)} update(s)")
             return 0
 
 
@@ -353,7 +413,9 @@ def main(argv: list[str] | None = None) -> int:
         print("TELEGRAM_BOT_TOKEN is unset")
         return 1
     store = SubscriptionStore.load(config.manual_dir.parent / STORE_FILE)
-    print(f"bot running ({len(store.subscriptions)} known chat(s)); Ctrl-C to stop")
+    with contextlib.suppress(RuntimeError, httpx.HTTPError):
+        register_commands(config)
+    print(f"bot polling ({len(store.subscriptions)} known chat(s)); Ctrl-C to stop")
     try:
         return poll(config, store, once=args.once)
     except KeyboardInterrupt:
